@@ -29,10 +29,6 @@
 	font-weight: bold;
 }
 
-#logoutBtn i {
-	float: right;
-}
-
 #logoutBtn:hover {
 	background-color: rgba(255, 255, 255, .1);
 	color: #fff;
@@ -283,8 +279,8 @@
 
 				</nav>
 				<a href="#" id="logoutBtn" class="nav-link">
-					LOGOUT
-					<i class="fas fa-sign-out-alt right"></i>
+					&nbsp;&nbsp;<i class="nav-icon fas fa-sign-out-alt"></i>
+					<p class="float-right">LOGOUT</p>
 				</a>
 				<!-- /.sidebar-menu -->
 			</div>
