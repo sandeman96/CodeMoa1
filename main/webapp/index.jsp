@@ -27,9 +27,5 @@
 </div>
 <!-- /.wrapper -->
 
-
-
-
-
 </body>
 </html>
