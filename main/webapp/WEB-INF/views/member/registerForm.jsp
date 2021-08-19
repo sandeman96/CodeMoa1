@@ -33,15 +33,16 @@
 				<p class="login-box-msg">회원가입</p>
 
 				<form action="minsert.me" method="post">
-				
+
 					<div class="input-group mb-3">
-						<input type="text" name="id" class="form-control" placeholder="아이디">
+						<input type="email" name="email" class="form-control" placeholder="이메일">
 						<div class="input-group-append">
 							<div class="input-group-text">
-								<span class="fas fa-user"></span>
+								<span class="fas fa-envelope"></span>
 							</div>
 						</div>
 					</div>
+
 					<div class="input-group mb-3">
 						<input type="text" name="name" class="form-control" placeholder="이름">
 						<div class="input-group-append">
@@ -58,22 +59,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="input-group mb-3">
-						<input type="email" name="email" class="form-control" placeholder="이메일">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-envelope"></span>
-							</div>
-						</div>
-					</div>
-					<div class="input-group mb-3">
-						<input type="text" name="phone" class="form-control" placeholder="전화번호">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-envelope"></span>
-							</div>
-						</div>
-					</div>
+
 					<div class="input-group mb-3">
 						<input type="password" name="pwd" class="form-control" placeholder="비밀번호">
 						<div class="input-group-append">
@@ -124,7 +110,7 @@
 	<script src="resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="resources/dist/js/adminlte.min.js"></script>
-	
-	
+
+
 </body>
 </html>

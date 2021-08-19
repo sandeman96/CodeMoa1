@@ -15,12 +15,12 @@
 		values(#{email}, #{pwd}, #{name}, #{nickName}, default, default, null, null, null, null)
 	</insert>
 	
-	<select id="selectProfile" resultType="_int">
+<!-- 	<select id="selectProfile" resultType="_int">
 		select count(*)
 		from member
 		where m_email=#{email}
 			and m_status='Y'
-	</select>
+	</select> -->
 	
 	<select id="memberInfo" resultMap="memberResultSet">
 		select * 

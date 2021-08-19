@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.codemoa.member.model.dao.MemberDAO;
-import com.study.codemoa.member.model.vo.Introduce;
 import com.study.codemoa.member.model.vo.Member;
 
 @Service("mService")
@@ -29,11 +28,11 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.insertMember(sqlSession, m);
 	}
 
-	@Override
-	public int selectProfile(String user) {
-	
-		return mDao.selectProfile(sqlSession, user);
-	}
+//	@Override
+//	public int selectProfile(String user) {
+//	
+//		return mDao.selectProfile(sqlSession, user);
+//	}
 
 	@Override
 	public Member memberInfo(String user) {

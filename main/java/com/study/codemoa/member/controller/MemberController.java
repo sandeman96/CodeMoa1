@@ -1,7 +1,5 @@
 package com.study.codemoa.member.controller;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.study.codemoa.member.model.exception.MemberException;
 import com.study.codemoa.member.model.service.MemberService;
-import com.study.codemoa.member.model.vo.Introduce;
 import com.study.codemoa.member.model.vo.Member;
 
 @SessionAttributes("loginUser")
@@ -73,7 +70,7 @@ public class MemberController {
 
 	@RequestMapping("minsert.me")
 	public String memberInert(@ModelAttribute Member m) {
-		
+
 		System.out.println(m);
 
 		String enPwd = bcrypt.encode(m.getPwd());
@@ -92,22 +89,16 @@ public class MemberController {
 
 	@RequestMapping("mypage.me")
 	public ModelAndView myPage(ModelAndView mv, @RequestParam("user") String user) {
-		
-		int result = mService.selectProfile(user);
-		
-		if (result > 0) {
-			Member m = mService.memberInfo(user);
-			if (m != null) {
-				mv.addObject("user", m);
-			}else {
-				throw new MemberException("프로필 가져오기 실패");
-			}
-					
-			mv.setViewName("mypage");			
-		}else {
-			throw new MemberException("존재하지 않는 회원입니다.");
+
+		Member m = mService.memberInfo(user);
+		if (m != null) {
+			mv.addObject("user", m);
+		} else {
+			throw new MemberException("프로필 가져오기 실패");
 		}
-		
+
+		mv.setViewName("mypage");
+
 		return mv;
 	}
 
