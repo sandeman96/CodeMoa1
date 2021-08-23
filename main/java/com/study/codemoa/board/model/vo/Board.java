@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Board {
 	private int bNo;
-	private String bType;
+	private int bType;
 	private String bTitle;
 	private String bContent;
 	private Date bDate;
@@ -16,7 +16,7 @@ public class Board {
 	public Board() {
 	}
 
-	public Board(int bNo, String bType, String bTitle, String bContent, Date bDate, int bCount, String bStatus,
+	public Board(int bNo, int bType, String bTitle, String bContent, Date bDate, int bCount, String bStatus,
 			String bFirst, String bWriter) {
 		super();
 		this.bNo = bNo;
@@ -38,11 +38,11 @@ public class Board {
 		this.bNo = bNo;
 	}
 
-	public String getbType() {
+	public int getbType() {
 		return bType;
 	}
 
-	public void setbType(String bType) {
+	public void setbType(int bType) {
 		this.bType = bType;
 	}
 
