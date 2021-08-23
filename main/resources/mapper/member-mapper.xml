@@ -15,18 +15,35 @@
 		values(#{email}, #{pwd}, #{name}, #{nickName}, default, default, null, null, null, null)
 	</insert>
 	
-<!-- 	<select id="selectProfile" resultType="_int">
-		select count(*)
-		from member
-		where m_email=#{email}
-			and m_status='Y'
-	</select> -->
 	
 	<select id="memberInfo" resultMap="memberResultSet">
 		select * 
 		from member
 		where m_email=#{user}
 	</select>
+	
+	<update id="updateIntroduce">
+		update member
+		set m_edu=#{education}, m_location=#{location}, m_skill=#{skill}, m_note=#{note}
+		where m_email=#{email}
+	</update>
+	
+	<update id="deleteMember">
+		update member
+		set m_status='N'
+		where m_email=#{email}
+	</update>
+	
+	<update id="updateMember">
+		update member
+		set m_name=#{name}, m_nick=#{nickName}
+		where m_email=#{email}
+	</update>
+	
+	<update id="updatePwd" parameterType="hashmap">
+		update member set m_pwd=#{newPwd}
+		where m_email=#{userId}
+	</update>
 
 	<resultMap type="Member" id="memberResultSet">
 		<id column="M_EMAIL" property="email" />

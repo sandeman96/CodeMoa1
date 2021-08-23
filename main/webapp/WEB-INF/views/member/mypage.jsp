@@ -67,7 +67,7 @@
 
 								<!-- <p class="text-muted text-center">Software Engineer</p> -->
 								<p class="text-muted text-center"></p>
-								<input type="hidden" name="userId" value="${ user.email }">
+								<input type="hidden" name="user" value="${ user.email }">
 
 								<ul class="list-group list-group-unbordered mb-3">
 									<li class="list-group-item">
@@ -107,7 +107,7 @@
 								<strong><i class="fas fa-book mr-1"></i> Education</strong>
 								<p class="text-muted aboutme">${ user.education }</p>
 								<div class="about modify text-center">
-									<textarea name="education" id="education" class="form-control"></textarea>
+									<textarea name="education" id="education" class="form-control">${ user.education }</textarea>
 								</div>
 
 								<hr>
@@ -115,7 +115,7 @@
 								<strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
 								<p class="text-muted aboutme">${ user.location }</p>
 								<div class="about modify text-center">
-									<textarea name="location" id="location" class="form-control"></textarea>
+									<textarea name="location" id="location" class="form-control">${ user.location }</textarea>
 								</div>
 
 								<hr>
@@ -123,7 +123,7 @@
 								<strong><i class="fas fa-pencil-alt mr-1"></i> Skills</strong>
 								<p class="text-muted aboutme">${ user.skill }</p>
 								<div class="about modify text-center">
-									<textarea name="skills" id="skill" class="form-control"></textarea>
+									<textarea name="skill" id="skill" class="form-control">${ user.skill }</textarea>
 								</div>
 
 								<hr>
@@ -131,7 +131,7 @@
 								<strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
 								<p class="text-muted aboutme">${ user.note }</p>
 								<div class="about modify text-center">
-									<textarea name="notes" id="note" class="form-control"></textarea>
+									<textarea name="note" id="note" class="form-control">${ user.note }</textarea>
 								</div>
 
 							</div>
@@ -178,16 +178,6 @@
 										</div>
 										<!-- /.post -->
 
-										<!-- Post -->
-										<div class="post">
-
-											<h5 class="title">
-												<a href="#">Jonathan Burke Jr.</a>
-											</h5>
-											<span class="description">Shared publicly - 7:30 PM today</span>
-
-										</div>
-										<!-- /.post -->
 									</div>
 
 
@@ -201,12 +191,11 @@
 									<!-- /////////////////////////////////// -->
 									<c:if test="${ loginUser.email eq user.email }">
 										<div class="tab-pane" id="settings">
-											<form class="form-horizontal">
 
 												<div class="form-group row">
 													<label for="email" class="col-sm-2 col-form-label">Email</label>
 													<div class="col-sm-10">
-														<input type="email" class="form-control" id="email" name="email" placeholder="Email">
+														<input type="email" class="form-control" id="email" name="email" placeholder="Email" readonly value="${ user.email }">
 													</div>
 												</div>
 
@@ -214,33 +203,32 @@
 												<div class="form-group row">
 													<label for="name" class="col-sm-2 col-form-label">Name</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" id="name" name="name" placeholder="Name">
+														<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${ user.name }">
 													</div>
 												</div>
 
 												<div class="form-group row">
 													<label for="nickName" class="col-sm-2 col-form-label">NickName</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" id="nickName" name="nickName" placeholder="NickName">
+														<input type="text" class="form-control" id="nickName" name="nickName" placeholder="NickName" value="${ user.nickName }">
 													</div>
 												</div>
 
 
 												<div class="form-group row">
 													<div class="offset-sm-2 col-sm-10">
-														<button type="submit" class="btn btn-secondary">Save</button>
+														<button type="submit" class="btn btn-secondary" id="mupdateBtn">Save</button>
 														<button type="button" class="btn btn-warning">Cancle</button>
-														<button type="button" class="btn btn-danger float-right">Leave</button>
+														<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-sm" onclick="leave();">Leave</button>
 													</div>
 												</div>
 
-											</form>
 
 											<h6>
 												<i id="pwdModify" class="fas fa-chevron-down"> 비밀번호 수정</i>
 											</h6>
 
-											<form>
+											<form action="mpwdupdate.me">
 
 												<div class="modify pwdMod">
 													<div class="form-group row">
@@ -295,6 +283,34 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
+	
+	<div class="modal fade" id="modal-sm" style="display: none;" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Small Modal</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>One fine body…</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal" value="false">닫기</button>
+              
+              <c:url var="mdelete" value="mdelete.me">
+              <c:param name="userEmail" value="${ loginUser.email }" />
+              </c:url>
+              
+              <button type="button" class="btn btn-primary" value="true" onclick="location.href='${ mdelete }'">확인</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+    
 
 
 	<!-- jQuery -->
@@ -307,42 +323,105 @@
 	<script src="/codemoa/resources/dist/js/demo.js"></script>
 
 	<script>
+	$(function(){
+		profile();
+	});
+	var email = $('#email').val();
+	
+		$('#pwdModify').on('click', function() {
+			$('.pwdMod').fadeToggle();
+	
+			var toggle = $(this).attr('class').indexOf('down');
+	
+			if (toggle > 0) {
+				$(this).removeClass('fa-chevron-down').addClass('fa-chevron-up');
+			} else {
+				$(this).removeClass('fa-chevron-up').addClass('fa-chevron-down');
+			}
+	
+		});
+		
+	
 		$("#aboutEdit").on('click', function() {
 			$('.about').show();
 			$(this).hide();
 			$("#aboutSave").show();
 			$('.aboutme').hide();
 		});
+		
 
 		$('#aboutSave').on('click', function() {
 			$('.about').hide();
 			$(this).hide();
 			$("#aboutEdit").show();
+
 			$.ajax({
 				url : 'introduce.me',
-				data : {},
+				type:'post',
+				data : { 
+					email : $('#email').val(),
+					education: $('#education').val(),
+					location: $('#location').val(),
+					skill: $('#skill').val(),
+					note: $('#note').val()
+				},
 				success : function(data) {
+					profile();
+				}
+			});
+			$('.aboutme').show();
+		});
+
+		$('#mupdateBtn').on('click', function(){
+			var name = $('#name').val();
+			var nickName = $('#nickName').val();
+			
+			$.ajax({
+				url:'mUpdate.me',
+				data:{
+					email: email,
+					name:name,
+					nickName:nickName
+				}, success : function(data){
+					console.log(data);
+					profile(); 
+				},error : function(data) {
+					console.log('error');
 					console.log(data);
 				}
 			});
 		});
-
-		$('#pwdModify').on(
-				'click',
-				function() {
-					$('.pwdMod').fadeToggle();
-
-					var toggle = $(this).attr('class').indexOf('down');
-
-					if (toggle > 0) {
-						$(this).removeClass('fa-chevron-down').addClass(
-								'fa-chevron-up');
-					} else {
-						$(this).removeClass('fa-chevron-up').addClass(
-								'fa-chevron-down');
-					}
-
-				});
+		
+		
+		function profile(){
+		
+			$.ajax({
+				url : 'profile.me',
+				data : {email : email},
+				success : function(data){
+					$('#name').val(data.name);
+					$('#nickName').val(data.nickName);
+					$('#education').val(data.education);
+					$('#location').val(data.location);
+					$('#skill').val(data.skill);
+					$('#note').val(data.note);
+					$('#education').parent().prev().html(data.education.replace(/\n/g, '<br>'));
+					$('#location').parent().prev().html(data.location.replace(/\n/g, '<br>'));
+					$('#skill').parent().prev().html(data.skill.replace(/\n/g, '<br>'));
+					$('#note').parent().prev().html(data.note.replace(/\n/g, '<br>'));
+				}
+			});
+			
+		}
+		
+/* 		$('.modal-footer button').on('click', function(){
+			if($(this).val()){
+				console.log($(this).val());
+				location.href='mdelete.me'
+				
+			}
+		}); */
+		
 	</script>
 
 </body>

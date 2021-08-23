@@ -16,13 +16,13 @@ public class Member {
 	public Member() {
 	}
 
-	public Member(String education, String location, String skill, String note) {
-		super();
-		this.education = education;
-		this.location = location;
-		this.skill = skill;
-		this.note = note;
-	}
+//	public Member(String education, String location, String skill, String note) {
+//		super();
+//		this.education = education;
+//		this.location = location;
+//		this.skill = skill;
+//		this.note = note;
+//	}
 
 	public Member(String email, String pwd, String name, String nickName, String status, String admin, String education,
 			String location, String skill, String note) {
