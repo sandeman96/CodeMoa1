@@ -35,7 +35,16 @@
 				<form action="minsert.me" method="post">
 
 					<div class="input-group mb-3">
-						<input type="email" name="email" class="form-control" placeholder="이메일">
+						<input type="text" name="id" class="form-control" placeholder="아이디">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-user"></span>
+							</div>
+						</div>
+					</div>
+
+					<div class="input-group mb-3">
+						<input type="text" name="email" class="form-control" placeholder="이메일">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-envelope"></span>
@@ -44,20 +53,7 @@
 					</div>
 
 					<div class="input-group mb-3">
-						<input type="text" name="name" class="form-control" placeholder="이름">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-user"></span>
-							</div>
-						</div>
-					</div>
-					<div class="input-group mb-3">
 						<input type="text" name="nickName" class="form-control" placeholder="닉네임">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-user"></span>
-							</div>
-						</div>
 					</div>
 
 					<div class="input-group mb-3">
@@ -68,6 +64,7 @@
 							</div>
 						</div>
 					</div>
+					
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="비밀번호 확인">
 						<div class="input-group-append">
@@ -79,8 +76,8 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="icheck-primary">
-								<input type="checkbox" id="agreeTerms" name="terms" value="agree"> <label for="agreeTerms"> <a href="#">약관</a>에 동의합니다
-								</label>
+								<input type="checkbox" id="agreeTerms" name="terms" value="agree"> 
+								<label for="agreeTerms"> <a href="#">약관</a>에 동의합니다</label>
 							</div>
 						</div>
 					</div>

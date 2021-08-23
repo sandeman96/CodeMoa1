@@ -270,13 +270,13 @@
 
 					<c:if test="${ loginUser != null }">
 					<c:url var="mypage" value="mypage.me">
-						<c:param name="userId" value="${ loginUser.email }"/>
+						<c:param name="userId" value="${ loginUser.id }"/>
 					</c:url>
 						<div class="image">
 							<img src="resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
 						</div>
 						<div class="info">
-							<a href="${ mypage }" class="d-block">${ loginUser.name }</a>
+							<a href="${ mypage }" class="d-block">${ loginUser.nickName }</a>
 						</div>
 					</c:if>
 				</div>
@@ -377,7 +377,7 @@
 		});
 
 		/* 채팅창 */
-/* 		$('#chat').on('click', function() {
+ 		$('#chat').on('click', function() {
 
 			if ($('#bool').val() == 'false') {
 				$('#bool').val('true');
@@ -386,7 +386,7 @@
 				$('#bool').val('false');
 				$('#chatbox').css("display", 'none');
 			}
-		}); */
+		});
 	</script>
 
 </body>

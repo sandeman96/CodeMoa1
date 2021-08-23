@@ -2,9 +2,9 @@ package com.study.codemoa.member.model.vo;
 
 public class Member {
 
+	private String id;
 	private String email;
 	private String pwd;
-	private String name;
 	private String nickName;
 	private String status;
 	private String admin;
@@ -14,22 +14,15 @@ public class Member {
 	private String note;
 
 	public Member() {
+
 	}
 
-//	public Member(String education, String location, String skill, String note) {
-//		super();
-//		this.education = education;
-//		this.location = location;
-//		this.skill = skill;
-//		this.note = note;
-//	}
-
-	public Member(String email, String pwd, String name, String nickName, String status, String admin, String education,
+	public Member(String id, String email, String pwd, String nickName, String status, String admin, String education,
 			String location, String skill, String note) {
 		super();
+		this.id = id;
 		this.email = email;
 		this.pwd = pwd;
-		this.name = name;
 		this.nickName = nickName;
 		this.status = status;
 		this.admin = admin;
@@ -37,6 +30,14 @@ public class Member {
 		this.location = location;
 		this.skill = skill;
 		this.note = note;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getEmail() {
@@ -53,14 +54,6 @@ public class Member {
 
 	public void setPwd(String pwd) {
 		this.pwd = pwd;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getNickName() {
@@ -121,7 +114,7 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [email=" + email + ", pwd=" + pwd + ", name=" + name + ", nickName=" + nickName + ", status="
+		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", nickName=" + nickName + ", status="
 				+ status + ", admin=" + admin + ", education=" + education + ", location=" + location + ", skill="
 				+ skill + ", note=" + note + "]";
 	}
