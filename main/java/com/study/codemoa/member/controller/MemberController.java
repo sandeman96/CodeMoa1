@@ -1,13 +1,18 @@
 package com.study.codemoa.member.controller;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +40,9 @@ public class MemberController {
 
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
+
+	@Autowired
+	private JavaMailSenderImpl mailSender;
 
 	@RequestMapping("loginForm.me")
 	public String loginView() {
@@ -98,10 +106,10 @@ public class MemberController {
 	}
 
 	@RequestMapping("mypage.me")
-	public ModelAndView myPage(ModelAndView mv, @RequestParam(value="userId") String userId) {
+	public ModelAndView myPage(ModelAndView mv, @RequestParam(value = "userId") String userId) {
 
 		Member m = mService.memberInfo(userId);
-		
+
 		if (m != null) {
 			mv.addObject("user", m);
 		} else {
@@ -112,31 +120,31 @@ public class MemberController {
 
 		return mv;
 	}
-	
+
 	@RequestMapping("introduce.me")
 	@ResponseBody
 	public String introduceUpdate(@ModelAttribute Member m) {
-		 
+
 		System.out.println(m);
-		
+
 		int result = mService.introduceUpdate(m);
-		
+
 		if (result > 0) {
 			return "success";
-		}else {
+		} else {
 			throw new MemberException("프로필 수정 실패");
 		}
 
 	}
-	
+
 	@RequestMapping("profile.me")
 	public void profile(@RequestParam("id") String id, Model model, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
-		
+
 		Member m = mService.memberInfo(id);
-		
+
 		Gson gson = new Gson();
-		
+
 		model.addAttribute("user", m);
 		try {
 			gson.toJson(m, response.getWriter());
@@ -146,68 +154,97 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	@RequestMapping("mUpdate.me")
 	@ResponseBody
 	public String updateMember(@ModelAttribute Member m, Model model) {
-		System.out.println(m);
+		// System.out.println(m);
 		int result = mService.updateMember(m);
 		System.out.println(result);
-		
-		if (result > 0) {	
+
+		if (result > 0) {
 			model.addAttribute("user", m);
 			return "success";
-		}else {
+		} else {
 			throw new MemberException("회원 정보 수정에 실패하였습니다.");
 		}
-		
+
 	}
-	
+
 	@RequestMapping("mpwdupdate.me")
-	public ModelAndView UpdateMemberPwd(HttpSession session, @RequestParam("pwd") String pwd, @RequestParam("newPwd") String newPwd, ModelAndView mv) {
-		Member m = (Member)session.getAttribute("loginUser");
-		
+	public ModelAndView UpdateMemberPwd(HttpSession session, @RequestParam("pwd") String pwd,
+			@RequestParam("newPwd") String newPwd, ModelAndView mv) {
+		Member m = (Member) session.getAttribute("loginUser");
+
 		String userId = m.getId();
 		String userPwd = m.getPwd();
-		
+
 		String encPwd = bcrypt.encode(newPwd);
-		
+
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("userId", userId);
 		map.put("newPwd", encPwd);
-		
 
-		
 		if (bcrypt.matches(pwd, userPwd)) {
-			
+
 			int result = mService.updatePwd(map);
-			
+
 			if (result > 0) {
 				mv.addObject("userId", userId);
-				
-				mv.setViewName("mypage");		
+
+				mv.setViewName("mypage");
 			} else {
 				throw new MemberException("비밀번호 변경 실패1");
 			}
-		} else {			
+		} else {
 			throw new MemberException("비밀번호 변경 실패2");
 		}
-		
+
 		return mv;
-		
+
 	}
-	
+
 	@RequestMapping("mdelete.me")
 	public String deleteMember(@RequestParam("dUser") String id, SessionStatus session) {
 		int result = mService.deleteMember(id);
-		
+
 		if (result > 0) {
 			session.setComplete();
-		}else {
+		} else {
 			throw new MemberException("회원탈퇴에 실패하였습니다.");
 		}
-		
+
 		return "redirect:home.do";
+	}
+
+	@RequestMapping("sendemail.me")
+	@ResponseBody
+	public void sendEmail(@RequestParam("mail") String email, @RequestParam("what") String what, HttpServletResponse response) throws IOException {
+		response.setContentType("application/json; charset=UTF-8");
+		
+		String rand = "";
+		for (int i = 0; i < 6; i++) {
+			rand += (int) (Math.random() * 9 + 1);
+		}
+
+		String mailContent = "<div style='text-align: center;'><h1>코드모아 " + what + "이메일 인증</h1>";
+		mailContent += "<h3>인증번호를 입력해주세요</h3>";
+		mailContent += "<div style='background : #333; color: #ffffff; padding: 15px;'><h5>" + rand + "</h5></div></div>";
+
+		try {
+			MimeMessage mail = mailSender.createMimeMessage();
+			mail.setSubject("[CodeMoa] 이메일을 인증하세요 ", "utf-8");
+			mail.setText(mailContent, "utf-8", "html");
+			mail.setFrom(new InternetAddress(mailSender.getUsername()));
+			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			mailSender.send(mail);
+			response.getWriter().println(rand);
+			System.out.println("========================== 전송완료! =============================");
+		} catch (MessagingException e) {
+			e.printStackTrace();
+		}
+		
+
 	}
 
 }

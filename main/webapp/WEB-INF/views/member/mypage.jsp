@@ -67,7 +67,8 @@
 
 								<!-- <p class="text-muted text-center">Software Engineer</p> -->
 								<p class="text-muted text-center"></p>
-								<input type="hidden" name="user" value="${ user.email }">
+								
+								<input type="hidden" name="user" value="${ user.id }">
 
 								<ul class="list-group list-group-unbordered mb-3">
 									<li class="list-group-item">
@@ -96,7 +97,7 @@
 						<div class="card card-warning">
 							<div class="card-header clearfix">
 								<h3 class="card-title">About Me</h3>
-								<c:if test="${ loginUser.email eq user.email }">
+								<c:if test="${ loginUser.id eq user.id }">
 									<span id="aboutEdit" class="float-right"><i class="fas fa-edit"></i></span>
 									<span id="aboutSave" class="float-right modify"><i class="fas fa-check"></i></span>
 								</c:if>
@@ -152,7 +153,7 @@
 									<li class="nav-item">
 										<a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
 									</li>
-									<c:if test="${ loginUser.email eq user.email }">
+									<c:if test="${ loginUser.id eq user.id }">
 										<li class="nav-item">
 											<a class="nav-link" href="#settings" data-toggle="tab">Settings</a>
 										</li>
@@ -193,17 +194,16 @@
 										<div class="tab-pane" id="settings">
 
 												<div class="form-group row">
-													<label for="email" class="col-sm-2 col-form-label">Email</label>
+													<label for="name" class="col-sm-2 col-form-label">ID</label>
 													<div class="col-sm-10">
-														<input type="email" class="form-control" id="email" name="email" placeholder="Email" readonly value="${ user.email }">
+														<input type="text" class="form-control" id="id" name="id" placeholder="Name" value="${ user.id }" readonly>
 													</div>
 												</div>
-
-
+												
 												<div class="form-group row">
-													<label for="name" class="col-sm-2 col-form-label">Name</label>
+													<label for="email" class="col-sm-2 col-form-label">Email</label>
 													<div class="col-sm-10">
-														<input type="text" class="form-control" id="name" name="name" placeholder="Name" value="${ user.name }">
+														<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${ user.email }">
 													</div>
 												</div>
 
@@ -288,19 +288,19 @@
         <div class="modal-dialog modal-sm">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Small Modal</h4>
+              <h4 class="modal-title">탈퇴하시겠습니까?</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
             <div class="modal-body">
-              <p>One fine body…</p>
+              <p>탈퇴 후 자동으로 로그아웃 됩니다.</p>
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal" value="false">닫기</button>
               
               <c:url var="mdelete" value="mdelete.me">
-              <c:param name="userEmail" value="${ loginUser.email }" />
+              	<c:param name="dUser" value="${ loginUser.id }" />
               </c:url>
               
               <button type="button" class="btn btn-primary" value="true" onclick="location.href='${ mdelete }'">확인</button>
@@ -326,7 +326,7 @@
 	$(function(){
 		profile();
 	});
-	var email = $('#email').val();
+	var id = $('#id').val();
 	
 		$('#pwdModify').on('click', function() {
 			$('.pwdMod').fadeToggle();
@@ -359,7 +359,7 @@
 				url : 'introduce.me',
 				type:'post',
 				data : { 
-					email : $('#email').val(),
+					id : $('#id').val(),
 					education: $('#education').val(),
 					location: $('#location').val(),
 					skill: $('#skill').val(),
@@ -373,14 +373,14 @@
 		});
 
 		$('#mupdateBtn').on('click', function(){
-			var name = $('#name').val();
+			var name = $('#email').val();
 			var nickName = $('#nickName').val();
 			
 			$.ajax({
 				url:'mUpdate.me',
 				data:{
+					id:id,
 					email: email,
-					name:name,
 					nickName:nickName
 				}, success : function(data){
 					console.log(data);
@@ -397,9 +397,9 @@
 		
 			$.ajax({
 				url : 'profile.me',
-				data : {email : email},
+				data : { id : id },
 				success : function(data){
-					$('#name').val(data.name);
+					$('#email').val(data.email);
 					$('#nickName').val(data.nickName);
 					$('#education').val(data.education);
 					$('#location').val(data.location);
@@ -414,13 +414,6 @@
 			
 		}
 		
-/* 		$('.modal-footer button').on('click', function(){
-			if($(this).val()){
-				console.log($(this).val());
-				location.href='mdelete.me'
-				
-			}
-		}); */
 		
 	</script>
 

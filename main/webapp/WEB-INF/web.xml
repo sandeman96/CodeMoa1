@@ -8,6 +8,7 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
 			classpath:root-context.xml
+			/WEB-INF/spring/mail-context.xml		
 			/WEB-INF/spring/spring-security.xml
 		</param-value>
 	</context-param>
@@ -39,7 +40,9 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/member-context.xml</param-value>
+			<param-value>
+			/WEB-INF/spring/appServlet/member-context.xml		
+			</param-value>
 		</init-param>
 	</servlet>
 

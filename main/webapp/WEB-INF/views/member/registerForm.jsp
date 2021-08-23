@@ -19,6 +19,10 @@
 .kakao-reg-btn:hover {
 	filter: brightness(80%);
 }
+
+#emailNum {
+	display: none;
+}
 </style>
 </head>
 <body class="hold-transition register-page">
@@ -44,13 +48,15 @@
 					</div>
 
 					<div class="input-group mb-3">
-						<input type="text" name="email" class="form-control" placeholder="이메일">
+						<input type="text" id="email" name="email" class="form-control" placeholder="이메일">
 						<div class="input-group-append">
 							<div class="input-group-text">
-								<span class="fas fa-envelope"></span>
+								<a id="send" class="fas fa-envelope"></a>
 							</div>
 						</div>
 					</div>
+
+					<input type="text" id="emailNum" name="emailNum" class="form-control mb-3" placeholder="이메일을 확인해주세요">
 
 					<div class="input-group mb-3">
 						<input type="text" name="nickName" class="form-control" placeholder="닉네임">
@@ -64,7 +70,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 					<div class="input-group mb-3">
 						<input type="password" class="form-control" placeholder="비밀번호 확인">
 						<div class="input-group-append">
@@ -76,8 +82,8 @@
 					<div class="row">
 						<div class="col-8">
 							<div class="icheck-primary">
-								<input type="checkbox" id="agreeTerms" name="terms" value="agree"> 
-								<label for="agreeTerms"> <a href="#">약관</a>에 동의합니다</label>
+								<input type="checkbox" id="agreeTerms" name="terms" value="agree"> <label for="agreeTerms"> <a href="#">약관</a>에 동의합니다
+								</label>
 							</div>
 						</div>
 					</div>
@@ -107,6 +113,29 @@
 	<script src="resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="resources/dist/js/adminlte.min.js"></script>
+
+	<script>
+		$('#send').on('click', function() {
+			$('#emailNum').show();
+
+			$.ajax({
+				url : 'sendemail.me',
+				data : {
+					mail : $('#email').val(),
+					what : '회원가입'
+				},
+				success : function(data) {
+					console.log(data);
+					$('#emailNum').on('keyup blur', function(){
+						if(data == $(this).val()){
+							$('#email').attr('readonly', true);
+							$('#emailNum').hide();
+						}
+					});
+				}
+			});
+		});
+	</script>
 
 
 </body>
