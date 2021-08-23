@@ -1,7 +1,7 @@
 # CodeMoa1
 👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻
 
-이메일 인증
+<h3>이메일 인증</h3>
  - pom.xml
   <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail -->
 		<dependency>
@@ -39,4 +39,5 @@
 		});
 	});
  </script>
+
    
