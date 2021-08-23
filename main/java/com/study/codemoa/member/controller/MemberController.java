@@ -130,10 +130,10 @@ public class MemberController {
 	}
 	
 	@RequestMapping("profile.me")
-	public void profile(@RequestParam("email") String email, Model model, HttpServletResponse response) {
+	public void profile(@RequestParam("id") String id, Model model, HttpServletResponse response) {
 		response.setContentType("application/json; charset=UTF-8");
 		
-		Member m = mService.memberInfo(email);
+		Member m = mService.memberInfo(id);
 		
 		Gson gson = new Gson();
 		
@@ -167,7 +167,7 @@ public class MemberController {
 	public ModelAndView UpdateMemberPwd(HttpSession session, @RequestParam("pwd") String pwd, @RequestParam("newPwd") String newPwd, ModelAndView mv) {
 		Member m = (Member)session.getAttribute("loginUser");
 		
-		String userId = m.getEmail();
+		String userId = m.getId();
 		String userPwd = m.getPwd();
 		
 		String encPwd = bcrypt.encode(newPwd);
@@ -198,8 +198,8 @@ public class MemberController {
 	}
 	
 	@RequestMapping("mdelete.me")
-	public String deleteMember(@RequestParam("userEmail") String email, SessionStatus session) {
-		int result = mService.deleteMember(email);
+	public String deleteMember(@RequestParam("dUser") String id, SessionStatus session) {
+		int result = mService.deleteMember(id);
 		
 		if (result > 0) {
 			session.setComplete();
