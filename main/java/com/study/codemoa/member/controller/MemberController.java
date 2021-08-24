@@ -106,7 +106,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("mypage.me")
-	public ModelAndView myPage(ModelAndView mv, @RequestParam(value = "userId") String userId) {
+	public ModelAndView myPage(ModelAndView mv, @RequestParam(value ="userId", required = false) String userId) {
 
 		Member m = mService.memberInfo(userId);
 
@@ -125,14 +125,14 @@ public class MemberController {
 	@ResponseBody
 	public String introduceUpdate(@ModelAttribute Member m) {
 
-		System.out.println(m);
+		// System.out.println(m);
 
 		int result = mService.introduceUpdate(m);
 
 		if (result > 0) {
 			return "success";
 		} else {
-			throw new MemberException("프로필 수정 실패");
+			throw new MemberException("소개 수정 실패");
 		}
 
 	}
@@ -156,15 +156,17 @@ public class MemberController {
 	}
 
 	@RequestMapping("mUpdate.me")
-	@ResponseBody
 	public String updateMember(@ModelAttribute Member m, Model model) {
-		// System.out.println(m);
+		
 		int result = mService.updateMember(m);
-		System.out.println(result);
+//		System.out.println(m);
+		// System.out.println(result);
 
 		if (result > 0) {
-			model.addAttribute("user", m);
-			return "success";
+			
+			model.addAttribute("userId", m.getId());
+			
+			return "redirect:mypage.me";
 		} else {
 			throw new MemberException("회원 정보 수정에 실패하였습니다.");
 		}
@@ -172,8 +174,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("mpwdupdate.me")
-	public ModelAndView UpdateMemberPwd(HttpSession session, @RequestParam("pwd") String pwd,
-			@RequestParam("newPwd") String newPwd, ModelAndView mv) {
+	public String UpdateMemberPwd(HttpSession session, @RequestParam("pwd") String pwd,
+			@RequestParam("newPwd") String newPwd, Model model) {
+
 		Member m = (Member) session.getAttribute("loginUser");
 
 		String userId = m.getId();
@@ -190,17 +193,15 @@ public class MemberController {
 			int result = mService.updatePwd(map);
 
 			if (result > 0) {
-				mv.addObject("userId", userId);
+				model.addAttribute("userId", userId);
 
-				mv.setViewName("mypage");
+				return "redirect:mypage.me";
 			} else {
 				throw new MemberException("비밀번호 변경 실패1");
 			}
 		} else {
 			throw new MemberException("비밀번호 변경 실패2");
 		}
-
-		return mv;
 
 	}
 
@@ -219,9 +220,10 @@ public class MemberController {
 
 	@RequestMapping("sendemail.me")
 	@ResponseBody
-	public void sendEmail(@RequestParam("mail") String email, @RequestParam("what") String what, HttpServletResponse response) throws IOException {
+	public void sendEmail(@RequestParam("mail") String email, @RequestParam("what") String what,
+			HttpServletResponse response) throws IOException {
 		response.setContentType("application/json; charset=UTF-8");
-		
+
 		String rand = "";
 		for (int i = 0; i < 6; i++) {
 			rand += (int) (Math.random() * 9 + 1);
@@ -229,7 +231,8 @@ public class MemberController {
 
 		String mailContent = "<div style='text-align: center;'><h1>코드모아 " + what + "이메일 인증</h1>";
 		mailContent += "<h3>인증번호를 입력해주세요</h3>";
-		mailContent += "<div style='background : #333; color: #ffffff; padding: 15px;'><h5>" + rand + "</h5></div></div>";
+		mailContent += "<div style='background : #333; color: #ffffff; padding: 15px;'><h5>" + rand
+				+ "</h5></div></div>";
 
 		try {
 			MimeMessage mail = mailSender.createMimeMessage();
@@ -243,7 +246,6 @@ public class MemberController {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 

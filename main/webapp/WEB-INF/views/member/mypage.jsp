@@ -67,8 +67,8 @@
 
 								<!-- <p class="text-muted text-center">Software Engineer</p> -->
 								<p class="text-muted text-center"></p>
-								
-								<input type="hidden" name="user" value="${ user.id }">
+
+								<input type="hidden" name="userId" value="${ user.id }">
 
 								<ul class="list-group list-group-unbordered mb-3">
 									<li class="list-group-item">
@@ -190,8 +190,10 @@
 
 
 									<!-- /////////////////////////////////// -->
-									<c:if test="${ loginUser.email eq user.email }">
+									<c:if test="${ loginUser.id eq user.id }">
 										<div class="tab-pane" id="settings">
+
+											<form action="mUpdate.me" method="post">
 
 												<div class="form-group row">
 													<label for="name" class="col-sm-2 col-form-label">ID</label>
@@ -199,7 +201,7 @@
 														<input type="text" class="form-control" id="id" name="id" placeholder="Name" value="${ user.id }" readonly>
 													</div>
 												</div>
-												
+
 												<div class="form-group row">
 													<label for="email" class="col-sm-2 col-form-label">Email</label>
 													<div class="col-sm-10">
@@ -217,18 +219,26 @@
 
 												<div class="form-group row">
 													<div class="offset-sm-2 col-sm-10">
-														<button type="submit" class="btn btn-secondary" id="mupdateBtn">Save</button>
-														<button type="button" class="btn btn-warning">Cancle</button>
+														<c:url var="mypage" value="mypage.me">
+															<c:param name="userId" value="${ loginUser.id }" />
+														</c:url>
+
+														<button type="submit" class="btn btn-secondary">Save</button>
+
+
+														<button type="button" class="btn btn-warning" onclick="location.href='${mypage}'">Cancle</button>
+
 														<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-sm" onclick="leave();">Leave</button>
 													</div>
 												</div>
 
+											</form>
 
 											<h6>
 												<i id="pwdModify" class="fas fa-chevron-down"> 비밀번호 수정</i>
 											</h6>
 
-											<form action="mpwdupdate.me">
+											<form action="mpwdupdate.me" method="post">
 
 												<div class="modify pwdMod">
 													<div class="form-group row">
@@ -255,7 +265,7 @@
 													<div class="form-group row">
 														<div class="offset-sm-2 col-sm-10">
 															<button type="submit" class="btn btn-secondary">Save</button>
-															<button type="button" class="btn btn-warning">Cancle</button>
+															<button type="button" class="btn btn-warning" onclick="location.href='${mypage}'">Cancle</button>
 														</div>
 													</div>
 												</div>
@@ -283,34 +293,34 @@
 		<!-- /.content -->
 	</div>
 	<!-- /.content-wrapper -->
-	
+
 	<div class="modal fade" id="modal-sm" style="display: none;" role="dialog">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">탈퇴하시겠습니까?</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <p>탈퇴 후 자동으로 로그아웃 됩니다.</p>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-default" data-dismiss="modal" value="false">닫기</button>
-              
-              <c:url var="mdelete" value="mdelete.me">
-              	<c:param name="dUser" value="${ loginUser.id }" />
-              </c:url>
-              
-              <button type="button" class="btn btn-primary" value="true" onclick="location.href='${ mdelete }'">확인</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-    
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">탈퇴하시겠습니까?</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>탈퇴 후 자동으로 로그아웃 됩니다.</p>
+				</div>
+				<div class="modal-footer justify-content-between">
+					<button type="button" class="btn btn-default" data-dismiss="modal" value="false">닫기</button>
+
+					<c:url var="mdelete" value="mdelete.me">
+						<c:param name="dUser" value="${ loginUser.id }" />
+					</c:url>
+
+					<button type="button" class="btn btn-primary" value="true" onclick="location.href='${ mdelete }'">확인</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+
 
 
 	<!-- jQuery -->
@@ -323,9 +333,9 @@
 	<script src="/codemoa/resources/dist/js/demo.js"></script>
 
 	<script>
-	$(function(){
-		profile();
-	});
+ $(function(){
+	 line();
+	});  
 	var id = $('#id').val();
 	
 		$('#pwdModify').on('click', function() {
@@ -372,46 +382,28 @@
 			$('.aboutme').show();
 		});
 
-		$('#mupdateBtn').on('click', function(){
-			var name = $('#email').val();
-			var nickName = $('#nickName').val();
-			
-			$.ajax({
-				url:'mUpdate.me',
-				data:{
-					id:id,
-					email: email,
-					nickName:nickName
-				}, success : function(data){
-					console.log(data);
-					profile(); 
-				},error : function(data) {
-					console.log('error');
-					console.log(data);
-				}
-			});
-		});
-		
-		
+				
 		function profile(){
 		
 			$.ajax({
 				url : 'profile.me',
 				data : { id : id },
 				success : function(data){
-					$('#email').val(data.email);
-					$('#nickName').val(data.nickName);
 					$('#education').val(data.education);
 					$('#location').val(data.location);
 					$('#skill').val(data.skill);
 					$('#note').val(data.note);
-					$('#education').parent().prev().html(data.education.replace(/\n/g, '<br>'));
-					$('#location').parent().prev().html(data.location.replace(/\n/g, '<br>'));
-					$('#skill').parent().prev().html(data.skill.replace(/\n/g, '<br>'));
-					$('#note').parent().prev().html(data.note.replace(/\n/g, '<br>'));
+					line();
 				}
 			});
 			
+		}
+		
+		function line(){
+			$('#education').parent().prev().html($('#education').val().replace(/\n/g, '<br>'));
+			$('#location').parent().prev().html($('#location').val().replace(/\n/g, '<br>'));
+			$('#skill').parent().prev().html($('#skill').val().replace(/\n/g, '<br>'));
+			$('#note').parent().prev().html($('#note').val().replace(/\n/g, '<br>'));
 		}
 		
 		

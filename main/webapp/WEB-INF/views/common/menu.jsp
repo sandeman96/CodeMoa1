@@ -294,10 +294,10 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="tech.me" class="nav-link"> Q&amp;A </a>
+									<a href="boardListFaq.bo" class="nav-link"> Q&amp;A </a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link"> Tips </a>
+									<a href="boardListTips.bo" class="nav-link"> Tips </a>
 								</li>
 							</ul>
 						</li>
@@ -312,16 +312,16 @@
 							</a>
 							<ul class="nav nav-treeview">
 								<li class="nav-item">
-									<a href="#" class="nav-link"> Study </a>
+									<a href="boardListStudy.bo" class="nav-link"> Study </a>
 								</li>
 								<li class="nav-item">
-									<a href="#" class="nav-link"> Job </a>
+									<a href="boardListJob.bo" class="nav-link"> Job </a>
 								</li>
 							</ul>
 						</li>
 
 						<li class="nav-item">
-							<a href="#" class="nav-link">
+							<a href="boardListCalendar.bo" class="nav-link">
 								<i class="nav-icon fas fa-calendar-alt"></i>
 								<p>Calendar</p>
 							</a>
