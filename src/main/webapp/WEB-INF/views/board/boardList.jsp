@@ -225,9 +225,7 @@ a:link, a:visited {
 									</a></li>
 								</c:if>
 								<c:if test="${ pi.currentPage > 1 }">
-									<c:url var="first" value="boardListFaq.bo">
-										<c:param name="page" value="${ pi.startPage }" />
-									</c:url>
+									<c:url var="first" value="boardListFaq.bo?page=1"/>
 									<li class="page-item"><a class="page-link"
 										href="${ first }" aria-label="Previous"> <span
 											aria-hidden="true">&laquo;</span>
