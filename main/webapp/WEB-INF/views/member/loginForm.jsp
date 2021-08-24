@@ -29,6 +29,12 @@
   <!-- /.login-logo -->
   <div class="card card-outline card-primary">
   
+  <c:if test="${ msg != null}">
+  	<script>
+  		alert('${ msg }');
+  	</script>
+  </c:if>
+  
     <div class="card-header text-center">
       <a href="home.do" class="h1"><b>Codemoa</b></a>
     </div>

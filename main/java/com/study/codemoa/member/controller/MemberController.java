@@ -67,7 +67,9 @@ public class MemberController {
 		if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
 			model.addAttribute("loginUser", loginUser);
 		} else {
-			throw new MemberException("로그인 실패");
+			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
+			
+			return "loginForm";
 		}
 
 		return "redirect:home.do";
