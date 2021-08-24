@@ -256,6 +256,22 @@
 			}
 		});
 		
+		$('#reSend').on('click', function(){
+			$.ajax({
+				url : 'sendemail.me',
+				data : {
+					mail : $('#email').val(),
+					what : '회원가입'
+				},
+				success : function(data) {
+					code = data;
+					console.log(data);
+					emailStatus = true;
+				}
+			});
+			$('.modal').fadeOut();
+		});
+		
 		// 모달 창
 		$('#sendingCheck').on('click', function(){
 			$('.modal').fadeIn();
