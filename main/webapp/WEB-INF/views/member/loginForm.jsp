@@ -7,7 +7,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Codemoa</title>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- kakao JavaScript SDK -->
+  <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
   <!-- js-cookie -->
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.0/dist/js.cookie.min.js"></script>
 
@@ -72,7 +77,7 @@
         <div class="social-auth-links text-center mt-2 mb-3">
 	    	<div class="col-4">
 	        	<button type="submit" class="btn btn-primary btn-block" style="width: 300px; margin-bottom: 10px;" id="loginBtn">로그인</button>
-	        	<a class="kakao-login-btn" href="#">
+	        	<a class="kakao-login-btn" onclick="kakaoLogin();">
 		        	<img src="resources/img/kakao_login_medium_wide.png">
 		        </a>
 	        </div>
@@ -130,6 +135,45 @@
 			Cookies.set('id', $('#id').val(), 7);
 		}
 	});
+	
+	Kakao.init('4342ea3b7dffd99d9662964fcd3f3267');
+	console.log(Kakao.isInitialized());
+	
+	function kakaoLogin(){
+		
+		window.Kakao.Auth.login({
+			scope: 'profile_nickname, account_email',
+			success: function(authObj){
+// 				console.log(authObj);
+				
+				window.Kakao.API.request({
+					url: '/v2/user/me',
+					success: function(res){
+// 						console.log(res.kakao_account);
+						
+						var email = res.kakao_account.email;
+						var nickName = res.kakao_account.profile.nickname;
+			            
+						console.log(email);
+						console.log(nickName);
+					
+                		$.ajax({
+                			url: 'kakaoLogin.me',
+                			type: 'post',
+			                data : {email:email, pwd : "kakaoPassword", nickName: nickName},
+			                success: function(data){
+								console.log(data);
+								location.href=data;
+			                }
+                		});
+                	}
+                })		
+			}
+		});
+	}
+	
+	
+
 	
 </script>
 

@@ -7,6 +7,8 @@
 <title>Codemoa</title>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- kakao JavaScript SDK -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
@@ -60,6 +62,7 @@
 	display: none;
 }
 
+::placeholder{font-size: 14px;}
 
 </style>
 </head>
@@ -100,12 +103,14 @@
 						<input type="text" name="id" class="form-control" placeholder="아이디는 Email로 생성됩니다" id="id" readonly required>
 						<div class="input-group-append">
 							<div class="input-group-text">
-								<span class="fas fa-user"></span>
+								<span class="fas fa-user" id="idBasic"></span>
+								<span id="idPass">✔</span>
+								<span id="idFail">❌</span>
 							</div>
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="text" name="nickName" class="form-control" placeholder="닉네임" id="nickName" required>
+						<input type="text" name="nickName" class="form-control" placeholder="닉네임 (2~8자, 한글/영문/숫자 사용 가능)" id="nickName" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-user" id="nickBasic"></span>
@@ -115,8 +120,8 @@
 						</div>
 					</div>
 
-					<div class="input-group mb-3">
-						<input type="password" name="pwd" class="form-control" placeholder="비밀번호 (8자 이상, 문자/숫자/기호)" id="pwd" required>
+					<div class="input-group mb-3">							
+						<input type="password" name="pwd" class="form-control" placeholder="비밀번호 (8자 이상, 문자/숫자/기호 조합)" id="pwd" required>
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock" id="pwdBasic"></span>
@@ -146,7 +151,7 @@
 					<div class="social-auth-links text-center">
 						<div class="col-4">
 							<button type="submit" class="btn btn-primary btn-block" style="width: 300px; margin-bottom: 10px;" id="submit" disabled>회원가입</button>
-							<a class="kakao-reg-btn" href="#" id="kakao">
+							<a class="kakao-reg-btn" onclick="kakaoLogin();">
 								<img src="resources/img/kakao_start_medium_wide.png" />
 							</a>
 						</div>
@@ -188,21 +193,46 @@
 		$('#emailPass').hide();
 		$('#emailFail').hide();
 		$('#sendMail').attr('disabled', 'true');
+		$('#idPass').hide();
+		$('#idFail').hide();
+		
 	
 		// 이메일 형식 검사
 		var emailRegExp = /^[a-zA-Z0-9]+([-_\.]?[0-9a-zA-Z]+[-_\.])*@[a-zA-Z]+\.[a-zA-Z]+$/;
+		var idStatus = false;
 		
 		$('#email').on('keyup',function(){
-			if(emailRegExp.test($(this).val())){
+			var eId = $('#email').val().split('@');
+			$('#id').val(eId[0]);
+			
+			$.ajax({
+				url: 'idCheck.me',
+				data: {id:eId[0]},
+				success: function(data){
+					if(data == 0){
+						idStatus = true;
+					} else {
+						idStatus = false;
+					} 
+				}
+			});
+			
+			if(emailRegExp.test($(this).val()) == true && idStatus == true){
 				$('#sendMail').removeAttr('disabled');
 				$('#emailPass').show();
 				$('#emailFail').hide();
 				$('#emailBasic').hide();
+				$('#idBasic').hide();
+				$('#idPass').show();
+				$('#idFail').hide();
 			} else {
 				$('#sendMail').attr('disabled', 'true');
 				$('#emailPass').hide();
 				$('#emailFail').show();
 				$('#emailBasic').hide();
+				$('#idBasic').hide();
+				$('#idPass').hide();
+				$('#idFail').show();
 			}
 			
 			if($('#email').val().trim() == ''){ // 값을 지웠을 때
@@ -210,8 +240,11 @@
 				$('#emailPass').hide();
 				$('#emailFail').hide();
 				$('#emailBasic').show();
+				$('#idBasic').show();
+				$('#idPass').hide();
+				$('#idFail').hide();
 			}
-				
+			
 		});
 	
 		// 인증메일 발송 
@@ -220,7 +253,7 @@
 		var emailStatus = false;
 		
 		$('#sendMail').on('click', function(){
-			email = $('#email').val(); // 이메일 입력값
+			email = $('#email').val();
 			
 			if($(this).val() == '인증메일 발송'){
 				$('#email').prop('readonly', 'true');
@@ -247,8 +280,8 @@
 					alert('인증번호를 입력하세요');
 					$('#emailNum').focus();
 				} else if(code == $('#emailNum').val().trim()){
-					var eId = $('#email').val().split('@');
 					$('#div_email').hide();
+					var eId = $('#email').val().split('@');
 					$('#id').val(eId[0]);
 				} else{
 					alert('인증번호를 확인해주세요');
@@ -256,7 +289,7 @@
 			}
 		});
 		
-		$('#reSend').on('click', function(){
+		$('#reSend').on('click', function(){ // 인증메일 재발송
 			$.ajax({
 				url : 'sendemail.me',
 				data : {
@@ -289,7 +322,8 @@
 			$('.modal').fadeOut();
 		});
 		
-		// 닉네임 중복 확인
+		// 닉네임 정규식 검사 & 중복 확인
+		var nickRegExp = /^([a-zA-Z0-9ㄱ-ㅎ|ㅏ-ㅣ|가-힣]).{2,8}$/;
 		var nickStatus = false;
 		$('#nickPass').hide();
 		$('#nickFail').hide();
@@ -297,29 +331,38 @@
 		$('#nickName').on('keyup',function(){
 			var nickName = $(this).val();
 			
-			$.ajax({
-				url: 'nickNameCheck.me',
-				data: {nickName:nickName},
-				success: function(data){
-					console.log(data);
-					if(data == 0){
-						$('#nickPass').show();
-						$('#nickFail').hide();
-						$('#nickBasic').hide();
-						nickStatus = true;
-					} else if(data == 1){
-						$('#nickPass').hide();
-						$('#nickFail').show();
-						$('#nickBasic').hide();
-						nickStatus = false;
-					} else{
-						$('#nickPass').hide();
-						$('#nickFail').hide();
-						$('#nickBasic').show();
-						nickStatus = false;
+			if(nickRegExp.test($(this).val())){
+				$.ajax({
+					url: 'nickNameCheck.me',
+					data: {nickName:nickName},
+					success: function(data){
+						console.log(data);
+						if(data == 0){
+							$('#nickPass').show();
+							$('#nickFail').hide();
+							$('#nickBasic').hide();
+							nickStatus = true;
+						} else if(data == 1){
+							$('#nickPass').hide();
+							$('#nickFail').show();
+							$('#nickBasic').hide();
+							nickStatus = false;
+						} 
 					}
-				}
-			});
+				});
+			} else{
+				$('#nickPass').hide();
+				$('#nickFail').show();
+				$('#nickBasic').hide();
+				nickStatus = false;
+			}
+			
+			if($(this).val().trim() == ''){
+				$('#nickPass').hide();
+				$('#nickFail').hide();
+				$('#nickBasic').show();
+				nickStatus = false;
+			}
 		});
 		
 		// 비밀번호 형식 검사
@@ -385,6 +428,43 @@
 				$('#submit').attr('disabled', true);
 			}
 		});
+		
+		Kakao.init('4342ea3b7dffd99d9662964fcd3f3267');
+		console.log(Kakao.isInitialized());
+		
+		function kakaoLogin(){
+			
+			window.Kakao.Auth.login({
+				scope: 'profile_nickname, account_email',
+				success: function(authObj){
+//	 				console.log(authObj);
+					
+					window.Kakao.API.request({
+						url: '/v2/user/me',
+						success: function(res){
+//	 						console.log(res.kakao_account);
+							
+							var email = res.kakao_account.email;
+							var nickName = res.kakao_account.profile.nickname;
+				            
+							console.log(email);
+							console.log(nickName);
+						
+	                		$.ajax({
+	                			url: 'kakaoLogin.me',
+	                			type: 'post',
+				                data : {email:email, pwd : "kakaoPassword", nickName: nickName},
+				                success: function(data){
+									console.log(data);
+									location.href=data;
+				                }
+	                		});
+	                	}
+	                })		
+				}
+			});
+		}
+		
 		
 	</script>
 
