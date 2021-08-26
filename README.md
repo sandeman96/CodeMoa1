@@ -13,3 +13,5 @@
   
 3. views/board 에 community_job.jsp 추가
 
+실행 시 community_Job 페이지 우측 상단의
+(./images/jobWizard.png) 클릭 하시면 됩니다.
