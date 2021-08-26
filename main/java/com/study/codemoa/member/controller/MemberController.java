@@ -93,14 +93,8 @@ public class MemberController {
 		return "redirect:home.do";
 	}
 
-	@RequestMapping("enrollview.me")
-	public String enrollView() {
-
-		return "memberJoin";
-	}
-
 	@RequestMapping("minsert.me")
-	public String memberInsert(@ModelAttribute Member m) {
+	public String memberInsert(@ModelAttribute Member m, Model model) {
 
 		String enPwd = bcrypt.encode(m.getPwd());
 
@@ -109,6 +103,7 @@ public class MemberController {
 		int result = mService.insertMember(m);
 
 		if (result > 0) {
+			model.addAttribute("loginUser", m);
 			return "redirect:home.do";
 		} else {
 			throw new MemberException("회원 가입 실패");
