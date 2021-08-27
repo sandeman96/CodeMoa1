@@ -12,6 +12,15 @@
   부터 421행의 } 까지 추가
   
 3. views/board 에 community_job.jsp 추가
+4. menu.jsp 에 job 부분 href에 job.bo 
 
 실행 시 community_Job 페이지 우측 상단의
 ![잡마법사](./images/jobWizard.png) 클릭 하시면 됩니다.
+
+
+인덱스
+
+1. homeController 15~19열까지 추가
+2. index.jsp,home.jsp 업데이트
+3. index2.jsp  views에 추가
+
