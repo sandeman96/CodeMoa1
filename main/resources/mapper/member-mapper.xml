@@ -7,7 +7,6 @@
 		from member
 		where m_id=#{id}
 		and m_status='Y'
-
 	</select>
 
 	<insert id="insertMember">
@@ -56,6 +55,47 @@
 		<result column="M_LOCATION" property="location" />
 		<result column="M_SKILL" property="skill" />
 		<result column="M_NOTE" property="note" />
+	</resultMap>
+	
+	<select id="selectNickName" resultType="_int">
+		select count(*)
+		from member
+		where m_nick=#{nickName}
+	</select>
+
+	<select id="selectId" resultType="_int">
+		select count(*)
+		from member 
+		where m_id=#{id} 
+	</select>
+
+	<select id="selectEmail" resultType="_int">
+		select count(*)
+		from member
+		where m_email=#{email}
+	</select>
+	
+	<select id="selectMyBoard" parameterType="string" resultMap="boardResultSet">
+		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick,
+				(select count(l_no) from likey where l_bno = b_no) as "lCount"
+		from board
+		join member on (b_writer = m_id)
+		where b_status='Y' and b_writer = #{id}
+		order by b_no desc
+	</select>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<id column="B_NO" property="bNo" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="M_NICK" property="nickName" />
+		<result column="B_DATE" property="bDate" />
+		<result column="B_COUNT" property="bCount" />
+		<result column="B_STATUS" property="bStatus" />
+		<result column="B_FIRST" property="bFirst" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="lCount" property="lCount" />
 	</resultMap>
 	
 

@@ -67,7 +67,7 @@
 					</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="home.do" class="nav-link">Home</a>
+					<a href="/codemoa/" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
 					<a href="#" class="nav-link">Contact</a>
@@ -203,35 +203,14 @@
 				</li>
 
 				<!-- Notifications Dropdown Menu -->
+				<c:if test="${ loginUser != null }">
 				<li class="nav-item dropdown">
-					<a class="nav-link" data-toggle="dropdown" href="#">
+					<a class="nav-link" href="messageBox.ms">
 						<i class="far fa-bell"></i>
 						<span class="badge badge-warning navbar-badge">15</span>
 					</a>
-					<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-						<span class="dropdown-item dropdown-header">15 Notifications</span>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-envelope mr-2"></i>
-							4 new messages
-							<span class="float-right text-muted text-sm">3 mins</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-users mr-2"></i>
-							8 friend requests
-							<span class="float-right text-muted text-sm">12 hours</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item">
-							<i class="fas fa-file mr-2"></i>
-							3 new reports
-							<span class="float-right text-muted text-sm">2 days</span>
-						</a>
-						<div class="dropdown-divider"></div>
-						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-					</div>
 				</li>
+				</c:if>
 
 				<li class="nav-item">
 					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -253,7 +232,7 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="home.do" class="brand-link">
+			<a href="/codemoa/" class="brand-link">
 				<img src="/codemoa/resources/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">CODE MOA</span>
 			</a>
@@ -263,7 +242,7 @@
 				<!-- Sidebar user panel (optional) -->
 				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
 					<c:if test="${ loginUser == null }">
-						<div class="info">
+						<div class="info text-center">
 							<a href="loginForm.me" class="d-block">로그인을 해주세요</a>
 						</div>
 					</c:if>
@@ -315,7 +294,7 @@
 									<a href="boardListStudy.bo" class="nav-link"> Study </a>
 								</li>
 								<li class="nav-item">
-									<a href="boardListJob.bo" class="nav-link"> Job </a>
+									<a href="job.bo"" class="nav-link"> Job </a>
 								</li>
 							</ul>
 						</li>

@@ -1,10 +1,13 @@
 package com.study.codemoa.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.stereotype.Repository;
+
+import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.member.model.vo.Member;
 
 @Repository("mDao")
@@ -43,6 +46,26 @@ public class MemberDAO {
 	public int deleteMember(SqlSessionTemplate sqlSession, String email) {
 
 		return sqlSession.update("memberMapper.deleteMember", email);
+	}
+
+	public int selectNickName(SqlSessionTemplate sqlSession, String nickName) {
+
+		return sqlSession.selectOne("memberMapper.selectNickName", nickName);
+	}
+
+	public int selectId(SqlSessionTemplate sqlSession, String id) {
+
+		return sqlSession.selectOne("memberMapper.selectId", id);
+	}
+
+	public int selectEmail(SqlSessionTemplate sqlSession, String email) {
+
+		return sqlSession.selectOne("memberMapper.selectEmail", email);
+	}
+
+	public ArrayList<Board> selectMyBoard(SqlSessionTemplate sqlSession, String userId) {
+
+		return (ArrayList) sqlSession.selectList("memberMapper.selectMyBoard", userId);
 	}
 
 }

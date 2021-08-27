@@ -21,6 +21,10 @@
 	height: 50px;
 	resize: none;
 }
+
+.tab-pane {
+	height: 630px;
+}
 </style>
 
 </head>
@@ -34,7 +38,7 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h1>My Page</h1>
+						<h1>${ user.nickName }님의페이지</h1>
 					</div>
 					<div class="col-sm-6">
 						<ol class="breadcrumb float-sm-right">
@@ -84,8 +88,11 @@
 									<a href="#" class="btn btn-warning mb-1">
 										<b>Follow</b>
 									</a>
-									<a href="#" class="btn btn-warning mb-1">
-										<b>Message</b>
+									<c:url var="sendMsg" value="messageBox.ms">
+										<c:param name="receiver" value="${ user.id }" />
+									</c:url>
+									<a href="${ sendMsg }" class="btn btn-warning mb-1">
+										<b>쪽지✉</b>
 									</a>
 								</div>
 							</div>
@@ -148,10 +155,10 @@
 							<div class="card-header p-2">
 								<ul class="nav nav-pills">
 									<li class="nav-item">
-										<a class="nav-link active" href="#activity" data-toggle="tab">Activity</a>
+										<a class="nav-link active" href="#activity" data-toggle="tab">게시글 활동</a>
 									</li>
 									<li class="nav-item">
-										<a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a>
+										<a class="nav-link" href="#timeline" data-toggle="tab">댓글 활동</a>
 									</li>
 									<c:if test="${ loginUser.id eq user.id }">
 										<li class="nav-item">
@@ -167,17 +174,33 @@
 
 									<!-- /////////////////////////////////// -->
 									<div class="active tab-pane" id="activity">
+										<c:if test="${bList.isEmpty()}">
+											<h5 style="text-align: center;">작성하신 게시물이 존재하지 않습니다.</h5>
+										</c:if>
 
-										<!-- Post -->
-										<div class="post">
+										<c:if test="${!bList.isEmpty()}">
 
-											<h5 class="title">
-												<a href="#">Jonathan Burke Jr.</a>
-											</h5>
-											<span class="description text-sm">Shared publicly - 7:30 PM today</span> <span class="float-right text-sm"><i class="far fa-comments mr-1"></i> Comments (5)</span>
+											<c:forEach var="b" items="${ bList }">
 
-										</div>
-										<!-- /.post -->
+												<c:url var="bdetail" value="boardDetail.bo">
+													<c:param name="bNo" value="${ b.bNo }" />
+													<c:param name="page" value="1" />
+												</c:url>
+
+												<!-- Post -->
+												<div class="post">
+													<h5 class="title">
+														<a href="${ bdetail }">${ b.bTitle }</a>
+													</h5>
+
+													<span class="description text-sm">${ b.bDate }</span> <span class="float-right text-sm mr-2"><i class="far fa-comments mr-1"></i> 5 </span> <span class="float-right text-sm mr-2"><i class="far fa-eye"></i> ${ b.bCount } </span> <span class="float-right text-sm mr-2"><i class="fas fa-thumbs-up"></i> ${ b.lCount } </span>
+												</div>
+												<!-- /.post -->
+
+											</c:forEach>
+
+										</c:if>
+
 
 									</div>
 
@@ -306,6 +329,7 @@
 				<div class="modal-body">
 					<p>탈퇴 후 자동으로 로그아웃 됩니다.</p>
 				</div>
+
 				<div class="modal-footer justify-content-between">
 					<button type="button" class="btn btn-default" data-dismiss="modal" value="false">닫기</button>
 
@@ -335,6 +359,7 @@
 	<script>
  $(function(){
 	 line();
+	 
 	});  
 	var id = $('#id').val();
 	

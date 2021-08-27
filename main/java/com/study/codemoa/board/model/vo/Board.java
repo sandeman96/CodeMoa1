@@ -7,27 +7,31 @@ public class Board {
 	private int bType;
 	private String bTitle;
 	private String bContent;
+	private String nickName;
 	private Date bDate;
 	private int bCount;
 	private String bStatus;
 	private String bFirst;
 	private String bWriter;
-	
+	private int lCount;
+
 	public Board() {
 	}
 
-	public Board(int bNo, int bType, String bTitle, String bContent, Date bDate, int bCount, String bStatus,
-			String bFirst, String bWriter) {
+	public Board(int bNo, int bType, String bTitle, String bContent, String nickName, Date bDate, int bCount,
+			String bStatus, String bFirst, String bWriter, int lCount) {
 		super();
 		this.bNo = bNo;
 		this.bType = bType;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
+		this.nickName = nickName;
 		this.bDate = bDate;
 		this.bCount = bCount;
 		this.bStatus = bStatus;
 		this.bFirst = bFirst;
 		this.bWriter = bWriter;
+		this.lCount = lCount;
 	}
 
 	public int getbNo() {
@@ -60,6 +64,14 @@ public class Board {
 
 	public void setbContent(String bContent) {
 		this.bContent = bContent;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 
 	public Date getbDate() {
@@ -102,11 +114,19 @@ public class Board {
 		this.bWriter = bWriter;
 	}
 
+	public int getlCount() {
+		return lCount;
+	}
+
+	public void setlCount(int lCount) {
+		this.lCount = lCount;
+	}
+
 	@Override
 	public String toString() {
-		return "Board [bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent=" + bContent + ", bDate="
-				+ bDate + ", bCount=" + bCount + ", bStatus=" + bStatus + ", bFirst=" + bFirst + ", bWriter=" + bWriter
-				+ "]";
+		return "Board [bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent=" + bContent
+				+ ", nickName=" + nickName + ", bDate=" + bDate + ", bCount=" + bCount + ", bStatus=" + bStatus
+				+ ", bFirst=" + bFirst + ", bWriter=" + bWriter + ", lCount=" + lCount + "]";
 	}
 
 }

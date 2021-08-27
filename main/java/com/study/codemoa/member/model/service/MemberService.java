@@ -1,7 +1,9 @@
 package com.study.codemoa.member.model.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.member.model.vo.Member;
 
 public interface MemberService {
@@ -19,5 +21,13 @@ public interface MemberService {
 	int updatePwd(HashMap<String, String> map);
 
 	int deleteMember(String email);
+
+	int selectNickName(String nickName);
+	
+	int selectEmail(String email);
+
+	int selectId(String id);
+
+	ArrayList<Board> selectMyBoard(String userId);
 
 }

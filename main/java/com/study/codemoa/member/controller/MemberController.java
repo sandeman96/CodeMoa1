@@ -1,12 +1,11 @@
 package com.study.codemoa.member.controller;
 
 import java.io.IOException;
-
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
+import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.member.model.exception.MemberException;
 import com.study.codemoa.member.model.service.MemberService;
 import com.study.codemoa.member.model.vo.Member;
@@ -67,7 +67,9 @@ public class MemberController {
 		if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
 			model.addAttribute("loginUser", loginUser);
 		} else {
-			throw new MemberException("로그인 실패");
+			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
+
+			return "loginForm";
 		}
 
 		return "redirect:home.do";
@@ -87,9 +89,7 @@ public class MemberController {
 	}
 
 	@RequestMapping("minsert.me")
-	public String memberInert(@ModelAttribute Member m) {
-
-		System.out.println(m);
+	public String memberInsert(@ModelAttribute Member m, Model model) {
 
 		String enPwd = bcrypt.encode(m.getPwd());
 
@@ -98,6 +98,7 @@ public class MemberController {
 		int result = mService.insertMember(m);
 
 		if (result > 0) {
+			model.addAttribute("loginUser", m);
 			return "redirect:home.do";
 		} else {
 			throw new MemberException("회원 가입 실패");
@@ -106,12 +107,20 @@ public class MemberController {
 	}
 
 	@RequestMapping("mypage.me")
-	public ModelAndView myPage(ModelAndView mv, @RequestParam(value ="userId", required = false) String userId) {
+	public ModelAndView myPage(ModelAndView mv, @RequestParam(value = "userId", required = false) String userId, HttpServletResponse response) {
 
 		Member m = mService.memberInfo(userId);
+		
+		response.setContentType("application/json; charset=UTF-8");
+
+		ArrayList<Board> bList = mService.selectMyBoard(userId);
+		
+		// System.out.println("boardList : "+bList);
+
 
 		if (m != null) {
 			mv.addObject("user", m);
+			mv.addObject("bList", bList);
 		} else {
 			throw new MemberException("프로필 가져오기 실패");
 		}
@@ -157,15 +166,15 @@ public class MemberController {
 
 	@RequestMapping("mUpdate.me")
 	public String updateMember(@ModelAttribute Member m, Model model) {
-		
+
 		int result = mService.updateMember(m);
 //		System.out.println(m);
 		// System.out.println(result);
 
 		if (result > 0) {
-			
+
 			model.addAttribute("userId", m.getId());
-			
+
 			return "redirect:mypage.me";
 		} else {
 			throw new MemberException("회원 정보 수정에 실패하였습니다.");
@@ -178,7 +187,7 @@ public class MemberController {
 			@RequestParam("newPwd") String newPwd, Model model) {
 
 		Member m = (Member) session.getAttribute("loginUser");
-
+ 
 		String userId = m.getId();
 		String userPwd = m.getPwd();
 
@@ -228,6 +237,7 @@ public class MemberController {
 		for (int i = 0; i < 6; i++) {
 			rand += (int) (Math.random() * 9 + 1);
 		}
+		System.out.println("이메일인증번호" + rand);
 
 		String mailContent = "<div style='text-align: center;'><h1>코드모아 " + what + "이메일 인증</h1>";
 		mailContent += "<h3>인증번호를 입력해주세요</h3>";
@@ -247,6 +257,97 @@ public class MemberController {
 			e.printStackTrace();
 		}
 
+	}
+	
+	@RequestMapping("idCheck.me")
+	public void selectId(HttpServletResponse response, @RequestParam("id") String id) {
+		
+		int result = mService.selectId(id);
+		
+		try {
+			PrintWriter out = response.getWriter();
+			
+			if (result == 0) {
+				out.println(0);
+			} else {
+				out.println(1);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@RequestMapping("nickNameCheck.me")
+	public void selectNickName(HttpServletResponse response, @RequestParam("nickName") String nickName) {
+
+		int result = mService.selectNickName(nickName);
+
+		try {
+			PrintWriter out = response.getWriter();
+
+			if (result == 0) {
+				out.println(0);
+			} else {
+				out.println(1);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping(value = "kakaoLogin.me", produces = "application/test; charset=UTF-8")
+	@ResponseBody
+	public String kakaoLogin(HttpServletResponse response, Member m, Model model,
+						   @RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("nickName") String nickName) {
+		
+		System.out.println("email : " + email);
+		System.out.println("pwd : " + pwd);
+		System.out.println("nickName : " + nickName);
+		
+		String[] str = email.split("@");
+		String id = str[0];
+		m.setId(id);
+		m.setEmail(email);
+		m.setNickName(nickName);
+		m.setPwd(pwd);
+		
+		int emailCheck = mService.selectEmail(email);
+		
+		if(emailCheck == 0) { // 이메일 중복 X -> 회원가입
+			int nickCheck = mService.selectNickName(nickName);
+			int idCheck = mService.selectId(id);
+			
+			if(nickCheck > 0) {
+				m.setNickName(nickName + "1");
+			}
+			if(idCheck > 0) {
+				m.setId(id + "1");
+			}
+			
+			int result = mService.insertMember(m);
+			
+			if(result > 0) { // 정상 회원가입
+				Member loginUser = mService.login(m);
+				
+				if(loginUser != null) {
+					model.addAttribute("loginUser", loginUser);
+					return "home.do";
+				} else {
+					throw new MemberException("로그인 실패");
+				}
+			} else {
+				throw new MemberException("카카오 회원가입 실패");
+			}
+		} else { // 로그인
+			Member loginUser = mService.login(m);
+			if(loginUser != null) {
+				model.addAttribute("loginUser", loginUser);
+				return "home.do";
+			} else {
+				throw new MemberException("로그인 실패");
+			}
+		}
 	}
 
 }
