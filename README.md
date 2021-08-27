@@ -25,7 +25,7 @@
 3. index2.jsp  views에 추가
 4. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
 
-saveVideo
+saveVideo.jsp
 
 어쩌다 소스를 찾아서 만들게된 생각보다 간단한 비디오 저장 방법..!!
 혹시나 활용할 방법이 생각나시면 알려주세요!
