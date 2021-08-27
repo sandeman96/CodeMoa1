@@ -23,4 +23,5 @@
 1. homeController 15~19열까지 추가
 2. index.jsp,home.jsp 업데이트
 3. index2.jsp  views에 추가
+4. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
 
