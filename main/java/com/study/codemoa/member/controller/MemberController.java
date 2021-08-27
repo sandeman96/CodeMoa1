@@ -228,7 +228,9 @@ public class MemberController {
 	public void sendEmail(@RequestParam("mail") String email, @RequestParam("what") String what,
 			HttpServletResponse response) throws IOException {
 		response.setContentType("application/json; charset=UTF-8");
-
+		
+		System.out.println("email : " + email);
+		
 		String rand = "";
 		for (int i = 0; i < 6; i++) {
 			rand += (int) (Math.random() * 9 + 1);
@@ -345,4 +347,22 @@ public class MemberController {
 		}
 	}
 	
+	@RequestMapping("pwdReset.me")
+	public String pwdReset(@RequestParam(value = "email", required=false) String email, @RequestParam("pwd") String pwd) {
+		String[] str = email.split("@");
+		String userId = str[0];
+		String encPwd = bcrypt.encode(pwd);
+
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("userId", userId);
+		map.put("newPwd", encPwd);
+
+		int result = mService.updatePwd(map);
+		
+		if(result > 0) {
+			return "loginForm";
+		} else {
+			throw new MemberException("비밀번호 변경 실패");
+		}
+	}
 }
