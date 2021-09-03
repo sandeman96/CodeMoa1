@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,17 +14,15 @@
 <link rel="stylesheet" href="/codemoa/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<style>
-.mailbox-star {
-	z-index: 999;
-}
 
-/* .mailbox-subject {
-	width: 450px;
+<style>
+
+.mailbox-subject {
+	max-width: 310px; 
 	overflow: hidden;
-	text-overflow: ellipsis;
 	white-space: nowrap;
-} */
+	text-overflow: ellipsis;
+} 
 #msgTable {
 	max-height: 610.5px;
 	overflow-y: scroll;
@@ -37,7 +37,7 @@
 	border-radius: 10px;
 } /* 스크롤바 뒷 배경 설정*/
 #msgTable::-webkit-scrollbar-track {
-	background-color: rgba(0, 0, 0, 0);
+	background-color: #f2f2f2;
 }
 </style>
 
@@ -73,11 +73,33 @@
 			<div class="row">
 
 				<div class="col-4" style="max-width: 315px;">
-					<!-- <div class="btn-group-vertical">
-						<button type="button" class="btn btn-default btn-flat">Top</button>
-						<button type="button" class="btn btn-default btn-flat">Middle</button>
-						<button type="button" class="btn btn-default btn-flat">Bottom</button>
-					</div> -->
+				
+					<div class="card">
+			            <div class="card-header">
+			              <h3 class="card-title">${ loginUser.nickName }의 쪽지함</h3>
+			            </div>
+			            <div class="card-body p-0">
+			              <ul class="nav nav-pills flex-column">
+			                <li class="nav-item active">
+			                  <a href="messageBox.ms" class="nav-link">
+			                    <i class="fas fa-inbox"></i> 받은 쪽지함
+			                  </a>
+			                </li>
+			                <li class="nav-item">
+			                  <a href="sendBox.ms" class="nav-link">
+			                    <i class="far fa-envelope"></i> 보낸 쪽지함
+			                  </a>
+			                </li>
+			
+			                <!-- <li class="nav-item">
+			                  <a href="#" class="nav-link">
+			                    <i class="far fa-trash-alt"></i> Trash
+			                  </a>
+			                </li> -->
+			              </ul>
+			            </div>
+			            <!-- /.card-body -->
+			          </div>
 
 					<div class="card card-info">
 						<div class="card-header">
@@ -104,6 +126,7 @@
 							<!-- /.card-footer -->
 						</form>
 					</div>
+					
 
 				</div>
 
@@ -203,7 +226,7 @@
 								<!-- /.float-right -->
 							</div>
 							<div id="msgTable" class="table-responsive mailbox-messages">
-								<table class="table table-hover table-striped">
+								<table class="table table-hover table-striped col-12" style="table-layout:fixed;">
 									<tbody>
 
 										<c:if test="${ type eq 'receive'}">
@@ -223,7 +246,7 @@
 
 											<c:forEach var="m" items="${ list }">
 
-												<tr class="msgTr" data-widget="expandable-table" aria-expanded="false" style="height: 61px;">
+												<tr class="msgTr col-12" data-widget="expandable-table" aria-expanded="false" style="height: 61px;">
 													<td class="col-1">
 														<div class="icheck-danger">
 															<input type="checkbox" value="" id="${ m.mgNo }" class="check"> <label for="${ m.mgNo }"></label>
@@ -236,13 +259,15 @@
 														</c:url>
 														<a href="${ mypage }">${ m.mgNick }</a>
 													</td>
-													<td class="mailbox-subject col-4">${ m.mgContent }</td>
+													<td class="mailbox-subject col-4" >${ m.mgContent }</td>
 													<td class="mailbox-date col-3 text-center">${ m.mgDate }</td>
 													<td id="open-${ m.mgNo }" class="mailbox-date read text-sm text-right col-2">${ m.mgOpen eq "Y" ? "안읽음" : "읽음" }</td>
 												</tr>
-												<tr id="${ m.mgNo }-msg" class="expandable-body">
+												<tr id="${ m.mgNo }-msg" class="expandable-body col-12">
 													<td colspan="4">
-														<p>${ m.mgContent }</p>
+														<p>
+														${fn:replace(m.mgContent, newLineChar, "<br/>")}
+														</p>
 													</td>
 												</tr>
 
@@ -339,6 +364,15 @@
 
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+	
+	<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+  });
+</script>
+
+
 
 	<script>
 		$('#type').on('change', function() {
@@ -387,6 +421,7 @@
 			});
 		});
 		
+		
 
 		$('#mgNick').autocomplete({
 			source : nickList(),
@@ -434,13 +469,16 @@
 					type: '${type}'
 				}, success:function(data){
 					console.log(data);
+					if(data == 'success'){
+						location.reload();
+					}
 				}
 			});
 		}
 		
 		
 		function reloding(){
-			$('#msgTable').load(location.href + '#msgTable');
+			location.reload();
 		}
 		
 

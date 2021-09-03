@@ -113,24 +113,26 @@ public class MessageController {
 		if (result > 0) {
 			return "success";
 		} else {
-			throw new MessageException("메세지 상태 전환 실패");
+			return "fail";
 		}
 	}
 
 	@RequestMapping("deleteMessage.ms")
 	@ResponseBody
-	public String deleteMessage(@RequestParam("no") String no, @RequestParam("type") String type) {
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("no", no);
-		map.put("type", type);
-		System.out.println(map);
-		int result = msgService.deleteMessage(map);
-		// System.out.println(result);
-		if (result > 0) {
+	public String deleteMessage(@RequestParam("no") String[] no, @RequestParam("type") String type) {
+		
+		int result = 0;
+		for (int i = 0; i < no.length; i++) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("no", no[i]);
+			map.put("type", type);
+			result += msgService.deleteMessage(map);	
+		}
 
+		if (result == no.length) {
 			return "success";
 		} else {
-			throw new MessageException("쪽지 삭제 실패");
+			return "fail";
 		}
 
 	}
