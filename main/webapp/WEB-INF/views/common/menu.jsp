@@ -42,13 +42,21 @@
 	top: 58;
 	right: 15px;
 }
+
+#userProfileMini {
+	display: inline-block; 
+	height: 50px;
+	width: 50px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+
 </style>
 
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
-
-	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application" />
 
 	<div class="wrapper">
 
@@ -76,27 +84,6 @@
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<!-- Navbar Search -->
-				<li class="nav-item">
-					<a class="nav-link" data-widget="navbar-search" href="#" role="button">
-						<i class="fas fa-search"></i>
-					</a>
-					<div class="navbar-search-block">
-						<form>
-							<div class="input-group col-6 ml-7">
-								<input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-								<div class="input-group-append">
-									<button class="btn btn-navbar" type="submit">
-										<i class="fas fa-search"></i>
-									</button>
-									<button class="btn btn-navbar" type="button" data-widget="navbar-search">
-										<i class="fas fa-times"></i>
-									</button>
-								</div>
-							</div>
-						</form>
-					</div>
-				</li>
 
 				<!-- Messages Dropdown Menu -->
 				<li class="nav-item dropdown">
@@ -207,23 +194,22 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link" href="messageBox.ms">
 						<i class="far fa-bell"></i>
-						<span class="badge badge-warning navbar-badge">15</span>
+						<span id="msgBadge" class="badge badge-warning navbar-badge"></span>
 					</a>
 				</li>
 				</c:if>
-
-				<li class="nav-item">
-					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
-						<i class="fas fa-expand-arrows-alt"></i>
-					</a>
-				</li>
 
 				<li class="nav-item">
 					<a id="dark" class="nav-link" data-widget="dark-mode" data-slide="true" href="#" role="button">
 						<i class="fas fa-moon"></i>
 					</a>
 				</li>
-
+				
+				<li class="nav-item">
+					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
+						<i class="fas fa-expand-arrows-alt"></i>
+					</a>
+				</li>
 
 			</ul>
 		</nav>
@@ -233,17 +219,17 @@
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
 			<a href="/codemoa/" class="brand-link">
-				<img src="/codemoa/resources/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+				<img src="/codemoa/resources/img/codemoa.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 				<span class="brand-text font-weight-light">CODE MOA</span>
 			</a>
 			<!-- Sidebar -->
 			<div class="sidebar">
 
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="user-panel mt-3 mb-3 d-flex">
 					<c:if test="${ loginUser == null }">
 						<div class="info text-center">
-							<a href="loginForm.me" class="d-block">로그인을 해주세요</a>
+							<a href="loginForm.me" class="d-block mb-3">로그인을 해주세요</a>
 						</div>
 					</c:if>
 
@@ -251,11 +237,19 @@
 					<c:url var="mypage" value="mypage.me">
 						<c:param name="userId" value="${ loginUser.id }"/>
 					</c:url>
-						<div class="image">
-							<img src="resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+					
+						<div id="userProfileMini" class="text-center img-circle elevation-2 userImg">
+							<h6 style="line-height: 50px;">
+								<b>${ loginUser.nickName }</b>
+							</h6>
 						</div>
+						
 						<div class="info">
-							<a href="${ mypage }" class="d-block">${ loginUser.nickName }</a>
+							<h5>
+							<a href="${ mypage }" class="d-block" style="line-height:50px;">
+							${ loginUser.nickName }
+							</a>
+							</h5>
 						</div>
 					</c:if>
 				</div>
@@ -263,7 +257,7 @@
 				<nav class="mt-2">
 					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-						<li class="nav-item">
+						<li class="nav-item menu-open">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-code"></i>
 								<p>
@@ -281,7 +275,7 @@
 							</ul>
 						</li>
 
-						<li class="nav-item">
+						<li class="nav-item menu-open">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fas fa-users"></i>
 								<p>
@@ -294,7 +288,7 @@
 									<a href="boardListStudy.bo" class="nav-link"> Study </a>
 								</li>
 								<li class="nav-item">
-									<a href="job.bo"" class="nav-link"> Job </a>
+									<a href="job.bo" class="nav-link"> Job </a>
 								</li>
 							</ul>
 						</li>
@@ -307,12 +301,12 @@
 						</li>
 
 
-						<li class="nav-item">
+<!-- 						<li class="nav-item">
 							<a href="#" class="nav-link">
 								<i class="nav-icon fab fa-github"></i>
 								<p>Git Trending</p>
 							</a>
-						</li>
+						</li> -->
 
 					</ul>
 
@@ -366,6 +360,71 @@
 				$('#chatbox').css("display", 'none');
 			}
 		});
+		
+		$('#msgBadge').text();
+		
+		
+		function msgAlarm(){
+			if('${loginUser.id}' != null){
+				
+			$.ajax({
+				url:'msgAlarm.ms',
+				data: {
+					id:'${loginUser.id}'
+				}, success:function(data){
+					// console.log(data);
+					if(data != 0){
+						$('#msgBadge').text(data);						
+					}
+				}
+			});
+			}
+		}
+		
+		$(function(){
+			random();
+			msgAlarm();
+			userImg();
+			
+			setInterval(function(){
+				msgAlarm();
+			}, 60000);
+			
+			
+		});
+		
+		function random(){
+			var back_R = Math.floor(Math.random() * 256);
+			var back_G = Math.floor(Math.random() * 256);
+			var back_B = Math.floor(Math.random() * 256);
+
+			var font_R = Math.floor(Math.random() * 256);
+			var font_G = Math.floor(Math.random() * 256);
+			var font_B = Math.floor(Math.random() * 256);
+			
+			var backColor = 'rgb(' + back_R + ', ' + back_G + ', ' + back_B + ')';
+			var fontColor = 'rgb(' + font_R + ', ' + font_G + ', ' + font_B + ')';
+			
+			$('.userImg').css({
+				'background-color': backColor,
+				'color' :fontColor
+			});
+		}
+		
+		function userImg(){
+			$.ajax({
+				url:'profileImg.me',
+				data:{userId: '${loginUser.id}'},
+				success:function(data){
+					if('${userImg}' != 'none'){
+					console.log(data);
+						$("#userProfileMini h6").text("");
+						$("#userProfileMini").css({"background-image" :"url(/codemoa/resources/userProfile/"+data+")"});
+					}
+				}
+			});
+		}
+		
 	</script>
 
 </body>

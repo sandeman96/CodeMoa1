@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.board.model.vo.Likey;
 import com.study.codemoa.board.model.vo.PageInfo;
+import com.study.codemoa.board.model.vo.Reply;
 
 @Repository("bDAO")
 public class BoardDAO {
@@ -55,6 +56,22 @@ public class BoardDAO {
 	
 	public int deleteLike(SqlSessionTemplate sqlSession, Likey likey) {
 		return sqlSession.delete("boardMapper.deleteLike", likey);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("boardMapper.insertReply", r);
+	}
+
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int bNo) {
+		return (ArrayList) sqlSession.selectList("boardMapper.selectReplyList", bNo);
+	}
+
+	public int updateReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.update("boardMapper.updateReply", r);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int rNo) {
+		return sqlSession.update("boardMapper.deleteReply", rNo);
 	}
 
 }

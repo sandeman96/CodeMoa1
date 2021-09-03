@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.study.codemoa.board.model.vo.Board;
+import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.member.model.dao.MemberDAO;
 import com.study.codemoa.member.model.vo.Member;
 
@@ -84,6 +85,24 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Board> selectMyBoard(String userId) {
 
 		return mDao.selectMyBoard(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<Reply> selectMyReply(String userId) {
+
+		return mDao.selectMyReply(sqlSession, userId);
+	}
+
+	@Override
+	public int deleteBoard(int no) {
+
+		return mDao.deleteBoard(sqlSession, no);
+	}
+
+	@Override
+	public int deleteReply(int no) {
+
+		return mDao.deleteReply(sqlSession, no);
 	}
 
 }

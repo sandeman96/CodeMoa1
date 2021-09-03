@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
-import org.json.simple.JSONArray;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -33,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.study.codemoa.board.exception.BoardException;
@@ -40,6 +39,7 @@ import com.study.codemoa.board.model.service.BoardService;
 import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.board.model.vo.Likey;
 import com.study.codemoa.board.model.vo.PageInfo;
+import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.common.Pagination;
 import com.study.codemoa.dto.CodeMoaDTO;
 import com.study.codemoa.member.model.vo.Member;
@@ -61,15 +61,15 @@ public class BoardController {
 		if (page != null) {
 			currentPage = page;
 		}
-
+		
 		if (standard == null) {
 			standard = "bNo";
 		}
-
+	
 		int listCount = 0;
 		int bType = 0;
-
-		switch (boardName) {
+		
+			switch (boardName) {
 		case "Faq":
 			bType = 1;
 			break;
@@ -79,8 +79,6 @@ public class BoardController {
 		case "Study":
 			bType = 3;
 			break;
-//		case "Job" : boardName = "boardListJob"; break;
-//		case "Calendar" : boardName = "boardListCalendar"; break;
 		default:
 			throw new BoardException("게시판 열람에 실패하였습니다.");
 		}
@@ -264,14 +262,11 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
-
 		Elements elements = doc.select(".list-group-item-flex");
 		for (Element elem : elements) {
 			elem.select(".title-link").attr("href");
 			elem.select(".title-link").text();
-//			System.out.println();
+
 		}
 
 		Elements company = doc.select(".nickname");
@@ -331,9 +326,6 @@ public class BoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
 
 		Elements elements = doc.select(".list-group-item-flex");
 		for (Element elem : elements) {
@@ -398,9 +390,6 @@ public class BoardController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
 
 		Elements elements = doc.select(".list-group-item-flex");
 		for (Element elem : elements) {
@@ -482,9 +471,66 @@ public class BoardController {
 
 		Likey likey = bService.selectLike(l);
 
-		System.out.println(likey);
-
 		return likey;
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("insertReply.bo")
+	public String insertReply(@ModelAttribute Reply r, @RequestParam("bno") int bNo,
+			@RequestParam("userId") String userId, @RequestParam("rContent") String rContent) {
+		
+		r.setrContent(rContent);
+		r.setrWriter(userId);
+		r.setrBNo(bNo);
+		
+		int result = bService.insertReply(r);
+		if(result>0) {
+			return "success";
+		} else {
+			throw new BoardException("댓글 등록에 실패하였습니다.");
+		}
+	}
+	
+	@RequestMapping("rList.bo")
+	public void insertReply(@RequestParam("bno") int bNo,
+			HttpServletResponse response) {
+		ArrayList<Reply> rList = bService.selectReplyList(bNo);
+		response.setContentType("application/json; charset=UTF-8");
+		GsonBuilder gb = new GsonBuilder().setDateFormat("yyyy-MM-dd");
+		Gson gson = gb.create();
+		try {
+			gson.toJson(rList, response.getWriter());
+		} catch (JsonIOException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping("updateReply.bo")
+	public String updateReply(@ModelAttribute Reply r) {
+		
+		int result = bService.updateReply(r);
+		if(result>0) {
+			return "success";
+		} else {
+			throw new BoardException("댓글 수정에 실패하였습니다.");
+		}
+		
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping("deleteReply.bo")
+	public String deleteReply(@RequestParam("rNo") int rNo) {
+		
+		int result = bService.deleteReply(rNo);
+		if(result>0) {
+			return "success";
+		} else {
+			throw new BoardException("댓글 삭제에 실패하였습니다.");
+		}
+		
+		
+	}
+	
 }

@@ -7,21 +7,26 @@ public class Reply {
 	private int rNo;
 	private Date rDate;
 	private String rContent;
-	private String rStauts;
+	private String rStatus;
 	private String rWriter;
-	private String rBNo;
+	private int rBNo;
+	private String nickName;
+	private String bTitle;
 
 	public Reply() {
 	}
 
-	public Reply(int rNo, Date rDate, String rContent, String rStauts, String rWriter, String rBNo) {
+	public Reply(int rNo, Date rDate, String rContent, String rStatus, String rWriter, int rBNo, String nickName,
+			String bTitle) {
 		super();
 		this.rNo = rNo;
 		this.rDate = rDate;
 		this.rContent = rContent;
-		this.rStauts = rStauts;
+		this.rStatus = rStatus;
 		this.rWriter = rWriter;
 		this.rBNo = rBNo;
+		this.nickName = nickName;
+		this.bTitle = bTitle;
 	}
 
 	public int getrNo() {
@@ -48,12 +53,12 @@ public class Reply {
 		this.rContent = rContent;
 	}
 
-	public String getrStauts() {
-		return rStauts;
+	public String getrStatus() {
+		return rStatus;
 	}
 
-	public void setrStauts(String rStauts) {
-		this.rStauts = rStauts;
+	public void setrStatus(String rStatus) {
+		this.rStatus = rStatus;
 	}
 
 	public String getrWriter() {
@@ -64,18 +69,34 @@ public class Reply {
 		this.rWriter = rWriter;
 	}
 
-	public String getrBNo() {
+	public int getrBNo() {
 		return rBNo;
 	}
 
-	public void setrBNo(String rBNo) {
+	public void setrBNo(int rBNo) {
 		this.rBNo = rBNo;
+	}
+
+	public String getNickName() {
+		return nickName;
+	}
+
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+
+	public String getbTitle() {
+		return bTitle;
+	}
+
+	public void setbTitle(String bTitle) {
+		this.bTitle = bTitle;
 	}
 
 	@Override
 	public String toString() {
-		return "Reply [rNo=" + rNo + ", rDate=" + rDate + ", rContent=" + rContent + ", rStauts=" + rStauts
-				+ ", rWriter=" + rWriter + ", rBNo=" + rBNo + "]";
+		return "Reply [rNo=" + rNo + ", rDate=" + rDate + ", rContent=" + rContent + ", rStatus=" + rStatus
+				+ ", rWriter=" + rWriter + ", rBNo=" + rBNo + ", nickName=" + nickName + ", bTitle=" + bTitle + "]";
 	}
 
 }

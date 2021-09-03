@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.study.codemoa.board.model.vo.Board;
+import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.member.model.vo.Member;
 
 @Repository("mDao")
@@ -66,6 +67,21 @@ public class MemberDAO {
 	public ArrayList<Board> selectMyBoard(SqlSessionTemplate sqlSession, String userId) {
 
 		return (ArrayList) sqlSession.selectList("memberMapper.selectMyBoard", userId);
+	}
+
+	public ArrayList<Reply> selectMyReply(SqlSessionTemplate sqlSession, String userId) {
+
+		return (ArrayList) sqlSession.selectList("memberMapper.selectMyReply", userId);
+	}
+
+	public int deleteBoard(SqlSessionTemplate sqlSession, int no) {
+
+		return sqlSession.update("memberMapper.deleteBoard", no);
+	}
+
+	public int deleteReply(SqlSessionTemplate sqlSession, int no) {
+
+		return sqlSession.update("memberMapper.deleteReply", no);
 	}
 
 }

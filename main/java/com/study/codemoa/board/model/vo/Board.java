@@ -14,12 +14,14 @@ public class Board {
 	private String bFirst;
 	private String bWriter;
 	private int lCount;
+	private int rCount;
+	private String bTags;
 
 	public Board() {
 	}
 
 	public Board(int bNo, int bType, String bTitle, String bContent, String nickName, Date bDate, int bCount,
-			String bStatus, String bFirst, String bWriter, int lCount) {
+			String bStatus, String bFirst, String bWriter, int lCount, int rCount, String bTags) {
 		super();
 		this.bNo = bNo;
 		this.bType = bType;
@@ -32,6 +34,8 @@ public class Board {
 		this.bFirst = bFirst;
 		this.bWriter = bWriter;
 		this.lCount = lCount;
+		this.rCount = rCount;
+		this.bTags = bTags;
 	}
 
 	public int getbNo() {
@@ -122,11 +126,27 @@ public class Board {
 		this.lCount = lCount;
 	}
 
+	public int getrCount() {
+		return rCount;
+	}
+
+	public void setrCount(int rCount) {
+		this.rCount = rCount;
+	}
+
+	public String getbTags() {
+		return bTags;
+	}
+
+	public void setbTags(String bTags) {
+		this.bTags = bTags;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent=" + bContent
 				+ ", nickName=" + nickName + ", bDate=" + bDate + ", bCount=" + bCount + ", bStatus=" + bStatus
-				+ ", bFirst=" + bFirst + ", bWriter=" + bWriter + ", lCount=" + lCount + "]";
+				+ ", bFirst=" + bFirst + ", bWriter=" + bWriter + ", lCount=" + lCount + ", rCount=" + rCount
+				+ ", bTags=" + bTags + "]";
 	}
-
 }

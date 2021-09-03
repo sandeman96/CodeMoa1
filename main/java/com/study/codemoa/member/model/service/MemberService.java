@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.study.codemoa.board.model.vo.Board;
+import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.member.model.vo.Member;
 
 public interface MemberService {
@@ -29,5 +30,11 @@ public interface MemberService {
 	int selectId(String id);
 
 	ArrayList<Board> selectMyBoard(String userId);
+
+	ArrayList<Reply> selectMyReply(String userId);
+
+	int deleteBoard(int no);
+
+	int deleteReply(int no);
 
 }

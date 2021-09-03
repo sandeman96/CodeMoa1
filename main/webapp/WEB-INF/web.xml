@@ -86,24 +86,6 @@
 	</servlet-mapping>
 	
 	
-	<!-- 채팅 관련 -->
-<!-- 	<servlet>
-		<servlet-name>chatServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>
-			/WEB-INF/spring/appServlet/chat-context.xml
-			</param-value>
-		</init-param>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>chatServlet</servlet-name>
-		<url-pattern>*.ct</url-pattern>
-	</servlet-mapping> -->
-	
-	
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

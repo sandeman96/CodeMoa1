@@ -12,6 +12,7 @@ import com.study.codemoa.board.model.dao.BoardDAO;
 import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.board.model.vo.Likey;
 import com.study.codemoa.board.model.vo.PageInfo;
+import com.study.codemoa.board.model.vo.Reply;
 
 @Service("bService")
 public class BoardServiceImpl implements BoardService {
@@ -80,6 +81,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int deleteLike(Likey likey) {
 		return bDAO.deleteLike(sqlSession, likey);
+	}
+
+	@Override
+	public int insertReply(Reply r) {
+		return bDAO.insertReply(sqlSession, r);
+	}
+
+	@Override
+	public ArrayList<Reply> selectReplyList(int bNo) {
+		return bDAO.selectReplyList(sqlSession, bNo);
+	}
+
+	@Override
+	public int updateReply(Reply r) {
+		return bDAO.updateReply(sqlSession, r);
+	}
+
+	@Override
+	public int deleteReply(int rNo) {
+		return bDAO.deleteReply(sqlSession, rNo);
 	}
 
 

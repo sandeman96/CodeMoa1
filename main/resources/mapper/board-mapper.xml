@@ -5,21 +5,27 @@
 		select count(*) from board where b_status='Y' and b_type=#{bType} 
 	</select>
 
-	<select id="selectList" parameterType="hashmap" resultMap="boardResultSet">
-		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick,
-				(select count(l_no) from likey where l_bno = b_no) as "lCount"
-		from board
-		join member on (b_writer = m_id)
-		where b_status='Y' and b_type=#{bType} order by b_first desc
-		<if test="standard == 'bNo'">
-			, b_no desc
-		</if>
-		<if test="standard == 'bCount'">
-			, b_count desc
-		</if>
-		<if test="standard == 'lCount'">
-			, "lCount" desc
-		</if>
+	<select id="selectList" parameterType="hashmap" resultMap="boardResultSet">					
+			SELECT *
+			FROM (
+			SELECT b.b_no, b.b_type, b.b_title, b.b_content, b.b_date, b.b_count, b.b_status, 
+			b.b_first, b.b_writer, m.m_nick, 
+			(SELECT COUNT(r.r_no) FROM reply r WHERE r.r_bno = b.b_no and r.r_status='Y') as "rCount",
+			(SELECT COUNT(l.l_no) FROM likey l WHERE l.l_bno = b.b_no) as "lCount"
+			 FROM board b join member m on (b.b_writer = m.m_id)
+			 WHERE b.b_status = 'Y' and b.b_type=#{bType} order by b_first desc
+			<if test="standard == 'bNo'">
+				, b_no desc)
+			</if>
+			<if test="standard == 'bCount'">
+				, b_count desc)
+			</if>
+			<if test="standard == 'lCount'">
+				, "lCount" desc)
+			</if>
+			<if test="standard == 'rCount'">
+				, "rCount" desc)
+			</if>
 	</select>
 	<resultMap type="Board" id="boardResultSet">
 		<id column="B_NO" property="bNo" />
@@ -33,6 +39,7 @@
 		<result column="B_FIRST" property="bFirst" />
 		<result column="B_WRITER" property="bWriter" />
 		<result column="lCount" property="lCount" />
+		<result column="rCount" property="rCount" />
 	</resultMap>
 
 	<insert id="insertBoard">
@@ -45,11 +52,14 @@
 		where b_no=#{bNo}
 	</update>
 	<select id="selectBoard" resultMap="boardResultSet">
-		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick,
-				(select count(l_no) from likey where l_bno = #{bNo}) as "lCount"
-		from board
-		join member on (b_writer = m_id)
-		where b_no = #{bNo} and b_status='Y'
+		SELECT *
+			FROM (
+			SELECT b.b_no, b.b_type, b.b_title, b.b_content, b.b_date, b.b_count, b.b_status, 
+			b.b_first, b.b_writer, m.m_nick, 
+			(SELECT COUNT(r.r_no) FROM reply r WHERE r.r_bno = b.b_no and r.r_status='Y') as "rCount",
+			(SELECT COUNT(l.l_no) FROM likey l WHERE l.l_bno = b.b_no) as "lCount"
+			 FROM board b join member m on (b.b_writer = m.m_id)
+			 WHERE b.b_status = 'Y' and b_no=#{bNo})
 	</select>
 	<update id="updateBoard">
 		update board set b_type=#{bType}, b_title=#{bTitle}, b_content=#{bContent}
@@ -82,4 +92,34 @@
 		<result column="L_BNO" property="lBNo" />
 	</resultMap>
 	
+	<insert id="insertReply">
+		insert into Reply values (seq_rno.nextval, sysdate, #{rContent}, default, #{rWriter}, #{rBNo})
+	</insert>
+	<select id="selectReplyList" resultMap="replyResultSet">
+  		select r_no, r_date, r_content, r_status, m_nick, r_bno, r_writer from reply
+  		join member on (r_writer = m_id) join board on (r_bno=b_no)
+  		where r_bno = #{bNo}
+  		and r_status = 'Y'
+  		order by r_no desc
+  	</select>
+  	
+  	<resultMap type="Reply" id="replyResultSet">
+  		<id column="R_NO" property="rNo"/>
+  		<result column="R_DATE" property="rDate"/>
+	  	<result column="R_CONTENT" property="rContent"/>
+	  	<result column="R_STATUS" property="rStatus"/>
+	  	<result column="R_WRITER" property="rWriter"/>
+	  	<result column="R_BNO" property="rBNo"/>
+	  	<result column="M_NICK" property="nickName"/>
+	 </resultMap>
+	 
+	 <update id="updateReply">
+		update reply set r_content=#{rContent}
+		where r_no=#{rNo}
+	</update>
+	<update id="deleteReply">
+		update reply
+		set r_status='N'
+		where r_no=#{rNo}
+	</update>
 </mapper>

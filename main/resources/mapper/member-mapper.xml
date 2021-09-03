@@ -39,6 +39,7 @@
 		where m_id=#{id}
 	</update>
 	
+	
 	<update id="updatePwd" parameterType="hashmap">
 		update member set m_pwd=#{newPwd}
 		where m_id=#{userId}
@@ -77,12 +78,45 @@
 	
 	<select id="selectMyBoard" parameterType="string" resultMap="boardResultSet">
 		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick,
-				(select count(l_no) from likey where l_bno = b_no) as "lCount"
+				(select count(l_no) from likey where l_bno = b_no) as "lCount", 
+				(select count(r_no) from reply where r_bno = b_no) as "rCount"
 		from board
 		join member on (b_writer = m_id)
 		where b_status='Y' and b_writer = #{id}
 		order by b_no desc
 	</select>
+	
+	<select id="selectMyReply" parameterType="string" resultMap="replyResultSet">
+		select r_no, r_bno, r_date, r_content, r_status, r_writer, b_title
+		from reply
+		join board on(r_bno = b_no)
+		where r_status ='Y' and r_writer = #{id} and b_status='Y'
+		order by r_bno desc, r_date desc
+	</select>
+	
+	
+	<update id="deleteBoard" parameterType="_int">
+		update board
+		set b_status='N'
+		where b_no=#{no}
+	</update>
+	
+	<update id="deleteReply" parameterType="_int">
+		update reply
+		set r_status='N'
+		where r_no=#{no}
+	</update>
+	
+	<resultMap type="Reply" id="replyResultSet">
+  		<id column="R_NO" property="rNo"/>
+  		<result column="R_DATE" property="rDate"/>
+	  	<result column="R_CONTENT" property="rContent"/>
+	  	<result column="R_STATUS" property="rStatus"/>
+	  	<result column="R_WRITER" property="rWriter"/>
+	  	<result column="R_BNO" property="rBNo"/>
+	  	<result column="M_NICK" property="nickName"/>
+	  	<result column="B_TITLE" property="bTitle"/>
+	 </resultMap>
 	
 	<resultMap type="Board" id="boardResultSet">
 		<id column="B_NO" property="bNo" />
@@ -96,6 +130,7 @@
 		<result column="B_FIRST" property="bFirst" />
 		<result column="B_WRITER" property="bWriter" />
 		<result column="lCount" property="lCount" />
+		<result column="rCount" property="rCount" />
 	</resultMap>
 	
 

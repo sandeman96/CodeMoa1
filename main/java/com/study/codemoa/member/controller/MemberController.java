@@ -1,5 +1,6 @@
 package com.study.codemoa.member.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,14 +25,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;
 import com.study.codemoa.board.model.vo.Board;
+import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.member.model.exception.MemberException;
 import com.study.codemoa.member.model.service.MemberService;
 import com.study.codemoa.member.model.vo.Member;
+import com.study.codemoa.message.exception.MessageException;
+
+import oracle.net.aso.f;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -72,14 +80,14 @@ public class MemberController {
 			return "loginForm";
 		}
 
-		return "redirect:home.do";
+		return "redirect:/";
 	}
 
 	@RequestMapping("logout.me")
 	public String logout(SessionStatus session) {
 		session.setComplete();
 
-		return "redirect:home.do";
+		return "redirect:/";
 	}
 
 	@RequestMapping("enrollview.me")
@@ -99,7 +107,7 @@ public class MemberController {
 
 		if (result > 0) {
 			model.addAttribute("loginUser", m);
-			return "redirect:home.do";
+			return "redirect:/";
 		} else {
 			throw new MemberException("회원 가입 실패");
 		}
@@ -107,20 +115,24 @@ public class MemberController {
 	}
 
 	@RequestMapping("mypage.me")
-	public ModelAndView myPage(ModelAndView mv, @RequestParam(value = "userId", required = false) String userId, HttpServletResponse response) {
+	public ModelAndView myPage(ModelAndView mv, @RequestParam(value = "userId") String userId,
+			HttpServletResponse response) {
 
 		Member m = mService.memberInfo(userId);
-		
-		response.setContentType("application/json; charset=UTF-8");
+
+		// response.setContentType("application/json; charset=UTF-8");
 
 		ArrayList<Board> bList = mService.selectMyBoard(userId);
-		
-		// System.out.println("boardList : "+bList);
 
+		ArrayList<Reply> rList = mService.selectMyReply(userId);
+
+		String userImg = fileIs(userId);
 
 		if (m != null) {
 			mv.addObject("user", m);
 			mv.addObject("bList", bList);
+			mv.addObject("rList", rList);
+			mv.addObject("userImg", userImg);
 		} else {
 			throw new MemberException("프로필 가져오기 실패");
 		}
@@ -187,7 +199,7 @@ public class MemberController {
 			@RequestParam("newPwd") String newPwd, Model model) {
 
 		Member m = (Member) session.getAttribute("loginUser");
- 
+
 		String userId = m.getId();
 		String userPwd = m.getPwd();
 
@@ -224,7 +236,7 @@ public class MemberController {
 			throw new MemberException("회원탈퇴에 실패하였습니다.");
 		}
 
-		return "redirect:home.do";
+		return "redirect:/";
 	}
 
 	@RequestMapping("sendemail.me")
@@ -258,15 +270,15 @@ public class MemberController {
 		}
 
 	}
-	
+
 	@RequestMapping("idCheck.me")
 	public void selectId(HttpServletResponse response, @RequestParam("id") String id) {
-		
+
 		int result = mService.selectId(id);
-		
+
 		try {
 			PrintWriter out = response.getWriter();
-			
+
 			if (result == 0) {
 				out.println(0);
 			} else {
@@ -275,7 +287,7 @@ public class MemberController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	@RequestMapping("nickNameCheck.me")
@@ -295,59 +307,210 @@ public class MemberController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@RequestMapping("emailCheck.me")
+	public void selectEmail(HttpServletResponse response, @RequestParam("email") String email) {
+
+		int result = mService.selectEmail(email);
+
+		try {
+			PrintWriter out = response.getWriter();
+
+			if (result == 0) {
+				out.println(0);
+			} else {
+				out.println(1);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	@RequestMapping(value = "kakaoLogin.me", produces = "application/test; charset=UTF-8")
 	@ResponseBody
-	public String kakaoLogin(HttpServletResponse response, Member m, Model model,
-						   @RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("nickName") String nickName) {
-		
+	public String kakaoLogin(HttpServletResponse response, Member m, Model model, @RequestParam("email") String email,
+			@RequestParam("pwd") String pwd, @RequestParam("nickName") String nickName) {
+
 		System.out.println("email : " + email);
 		System.out.println("pwd : " + pwd);
 		System.out.println("nickName : " + nickName);
-		
+
 		String[] str = email.split("@");
 		String id = str[0];
+
+		String enPwd = bcrypt.encode(pwd);
+		System.out.println("pwd : " + enPwd);
+
+		m.setPwd(enPwd);
 		m.setId(id);
 		m.setEmail(email);
 		m.setNickName(nickName);
-		m.setPwd(pwd);
-		
+		// m.setPwd(pwd);
+
 		int emailCheck = mService.selectEmail(email);
-		
-		if(emailCheck == 0) { // 이메일 중복 X -> 회원가입
+
+		if (emailCheck == 0) { // 이메일 중복 X -> 회원가입
 			int nickCheck = mService.selectNickName(nickName);
 			int idCheck = mService.selectId(id);
-			
-			if(nickCheck > 0) {
+
+			if (nickCheck > 0) {
 				m.setNickName(nickName + "1");
 			}
-			if(idCheck > 0) {
+			if (idCheck > 0) {
 				m.setId(id + "1");
 			}
-			
+
 			int result = mService.insertMember(m);
-			
-			if(result > 0) { // 정상 회원가입
+
+			if (result > 0) { // 정상 회원가입
 				Member loginUser = mService.login(m);
-				
-				if(loginUser != null) {
+
+				if (loginUser != null) {
 					model.addAttribute("loginUser", loginUser);
-					return "home.do";
+					return "redirect:/";
 				} else {
 					throw new MemberException("로그인 실패");
 				}
+
 			} else {
 				throw new MemberException("카카오 회원가입 실패");
 			}
+
 		} else { // 로그인
 			Member loginUser = mService.login(m);
-			if(loginUser != null) {
+
+			if (bcrypt.matches(pwd, loginUser.getPwd())) {
 				model.addAttribute("loginUser", loginUser);
-				return "home.do";
+				return "index.jsp";
 			} else {
+				model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
 				throw new MemberException("로그인 실패");
 			}
+
+//			if(loginUser != null) {
+//				model.addAttribute("loginUser", loginUser);
+//				return "redirect:/";
+//			} else {
+//				throw new MemberException("로그인 실패");
+//			}
 		}
+	}
+
+	@RequestMapping("deleteBoard.me")
+	@ResponseBody
+	public String deleteBoard(@RequestParam("no") int[] no) {
+
+		int result = 0;
+		for (int i = 0; i < no.length; i++) {
+			result += mService.deleteBoard(no[i]);
+			// System.out.println(no[i]);
+		}
+
+		if (result == no.length) {
+			return "success";
+		} else {
+			return "fail";
+		}
+
+	}
+
+	@RequestMapping("deleteReply.me")
+	@ResponseBody
+	public String deleteReply(@RequestParam("no") int[] no) {
+
+		int result = 0;
+		for (int i = 0; i < no.length; i++) {
+			result += mService.deleteReply(no[i]);
+			// System.out.println(no[i]);
+		}
+
+		if (result == no.length) {
+			return "success";
+		} else {
+			return "fail";
+		}
+	}
+	
+	public String fileIs(String userId) {
+		
+		String root = "D:\\Final_Project\\CodeMoa\\src\\main\\webapp\\resources\\userProfile";
+
+		File file = new File(root);
+
+		String userImg = "none";
+
+		if (file.isDirectory()) {
+			File[] fList = file.listFiles();
+			for (int i = 0; i < fList.length; i++) {
+				String fileName = fList[i].getName().substring(0, fList[i].getName().lastIndexOf("."));
+				if (userId.equals(fileName)) {
+					userImg = fList[i].getName();
+				}
+			}
+		}
+		return userImg;
+	}
+
+	@RequestMapping("uploadImg.me")
+	public String uploadImg(@RequestParam("profileImg") MultipartFile uploadFile, HttpSession session,
+			HttpServletRequest request, Model m) {
+
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String savePath = root + "/userProfile";
+
+		System.out.println(request.getSession().getServletContext());
+
+		File folder = new File(savePath);
+		if (!folder.exists()) {
+			folder.mkdirs();
+		}
+
+		String originFileName = uploadFile.getOriginalFilename();
+
+		String renameFileName = ((Member) session.getAttribute("loginUser")).getId();
+
+		String renamePath = folder + "\\" + renameFileName + "."
+				+ originFileName.substring(originFileName.lastIndexOf(".") + 1);
+
+		// System.out.println(renamePath);
+
+		try {
+			uploadFile.transferTo(new File(renamePath));
+		} catch (Exception e) {
+			System.out.println("파일 전송 에러");
+			e.printStackTrace();
+		}
+
+		m.addAttribute("userId", renameFileName);
+		return "redirect:mypage.me";
+
+	}
+
+	@RequestMapping("deleteImg.me")
+	public String deleteImg(@RequestParam("userImg") String userImg, HttpSession session, Model m) {
+		String renameFileName = ((Member) session.getAttribute("loginUser")).getId();
+		String root = "D:\\Final_Project\\CodeMoa\\src\\main\\webapp\\resources\\userProfile";
+		File dFile = new File(root + "\\" + userImg);
+		System.out.println(userImg);
+
+		if (dFile.exists()) {
+			dFile.delete();
+			System.out.println("파일 삭제");
+		} else {
+			System.out.println("파일이 존재하지 않습니다.");
+		}
+
+		m.addAttribute("userId", renameFileName);
+		return "redirect:mypage.me";
+	}
+	
+	@RequestMapping("profileImg.me")
+	@ResponseBody
+	public String profileImg(@RequestParam("userId") String userId) {
+		String userImg = fileIs(userId);
+		
+		return userImg;
 	}
 
 }
