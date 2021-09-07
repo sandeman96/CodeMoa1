@@ -85,6 +85,33 @@ web.xml 부분입니다 편하신 곳에다 추가해주시면 되겠습니다..
 
 ---------------------------------------------
 
+admin-context.xml
+appServlet에 admin-context.xml 이 추가됩니다
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<mvc:annotation-driven/>
+	
+	<mvc:resources location="/resources" mapping="/resources/**"/>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/admin/"/>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<context:component-scan base-package="com.study.codemoa"/>
+	
+</beans>
+
+--------------------------------------------
+
 <Board> 부분 :
   boardDetail.jsp
   돌아가기 버튼 위에 들어가는 신고하기 버튼입니다.
