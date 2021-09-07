@@ -54,14 +54,9 @@ CREATE SEQUENCE SEQ_RNO
 ---------------------------------------------
 mybatis-config.xml 부분입니다. 각각의 부분에 넣어주시면 됩니다
 
-<!-- <typeAliases>
-		<typeAlias type="com.study.codemoa.admin.model.vo.Report" alias="Report" />
-</typeAliases>
+	<typeAlias type="com.study.codemoa.admin.model.vo.Report" alias="Report" />
 
-
-<mappers>
-		<mapper resource="mapper/admin-mapper.xml"/>
-</mappers> -->
+	<mapper resource="mapper/admin-mapper.xml"/>
 
 ---------------------------------------------
 
