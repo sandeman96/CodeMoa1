@@ -195,6 +195,32 @@ web.xml 부분입니다 편하신 곳에다 추가해주시면 되겠습니다..
   
   -----------------------------------------------------
   
+   menu.jsp 에 들어가는 부분입니다
+	</ul> 위에 넣어 주시면 됩니다
+	
+		<c:choose>
+        				<c:when test="${ loginUser != null and loginUser.admin =='Y'}">
+        		        	<li class="nav-item">
+		                     <a onclick="location.href='adminPage.ad'" class="nav-link">
+		                        <i class="nav-icon fab fa-github"></i>
+		                        <p>사용자 관리</p>
+		                     </a>
+                	 		</li>
+        				</c:when>
+        				<c:otherwise>
+        				<li class="nav-item">
+		                     <a onclick="location.href='adminPage.ad'" class="nav-link" style= "visibility: hidden;">
+		                        <i class="nav-icon fab fa-github"></i>
+		                        <p>사용자 관리</p>
+		                     </a> 
+        				</c:otherwise>
+        				</c:choose>
+	
+	
+	
+  -----------------------------------------------------
+	
+  
   이 외 나머지는 전부 admin 폴더로 들어갑니다
   
   
