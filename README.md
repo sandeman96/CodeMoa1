@@ -9,8 +9,8 @@ main 폴더도 한번에 올리기는 했는데, 게시판 관련된 코드들�
 <<Job페이지(크롤링)>>
 
 전에 추가하셨던 분들은 
-DTO폴더의 CodeMoaDTO와 community_Job.jsp를 새로 덮어쓰기 해주시고 
-BoardController 260행부터 435행까지(job.bo, crawling.bo, crawling2.bo, crawling3.bo) 덮어쓰기 해주시면 됩니다.
+DTO폴더의 CodeMoaDTO와 views/board의 community_Job.jsp를 새로 덮어쓰기 해주시고, 
+BoardController 260행부터 435행까지(job.bo, crawling.bo, crawling2.bo, crawling3.bo) 덮어쓰기 해주시고 메인페이지 부분 해주시면 됩니다!
 --------------------------------------------------------------------------------------------------------------
 
 --- 처음 추가하신다면 ---
