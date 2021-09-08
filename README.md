@@ -37,7 +37,11 @@ Job페이지(크롤링)
 3. BoardService에 List<BoardDTO> getBoardCountList(); List<BoardDTO> getBoardLikeList(); 추가
 4. BoardDAO 78 ~ 84 추가
 5. index.jsp,home.jsp 업데이트. index.jsp를 views 폴더 안에 위치시켜주세요! (home.jsp와 동일한 위치) 
-6. index2.jsp  views에 추가
+6. web.xml에 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/main.do</location>
+	</error-page>
 7. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
 
 --------------------------------------------------------------------
