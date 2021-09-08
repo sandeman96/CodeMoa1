@@ -57,7 +57,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">no</th>
-                      <th style="width: 230px">Title</th>
+                      <th>Title</th>
                       <th>&nbsp&nbsp&nbsp  Date</th>
                       <th style="width: 80px">Nick</th>
                     </tr>
@@ -96,7 +96,7 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">no</th>
-                      <th style="width: 230px">Title</th>
+                      <th>Title</th>
                       <th>&nbsp&nbsp&nbsp Date</th>
                       <th style="width: 80px">Nick</th>
                     </tr>
