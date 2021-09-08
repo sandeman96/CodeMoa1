@@ -45,6 +45,7 @@ typeAlias type="com.study.codemoa.dto.BoardDTO" alias="boardDTO"
 	web.xml 112 ~ 115행
 	
 7. images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg . resources dist img 에 추가
+8. board-mapper.xml 135 ~ 164 추가 
 
 --------------------------------------------------------------------
 
