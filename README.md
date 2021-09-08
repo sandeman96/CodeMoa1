@@ -28,7 +28,7 @@ main 폴더도 한번에 올리기는 했는데, 게시판 관련된 코드들�
   추가
   
 6. mybatis-config.xml에
-<typeAlias type="com.study.codemoa.dto.BoardDTO" alias="boardDTO" /> 
+typeAlias type="com.study.codemoa.dto.BoardDTO" alias="boardDTO" 
 
 실행 시 community_Job 페이지 우측 상단의
 ![잡마법사](./images/jobWizard.png) 클릭 하시면 됩니다.
