@@ -17,6 +17,14 @@ Job페이지(크롤링)
   
 3. views/board 에 community_job.jsp 추가
 4. menu.jsp 에 job 부분 href에 job.bo 
+5. pom.xml에 
+<!-- 크롤링__https://mvnrepository.com/artifact/org.jsoup/jsoup -->
+	<dependency>
+		<groupId>org.jsoup</groupId>
+		<artifactId>jsoup</artifactId>
+		<version>1.13.1</version>
+	</dependency>
+  추가
 
 실행 시 community_Job 페이지 우측 상단의
 ![잡마법사](./images/jobWizard.png) 클릭 하시면 됩니다.
@@ -24,10 +32,13 @@ Job페이지(크롤링)
 --------------------------------------------------------------------
 메인페이지(인덱스)
 
-1. homeController 15~19열까지 추가
-2. index.jsp,home.jsp 업데이트
-3. index2.jsp  views에 추가
-4. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
+1. BoardController 552행 @RequestMapping("main.do")부분 추가
+2. BoardServiceImpl 105행 부터 113행까지 추가
+3. BoardService에 List<BoardDTO> getBoardCountList(); List<BoardDTO> getBoardLikeList(); 추가
+4. BoardDAO 78 ~ 84 추가
+5. index.jsp,home.jsp 업데이트. index.jsp를 views 폴더 안에 위치시켜주세요! (home.jsp와 동일한 위치) 
+6. index2.jsp  views에 추가
+7. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
 
 --------------------------------------------------------------------
 
