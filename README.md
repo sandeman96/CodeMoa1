@@ -8,13 +8,19 @@ main 폴더도 한번에 올리기는 했는데, 게시판 관련된 코드들�
 --------------------------------------------------------------------
 <<Job페이지(크롤링)>>
 
+전에 추가하셨던 분들은 
+DTO폴더의 CodeMoaDTO와 community_Job.jsp를 새로 덮어쓰기 해주시고 
+BoardController 260행부터 435행까지(job.bo, crawling.bo, crawling2.bo, crawling3.bo) 덮어쓰기 해주시면 됩니다.
+--------------------------------------------------------------------------------------------------------------
+
+--- 처음 추가하신다면 ---
 1. dto 폴더 --> src/main/java/com.study.codemoa 에 위치
 
 2. BoardController --> 260행의 
 
 /*board community_Job 이동*/
   
-  부터 466행의 } 까지 추가
+  부터 435행의 } 까지 추가
   
 3. views/board 에 community_job.jsp 추가
 4. menu.jsp 에 job 부분 href에 job.bo 
