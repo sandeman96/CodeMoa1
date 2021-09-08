@@ -7,13 +7,15 @@ public class CodeMoaDTO {
 	private String position;
 	private String day;
 	private int closeDay;
+	private String linker;
 
-	public CodeMoaDTO(String company, String href, String title, String position, String day) {
+	public CodeMoaDTO(String company, String href, String title, String position, String day, String linker) {
 		this.company = company;
 		this.href = href;
 		this.title = title;
 		this.position = position;
 		this.day = day;
+		this.linker = linker;
 	}
 
 	public String getCompany() {
@@ -62,6 +64,14 @@ public class CodeMoaDTO {
 
 	public void setCloseDay(int closeDay) {
 		this.closeDay = closeDay;
+	}
+
+	public String getLinker() {
+		return linker;
+	}
+
+	public void setLinker(String linker) {
+		this.linker = linker;
 	}
 
 }

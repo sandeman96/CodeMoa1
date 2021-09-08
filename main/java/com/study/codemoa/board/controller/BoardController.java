@@ -276,25 +276,13 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
-
-		Elements elements = doc.select(".list-group-item-flex");
-		for (Element elem : elements) {
-			elem.select(".title-link").attr("href");
-			elem.select(".title-link").text();
-		}
-
 		Elements company = doc.select(".nickname");
 		Elements title = doc.select(".project");
 		Elements position = doc.select(".position");
 		Elements day = doc.select(".timeago");
-
-		String jobCompany = company.text();
-		String jobTitle = title.text();
-		String jobPosition = position.text();
-		String jobDay = day.text();
-
+		Elements linker = doc.select(".title-link");
+		
+		String companyTitleLinker = "";
 		String companyText = "";
 		String companyHref = "";
 		String companyTitle = "";
@@ -303,15 +291,17 @@ public class BoardController {
 		int closeDay = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
+		
 		CodeMoaDTO dto = null;
 		List<CodeMoaDTO> list = new ArrayList<>();
 		for (int i = 0; i < company.size() - 1; i++) {
+			companyTitleLinker = baseUrl + linker.get(i).attr("href");
 			companyText = company.get(i + 1).text();
 			companyHref = baseUrl + company.get(i + 1).attr("href");
 			companyTitle = title.get(i).text();
 			companyPosition = position.get(i).text();
 			;
-			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text());
+			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text(), companyTitleLinker);
 			try {
 				companyDay = sdf.parse(day.get(i).text());
 			} catch (ParseException e) {
@@ -343,25 +333,13 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
-
-		Elements elements = doc.select(".list-group-item-flex");
-		for (Element elem : elements) {
-			elem.select(".title-link").attr("href");
-			elem.select(".title-link").text();
-		}
-
 		Elements company = doc.select(".nickname");
 		Elements title = doc.select(".project");
 		Elements position = doc.select(".position");
 		Elements day = doc.select(".timeago");
-
-		String jobCompany = company.text();
-		String jobTitle = title.text();
-		String jobPosition = position.text();
-		String jobDay = day.text();
-
+		Elements linker = doc.select(".title-link");
+		
+		String companyTitleLinker = "";
 		String companyText = "";
 		String companyHref = "";
 		String companyTitle = "";
@@ -370,15 +348,17 @@ public class BoardController {
 		int closeDay = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
+		
 		CodeMoaDTO dto = null;
 		List<CodeMoaDTO> list = new ArrayList<>();
 		for (int i = 0; i < company.size() - 1; i++) {
+			companyTitleLinker = baseUrl + linker.get(i).attr("href");
 			companyText = company.get(i + 1).text();
 			companyHref = baseUrl + company.get(i + 1).attr("href");
 			companyTitle = title.get(i).text();
 			companyPosition = position.get(i).text();
 			;
-			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text());
+			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text(), companyTitleLinker);
 			try {
 				companyDay = sdf.parse(day.get(i).text());
 			} catch (ParseException e) {
@@ -410,43 +390,32 @@ public class BoardController {
 			e.printStackTrace();
 		}
 
-//		System.out.println("doc.toString()");
-//		System.out.println(doc.toString());
-
-		Elements elements = doc.select(".list-group-item-flex");
-		for (Element elem : elements) {
-			elem.select(".title-link").attr("href");
-			elem.select(".title-link").text();
-		}
-
 		Elements company = doc.select(".nickname");
 		Elements title = doc.select(".project");
 		Elements position = doc.select(".position");
 		Elements day = doc.select(".timeago");
-
-		String jobCompany = company.text();
-		String jobTitle = title.text();
-		String jobPosition = position.text();
-		String jobDay = day.text();
-
+		Elements linker = doc.select(".title-link");
+		
+		String companyTitleLinker = "";
 		String companyText = "";
 		String companyHref = "";
 		String companyTitle = "";
 		String companyPosition = "";
 		Date companyDay = null;
 		int closeDay = 0;
-
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date now = new Date();
+		
 		CodeMoaDTO dto = null;
 		List<CodeMoaDTO> list = new ArrayList<>();
 		for (int i = 0; i < company.size() - 1; i++) {
+			companyTitleLinker = baseUrl + linker.get(i).attr("href");
 			companyText = company.get(i + 1).text();
 			companyHref = baseUrl + company.get(i + 1).attr("href");
 			companyTitle = title.get(i).text();
 			companyPosition = position.get(i).text();
 			;
-			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text());
+			dto = new CodeMoaDTO(companyText, companyHref, companyTitle, companyPosition, day.get(i).text(), companyTitleLinker);
 			try {
 				companyDay = sdf.parse(day.get(i).text());
 			} catch (ParseException e) {
@@ -464,6 +433,7 @@ public class BoardController {
 
 		return mv;
 	}
+	
 	@ResponseBody
 	@RequestMapping("like.bo")
 	public String likeCount(@RequestParam("bno") int bno, @RequestParam("userId") String userId) {

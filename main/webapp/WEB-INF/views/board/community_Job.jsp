@@ -79,7 +79,7 @@ button.pm {font-size: 0.7rem; line-height: 0.8; background-color: #f5df4d; color
 												<td>
 													<span><button type="button" class="btn techs si">IT직무</button>&nbsp;</span>
 													<br />
-													<a href="<c:out value='${dto.href }' />" target="_blank"><c:out value="${dto.title}"/></a>
+													<a href="<c:out value='${dto.linker }' />" target="_blank"><c:out value="${dto.title}"/></a>
 												</td>
 												<td>
 													<button type="button" class="btn btn-secondary info"
