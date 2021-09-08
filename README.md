@@ -1,7 +1,8 @@
 # CodeMoa1
 👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻
 
-main 폴더도 한번에 올리기는 했는데, 게시판 관련된 코드들에 검색 기능 부분 작성하면서 수정된 부분들이 있습니다. 
+main 폴더도 한번에 올리기는 했는데, 게시판 관련된 코드들에 검색 기능 부분 작성하면서 수정된 부분들이 있습니다.
+왠만하면 밑에 표시되어있는 부분들만 수정하시는게 좋습니다!
 
 
 --------------------------------------------------------------------
@@ -37,23 +38,11 @@ Job페이지(크롤링)
 3. BoardService에 List<BoardDTO> getBoardCountList(); List<BoardDTO> getBoardLikeList(); 추가
 4. BoardDAO 78 ~ 84 추가
 5. index.jsp,home.jsp 업데이트. index.jsp를 views 폴더 안에 위치시켜주세요! (home.jsp와 동일한 위치) 
-6. web.xml에 
-	<error-page>
-		<error-code>404</error-code>
-		<location>/main.do</location>
-	</error-page>
-7. resources dist img 에 images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg 추가
+6. web.xml에 404에러페이지 /main.do 등록
+	web.xml 112 ~ 115행
+	
+7. images폴더에 있는 gatherTown.png , khad.jpg, sufit.jpg . resources dist img 에 추가
 
 --------------------------------------------------------------------
 
-
-
-
-
-
--- saveVideo.jsp --
-
-어쩌다 소스를 찾아서 만들게된 생각보다 간단한 비디오 저장 방법..!!
-혹시나 활용할 방법이 생각나시면 알려주세요!
-제 HomeController 파일에 코드 있으니 이용해서 한번 써보세요!
 
