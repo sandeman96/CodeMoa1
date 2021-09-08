@@ -42,7 +42,7 @@ typeAlias type="com.study.codemoa.dto.BoardDTO" alias="boardDTO"
 --------------------------------------------------------------------
 <<메인페이지(인덱스)>>
 
-1. BoardController 552행 @RequestMapping("main.do")부분 추가
+1. BoardController 최하단의  @RequestMapping("main.do")부분 추가
 2. BoardServiceImpl 105행 부터 113행까지 추가
 3. BoardService에 List<BoardDTO> getBoardCountList(); List<BoardDTO> getBoardLikeList(); 추가
 4. BoardDAO 78 ~ 84 추가
