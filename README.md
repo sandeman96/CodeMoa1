@@ -54,3 +54,9 @@
    
    		<typeAlias type="com.study.codemoa.message.model.vo.Message" alias="Message" />
 		<mapper resource="mapper/message-mapper.xml" />
+		
+		
+loginForm
+상단 테두리색 노란색으로 변경
+
+코드모아 이메일 생성 및 mail-context.xml 변경
