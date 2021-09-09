@@ -48,3 +48,8 @@
 			FOREIGN KEY (MG_SENDER)
 			REFERENCES MEMBER (M_ID);
    
+   
+   ** 쪽지 최종
+   mybatis-config.xml 
+   		<typeAlias type="com.study.codemoa.message.model.vo.Message" alias="Message" />
+		<mapper resource="mapper/message-mapper.xml" />
