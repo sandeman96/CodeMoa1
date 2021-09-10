@@ -28,3 +28,5 @@
               from chat
                    left join member on (c_sender = m_id);
           
+              이미지
+              resources -> img 이미지 
