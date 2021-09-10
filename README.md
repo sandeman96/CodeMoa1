@@ -27,7 +27,9 @@
               select c_no, c_date, c_chat, m_nick as c_sender, c_room
               from chat
                    left join member on (c_sender = m_id);
-          
+              cr_member 삭제
+     
+
               이미지
               resources -> img 이미지 
               
