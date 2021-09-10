@@ -44,4 +44,8 @@ public class Likey {
 		return "Likey [lNo=" + lNo + ", lId=" + lId + ", lBNo=" + lBNo + "]";
 	}
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5

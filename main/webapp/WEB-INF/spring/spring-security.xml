@@ -4,7 +4,12 @@
 	xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.5.xsd">
+<<<<<<< HEAD
 		
 		<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="bcrytptPasswordEncoder"/>
 
+=======
+
+	<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" id="bcryptPasswordEncoder"/>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 </beans>

@@ -7,6 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
 	
+<<<<<<< HEAD
 	<mvc:annotation-driven />
 	
 	<mvc:resources mapping="/resources/**" location="/resources/"/> <!-- 정적인 데이터 파일 매칭(작은 resources) - 이미지, css 등 -->
@@ -19,4 +20,16 @@
 	<context:component-scan base-package="com.study.codemoa" />
 	
 
+=======
+	<mvc:annotation-driven/> <!-- 어노테이션 설정 방식 사용 -->
+
+	<mvc:resources mapping="/resources/**" location="/resources/"/> <!-- 정적인 데이터 파일 위치 매핑 -->
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/member/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<context:component-scan base-package="com.study.codemoa"/>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 </beans>

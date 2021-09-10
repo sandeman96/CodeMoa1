@@ -1,5 +1,10 @@
 package com.study.codemoa;
 
+<<<<<<< HEAD
+=======
+import java.text.DateFormat;
+import java.util.Date;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -22,6 +27,17 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
+<<<<<<< HEAD
+=======
+		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 		
 		return "home";
 	}

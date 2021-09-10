@@ -8,14 +8,22 @@ public class Message {
 	private String mgContent;
 	private String mgStatus;
 	private String mgOpen;
+<<<<<<< HEAD
 	private String mgReciver;
+=======
+	private String mgReceiver;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	private String mgSender;
 	
 	public Message() {
 
 	}
 
+<<<<<<< HEAD
 	public Message(int mgNo, Date mgDate, String mgContent, String mgStatus, String mgOpen, String mgReciver,
+=======
+	public Message(int mgNo, Date mgDate, String mgContent, String mgStatus, String mgOpen, String mgReceiver,
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 			String mgSender) {
 		super();
 		this.mgNo = mgNo;
@@ -23,7 +31,11 @@ public class Message {
 		this.mgContent = mgContent;
 		this.mgStatus = mgStatus;
 		this.mgOpen = mgOpen;
+<<<<<<< HEAD
 		this.mgReciver = mgReciver;
+=======
+		this.mgReceiver = mgReceiver;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 		this.mgSender = mgSender;
 	}
 
@@ -67,12 +79,21 @@ public class Message {
 		this.mgOpen = mgOpen;
 	}
 
+<<<<<<< HEAD
 	public String getMgReciver() {
 		return mgReciver;
 	}
 
 	public void setMgReciver(String mgReciver) {
 		this.mgReciver = mgReciver;
+=======
+	public String getmgReceiver() {
+		return mgReceiver;
+	}
+
+	public void setmgReceiver(String mgReceiver) {
+		this.mgReceiver = mgReceiver;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	}
 
 	public String getMgSender() {
@@ -86,7 +107,14 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [mgNo=" + mgNo + ", mgDate=" + mgDate + ", mgContent=" + mgContent + ", mgStatus=" + mgStatus
+<<<<<<< HEAD
 				+ ", mgOpen=" + mgOpen + ", mgReciver=" + mgReciver + ", mgSender=" + mgSender + "]";
 	}
 
 }
+=======
+				+ ", mgOpen=" + mgOpen + ", mgReceiver=" + mgReceiver + ", mgSender=" + mgSender + "]";
+	}
+
+}
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5

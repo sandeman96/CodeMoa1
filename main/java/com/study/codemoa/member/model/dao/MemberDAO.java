@@ -1,5 +1,6 @@
 package com.study.codemoa.member.model.dao;
 
+<<<<<<< HEAD
 import org.mybatis.spring.SqlSessionTemplate;
 
 import org.springframework.stereotype.Repository;
@@ -27,5 +28,12 @@ public class MemberDAO {
 		
 		return sqlSession.selectOne("memberMapper.memberInfo", user);
 	}
+=======
+import org.springframework.stereotype.Repository;
+
+
+@Repository("mDAO")
+public class MemberDAO {
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 
 }

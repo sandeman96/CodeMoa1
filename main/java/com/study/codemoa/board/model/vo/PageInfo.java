@@ -1,7 +1,10 @@
 package com.study.codemoa.board.model.vo;
 
 public class PageInfo {
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	private int currentPage;
 	private int listCount;
 	private int pageLimit;
@@ -10,9 +13,14 @@ public class PageInfo {
 	private int endPage;
 	private int boardLimit;
 	
+<<<<<<< HEAD
 	public PageInfo() {
 	}
 	
+=======
+	public PageInfo() {}
+
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	public PageInfo(int currentPage, int listCount, int pageLimit, int maxPage, int startPage, int endPage,
 			int boardLimit) {
 		super();
@@ -86,6 +94,12 @@ public class PageInfo {
 		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", pageLimit=" + pageLimit
 				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", boardLimit="
 				+ boardLimit + "]";
+<<<<<<< HEAD
 	}	
 
+=======
+	}
+	
+	
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 }

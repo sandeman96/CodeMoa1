@@ -5,6 +5,7 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+<<<<<<< HEAD
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
 	<mvc:annotation-driven />
@@ -17,5 +18,19 @@
 	</bean>
 	
 	<context:component-scan base-package="com.study.codemoa" />
+=======
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<mvc:annotation-driven/>
+	
+	<mvc:resources location="/resources" mapping="/resources/**"/>
+	
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/board/"/>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<context:component-scan base-package="com.study.codemoa"/>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	
 </beans>

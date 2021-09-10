@@ -4,12 +4,17 @@ import java.sql.Date;
 
 public class Board {
 	private int bNo;
+<<<<<<< HEAD
 	private String bType;
+=======
+	private int bType;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	private String bTitle;
 	private String bContent;
 	private Date bDate;
 	private int bCount;
 	private String bStatus;
+<<<<<<< HEAD
 	private String bFirst;
 	private String bWriter;
 	
@@ -109,4 +114,6 @@ public class Board {
 				+ "]";
 	}
 
+=======
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 }

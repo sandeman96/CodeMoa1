@@ -3,6 +3,7 @@
 <configuration>
 
 	<settings>
+<<<<<<< HEAD
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 
@@ -19,4 +20,19 @@
 		<mapper resource="mapper/board-mapper.xml" />
 	</mappers> 
 
+=======
+		<setting name="jdbcTypeForNull" value="NULL"/>
+		<!-- null도 값이다라는 문구 -->
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.study.codemoa.member.model.vo.Member" alias="Member"/>
+		<typeAlias type="com.study.codemoa.board.model.vo.Board" alias="Board"/>
+		<typeAlias type="com.study.codemoa.board.model.vo.Reply" alias="Reply"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mapper/member-mapper.xml"/>
+		<mapper resource="mapper/board-mapper.xml"/>
+		<mapper resource="mapper/admin-mapper.xml"/>
+	</mappers>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 </configuration>

@@ -1,11 +1,18 @@
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 <%@ page session="false" %>
 <html>
 <head>
 	<title>Home</title>
 </head>
 <body>
+<<<<<<< HEAD
 
 	<c:import url="common/menu.jsp"/>
 
@@ -19,3 +26,7 @@
 	
 </body>
 </html>
+=======
+</body>
+</html>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5

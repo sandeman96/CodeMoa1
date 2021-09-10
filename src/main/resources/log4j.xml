@@ -11,12 +11,21 @@
 	</appender>
 	
 	<appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+<<<<<<< HEAD
 		<param name="File" value="/logs/chat/chat.log"/>
 		<param name="Append" value="true"/><!-- 덮어쓰기 -->
 		<param name="encoding" value="UTF-8"/>
 		<param name="DatePattern" value="'.'yyyyMMdd"/>
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+=======
+		<param name="File" value="/logs/chat/chat.log" />
+		<parma name="Append" value="true"/> 
+		<param name="encoding" value="UTF-8"/>
+		<param name="DatePattern" value="'.'yyyyMMdd"/>
+		 <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} {%p} %c{1}.%M{%L} -  %m%n"/>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 		</layout>
 	</appender>
 	
@@ -26,6 +35,15 @@
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
+<<<<<<< HEAD
+=======
+	
+	<logger name="com.study.codemoa.common.log.ChatLog;" additivity="false">
+      <level value="info"/>
+      <appender-ref ref="myDailyRollingFile"/>
+   </logger>
+	
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -41,11 +59,14 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
+<<<<<<< HEAD
 	
 	<logger name="com.study.codemoa.common.log.ChatLog" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="myDailyRollingFile"/>
 	</logger>
+=======
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 
 	<!-- Root Logger -->
 	<root>
@@ -53,4 +74,8 @@
 		<appender-ref ref="console" />
 	</root>
 	
+<<<<<<< HEAD
 </log4j:configuration>
+=======
+</log4j:configuration>
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5

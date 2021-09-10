@@ -4,19 +4,33 @@ import java.sql.Date;
 
 public class Board {
 	private int bNo;
+<<<<<<< HEAD
 	private String bType;
 	private String bTitle;
 	private String bContent;
 	private Date bDate;
 	private int bCount;
+=======
+	private int bType;
+	private String bTitle;
+	private String bContent;
+	private Date bDate;
+	private String bCount;
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 	private String bStatus;
 	private String bFirst;
 	private String bWriter;
 	
+<<<<<<< HEAD
 	public Board() {
 	}
 
 	public Board(int bNo, String bType, String bTitle, String bContent, Date bDate, int bCount, String bStatus,
+=======
+	public Board() {}
+
+	public Board(int bNo, int bType, String bTitle, String bContent, Date bDate, String bCount, String bStatus,
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 			String bFirst, String bWriter) {
 		super();
 		this.bNo = bNo;
@@ -38,11 +52,19 @@ public class Board {
 		this.bNo = bNo;
 	}
 
+<<<<<<< HEAD
 	public String getbType() {
 		return bType;
 	}
 
 	public void setbType(String bType) {
+=======
+	public int getbType() {
+		return bType;
+	}
+
+	public void setbType(int bType) {
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 		this.bType = bType;
 	}
 
@@ -70,11 +92,19 @@ public class Board {
 		this.bDate = bDate;
 	}
 
+<<<<<<< HEAD
 	public int getbCount() {
 		return bCount;
 	}
 
 	public void setbCount(int bCount) {
+=======
+	public String getbCount() {
+		return bCount;
+	}
+
+	public void setbCount(String bCount) {
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 		this.bCount = bCount;
 	}
 
@@ -108,5 +138,14 @@ public class Board {
 				+ bDate + ", bCount=" + bCount + ", bStatus=" + bStatus + ", bFirst=" + bFirst + ", bWriter=" + bWriter
 				+ "]";
 	}
+<<<<<<< HEAD
 
 }
+=======
+	
+	
+	
+	
+	
+}
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5

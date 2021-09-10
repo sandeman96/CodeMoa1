@@ -10,7 +10,11 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+<<<<<<< HEAD
 :root {
+=======
+ :root {
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -4725,7 +4729,11 @@ input[type=submit].btn-block {
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
+<<<<<<< HEAD
     background-color: #fff;
+=======
+/*     background-color: #fff; */
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
     background-clip: border-box;
     border: 0 solid rgba(0,0,0,.125);
     border-radius: 0.25rem;
@@ -14698,7 +14706,11 @@ body.text-sm .control-sidebar {
 }
 .nav-pills .nav-link:not(.active):hover {
     color: #f5df4d;
+<<<<<<< HEAD
     /* 硫붾돱 踰꾪듉 �샇踰� */
+=======
+    /* 메뉴 버튼 호버 */
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
 }
 .nav-pills .nav-item.dropdown.show .nav-link:hover {
     color: #fff;
@@ -44747,4 +44759,10 @@ a.text-muted:hover {
 .dark-mode .dark-mode.accent-gray-dark .page-item .page-link:hover {
     color: #3f474e;
 }
+<<<<<<< HEAD
 /*# sourceMappingURL=adminlte.min.css.map */
+=======
+
+
+/*# sourceMappingURL=adminlte.min.css.map */
+>>>>>>> 86d0c34382858c0e7d4851736c88e6684481eca5
