@@ -30,3 +30,11 @@
           
               이미지
               resources -> img 이미지 
+              
+              pom.xml 추가
+              <!-- 웹 소켓 -->
+              <dependency>
+                      <groupId>org.springframework</groupId>
+                      <artifactId>spring-websocket</artifactId>
+                      <version>${org.springframework-version}</version>
+              </dependency>
