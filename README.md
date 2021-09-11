@@ -397,8 +397,7 @@ if('${loginUser.admin}' != 'Y' || data[i].rWriter == '${loginUser.id}' || '${ b.
 
 *******************************
 *******************************
-
-<< mapper >>
+ mapper 
 ## boardMapper
 →  조건문에 b.b_status = 'Y' 삭제 : 관리자가 삭제된 게시글도 확인하기 위해
 <select id="selectBoard" resultMap="boardResultSet">
