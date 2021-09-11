@@ -14,7 +14,7 @@ message.ms로 이동시 message 화면이 아닌 home.do 화면이 나옵니다,
 해경님이 작성한 admin 정보는 해경님이 보내주신걸로 올려 드리겠습니다.
 번거롭더라도 한번씩만 확인해주세요..
 
-<member> 
+member: 
 MemberController : login.me(수정) nickUpdate.me(추가)
   
 MemberService~DAO : nickUpdate.me(추가)
@@ -110,7 +110,7 @@ member-mapper.xml 쿼리문입니다
 	</update>
   
 ---------------------------------------------
-<board>
+board:
 BoardController : deleteBoard.bo(수정) insertFirstBoardForm.bo(추가)
   
 BoardService~DAO : 
