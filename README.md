@@ -65,6 +65,7 @@ loginForm
 
 <h2>합친것</h2>
 ![image](https://user-images.githubusercontent.com/84279882/132993612-c2a89c67-fb17-449e-a6eb-4c77afbb00da.png)
+
 코드 변경해서 사이드바 넘기는거 안쓰도록 했습니다. 
 
 adminpage에서 검색 안쓰는거 같아서 검색창 지웠고 태그들 중복되는거 살짝 정리했습니다.
