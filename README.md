@@ -60,3 +60,45 @@ loginForm
 상단 테두리색 노란색으로 변경
 
 코드모아 이메일 생성 및 mail-context.xml 변경
+
+
+
+<h2>합친것</h2>
+![image](https://user-images.githubusercontent.com/84279882/132993612-c2a89c67-fb17-449e-a6eb-4c77afbb00da.png)
+코드 변경해서 사이드바 넘기는거 안쓰도록 했습니다. 
+
+adminpage에서 검색 안쓰는거 같아서 검색창 지웠고 태그들 중복되는거 살짝 정리했습니다.
+adminSidebar 이미지 안뜨도록 했고 사용자 메뉴 추가해서 따로 변경 안해도 되도록 했습니다. 
+
+오라클에서 추가해주세요!
+
+			CREATE TABLE REPORT ( 
+			    P_NO NUMBER NOT NULL, 
+			    P_TYPE NUMBER NOT NULL, 
+			    P_TITLE VARCHAR2(100) NOT NULL, 
+			    P_CONTENT VARCHAR2(4000) NOT NULL, 
+			    P_DATE DATE DEFAULT SYSDATE NOT NULL, 
+			    P_STATUS VARCHAR2(100) DEFAULT 'Y' NOT NULL, 
+			    P_BNO NUMBER NOT NULL, 
+			    P_RECEIVER VARCHAR2(100) NOT NULL, 
+			    P_REPORTER VARCHAR2(100) NOT NULL, 
+			    P_BPAGE VARCHAR2(20) NOT NULL, 
+			    P_MNICK VARCHAR2(100) NOT NULL, 
+			    P_BTYPE VARCHAR2(10) NOT NULL 
+			);
+
+			ALTER TABLE REPORT ADD CONSTRAINT PK_REPORT PRIMARY KEY ( P_NO );
+
+			ALTER TABLE REPORT ADD CONSTRAINT REPORT_MEMBER_ID FOREIGN KEY (P_RECEIVER) REFERENCES MEMBER (M_ID);
+
+			ALTER TABLE REPORT ADD CONSTRAINT REPORT_MEMBER_ID2 FOREIGN KEY (P_REPORTER) REFERENCES MEMBER (M_ID);
+
+			ALTER TABLE REPORT ADD CONSTRAINT REPORT_BOARD_ID FOREIGN KEY (P_BNO) REFERENCES BOARD (B_NO);
+			
+			
+			
+			
+			
+			+ member부분에 m_enable하나만 추가해주시면 됩니다.
+
+
