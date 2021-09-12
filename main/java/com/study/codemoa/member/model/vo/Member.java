@@ -12,13 +12,14 @@ public class Member {
 	private String location;
 	private String skill;
 	private String note;
+	private String enable;
 
 	public Member() {
 
 	}
 
 	public Member(String id, String email, String pwd, String nickName, String status, String admin, String education,
-			String location, String skill, String note) {
+			String location, String skill, String note, String enable) {
 		super();
 		this.id = id;
 		this.email = email;
@@ -30,6 +31,7 @@ public class Member {
 		this.location = location;
 		this.skill = skill;
 		this.note = note;
+		this.enable = enable;
 	}
 
 	public String getId() {
@@ -112,11 +114,19 @@ public class Member {
 		this.note = note;
 	}
 
+	public String getEnable() {
+		return enable;
+	}
+
+	public void setEnable(String enable) {
+		this.enable = enable;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", nickName=" + nickName + ", status="
 				+ status + ", admin=" + admin + ", education=" + education + ", location=" + location + ", skill="
-				+ skill + ", note=" + note + "]";
+				+ skill + ", note=" + note + ", enable=" + enable + "]";
 	}
 
 }

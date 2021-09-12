@@ -19,6 +19,8 @@ import com.study.codemoa.member.model.vo.Member;
 @Repository("adDAO")
 public class AdminDAO {
 	
+	
+	
 	/* 관리자 메인 화면 게시글 총합 */
 	public int getListCountB(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("adminMapper.getListCount");
@@ -103,11 +105,64 @@ public class AdminDAO {
 		return bList;
 	}
 	
+	/* adminReportMember에 member 사용 */
+	public ArrayList<Member> selectReportM(SqlSessionTemplate sqlSession, Member m) {
+		ArrayList<Member> mList = (ArrayList)sqlSession.selectList("adminMapper.selectReportM", m);
+		return mList;
+	}
+	
+	/* 유저 정지시키는 dao */
+	public int userEnable(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.update("adminMapper.userEnable", id);
+	}
+	
+	/* 신고보드 삭제용 */
+	public int deleteReportB(SqlSessionTemplate sqlSession, String bNo) {
+		return sqlSession.update("adminMapper.deleteReportB", bNo);
+	}
+	
+	/* ---------------------본--------------------- */
+	
+	public int getListCountM2(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("adminMapper.getMemberCountM", map);
+	}
 
-//	public Object deleteBoardReport(SqlSessionTemplate sqlSession, String string) {
-//		return sqlSession.update("adminMapper.deleteReport", string);
-//	}
+	public ArrayList<Member> selectMember2(SqlSessionTemplate sqlSession, HashMap<String, String> map, MemberInfo mi) {
+		int offset = mi.getBoardLimitM() * (mi.getCurrentPageM() -1);
+		RowBounds rbM = new RowBounds(offset, mi.getBoardLimitM());
+		
+		ArrayList<Member> mList = (ArrayList)sqlSession.selectList("adminMapper.selectMemberM", map, rbM);
+		
+		return mList;
+	}
 
+	public int getListCountB2(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.selectOne("adminMapper.getBoardListCountB", map);
+	}
 
+	public ArrayList<Board> selectBoard2(SqlSessionTemplate sqlSession, HashMap<String, String> map, BoardInfo bi) {
+		int offset = bi.getBoardLimitB() * (bi.getCurrentPageB() -1);
+		RowBounds rb = new RowBounds(offset, bi.getBoardLimitB());
+		
+		ArrayList<Board> bList = (ArrayList)sqlSession.selectList("adminMapper.selectBoardB", map, rb);
+		
+		return bList;
+	}
+
+	public Member pwdCheck(SqlSessionTemplate sqlSession, Member m) {
+		return sqlSession.selectOne("adminMapper.pwdCheck", m);
+	}
+	
+	public int updateBoard(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("adminMapper.updateBoard", map);
+	}
+
+	public int updateAdminMember(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("adminMapper.updateAdminMember", map);
+	}
+
+	public int updateStatusMember(SqlSessionTemplate sqlSession, HashMap<String, String> map) {
+		return sqlSession.update("adminMapper.updateStatusMember", map);
+	}
 	
 }

@@ -105,4 +105,10 @@ public class MemberServiceImpl implements MemberService {
 		return mDao.deleteReply(sqlSession, no);
 	}
 
+	@Override
+	public int updateNick(Member m) {
+
+		return mDao.updateNick(sqlSession, m);
+	}
+
 }

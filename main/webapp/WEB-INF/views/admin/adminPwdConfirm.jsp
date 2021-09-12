@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>권한수정 비밀번호 입력</title>
+<title>Codemoa</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,42 +23,33 @@
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-
+<!-- Daterange picker -->
+<link rel="stylesheet" href="/codemoa/resources/plugins/daterangepicker/daterangepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
-<body>
-	<c:import url="../admin/adminSidebar.jsp" />
+<body class="hold-transition sidebar-mini layout-fixed">
+
+	<c:import url="../admin/adminSidebar.jsp"/>
+
 	<!-- Content Wrapper. Contains page content -->
-	<div class="content-wrapper">
-		<!-- Content Header (Page header) -->
-		<section class="content-header">
-<!-- 			<div class="container-fluid">
-				<div class="row mb-2">
-					<div class="col-sm-6">
-						<h1>권한 수정 비밀번호 입력</h1>
-					</div>
-				</div>
-			</div>/.container-fluid -->
-		</section>
-		
+	<div class="content-wrapper">	
 		<!-- Automatic element centering -->
 		<div class="lockscreen-wrapper">
 		  <div class="lockscreen-logo">
 		    <b>Enter Password</b>
-		  </div>	
+		  </div>
 		  <!-- START LOCK SCREEN ITEM -->
 			<div class="lockscreen-item">
 			    <!-- lockscreen credentials (contains the form) -->
-				<form action="updateMember.ad" class="lockscreen-credentials" onsubmit="return validate();">
+				<div>
 					<div class="input-group">
-						<input type="password" class="form-control" placeholder="password" id="pwd">
-						
-						<div class="input-group-append">
-							<button type="submit" class="btn">
-								<i class="fas fa-arrow-right text-muted"></i>
-							</button>
+						<input type="hidden" value="${loginUser.id}" id="id">
+						<input type="password" class="form-control border" id="pwd" placeholder="password" required>
+						<button type="submit" class="btn bg-gradient-warning float-right" id="pwdCheck"
+								style="font-size: 0.8rem; display: inline-block; color: #939597; width: 3rem; border-radius: 0px;">
+								<i class="fas fa-arrow-right text-muted"></i></button>
 						</div>
-					</div>
-				</form>
+				</div>
 				<!-- /.lockscreen credentials -->
 			</div>
 			
@@ -74,23 +65,46 @@
 		</div>
 		<!-- /.center -->
 	</div>
-	</div>
 	
-	<script type="text/javascript">
-		function validate(){
-			var pwd = $('#pwd');
-			var pwd1 = ${ loginUser.email };
+	<script>
+	$(function(){
+		$('#pwdCheck').click(function(){
+			var pwd = $('#pwd').val();
+			var id = $('#id').val();
 			
-			if(pwd.val() != pwd1.val()){
-				alert('잘못된 비밀번호를 입력하셨습니다');
-				pwd.focus();
+			if(pwd == "") {
+				Swal.fire({
+					  position: 'middle',
+					  icon: 'warning',
+					  title: '비밀번호를 입력해주세요.',
+					  timer: 1300
+					})
 				return false;
-			}	
-			return true;
-		}
+			}
+			
+			$.ajax({
+				url: 'adminPwdCheck.ad',
+				data: {id:id, pwd:pwd},
+				type: "POST",
+				success:function(data) {
+					if(data == 'success'){
+						location.href="adminUpdateMember.ad";
+					} else{
+						Swal.fire({
+							  position: 'middle',
+							  icon: 'error',
+							  title: '비밀번호를\n잘못 입력하셨습니다.',
+							  timer: 1000
+							})
+						return false;
+		            }
+				}
+			});
+		});
+	});
 	</script>
-
-   <!-- jQuery -->
+	
+	<!-- jQuery -->
    <script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

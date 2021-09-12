@@ -175,7 +175,7 @@ a:link, a:visited {
 												신고된 유저 :
 											</td>
 											<td style="color: blue;">
-												닉네임: ${ p.pMnick }
+												닉네임: ${ param.pMnick }
 											</td>
 <!-- 											<td style="color: blue;"> -->
 <%-- 												닉네임: ${ b.nickName } --%>
@@ -202,7 +202,7 @@ a:link, a:visited {
 <!-- 											<td> -->
 <%-- 												${ param.bContent } --%>
 <!-- 											</td> -->
-											<td style="color: blue;">${ p.pDate }</td>
+											<td style="color: blue;">신고한 날짜 : ${ p.pDate }</td>
 												
 										</tr>
 									</c:if>
@@ -297,13 +297,10 @@ a:link, a:visited {
 			// Summernote
 			$('#summernote').summernote(
 					{
-						lang: "ko-KR",
-						height : 1000,
+						height : 500,
 						disableResizeEditor : true,
-						/* focus : true, */
-						disableDragAndDrop : true,
-						toolbar : [],
-								/* // [groupName, [list of button]]
+						toolbar : [
+								// [groupName, [list of button]]
 								 ['style', ['style']],
 								[ 'fontname', [ 'fontname' ] ],
 								[ 'fontsize', [ 'fontsize' ] ],
@@ -321,7 +318,7 @@ a:link, a:visited {
 								'돋움체', '바탕체' ],
 						fontSizes : [ '8', '9', '10', '11', '12', '14', '16',
 								'18', '20', '22', '24', '28', '30', '36', '50',
-								'72' ], */
+								'72' ],
 					  callbacks : { 				
 						  onImageUpload : function(files, editor, welEditable) {
 							  for (var i = files.length - 1; i >= 0; i--) {

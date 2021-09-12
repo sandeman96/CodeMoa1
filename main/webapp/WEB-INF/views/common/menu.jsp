@@ -51,20 +51,20 @@
 	background-position: center;
 	background-size: cover;
 	overflow: hidden;
-/* 	white-space: nowrap;
+	/* 	white-space: nowrap;
 	text-overflow: ellipsis; */
-	word-break:break-all;
+	word-break: break-all;
 }
 
 .logotext {
 	font-size: 30px;
 	line-height: 70px;
 }
-.im{
+
+.im {
 	font-size: 40px;
 	line-height: 70px;
 }
-
 </style>
 
 </head>
@@ -91,21 +91,21 @@
 					<a href="main.do" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="javascript:contact();"  class="nav-link">Contact</a>
+					<a href="javascript:contact();" class="nav-link">Contact</a>
 				</li>
 			</ul>
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-								<!-- Messages Dropdown Menu -->
+				<!-- Messages Dropdown Menu -->
 				<li class="nav-item dropdown">
 					<c:if test="${ loginUser != null }">
 						<a id="chat" class="nav-link" data-toggle="dropdown" href="#">
 							<i class="far fa-comments" title=""></i>
 							<input id="bool" type="hidden" value="false">
 						</a>
-						
+
 					</c:if>
 					<c:if test="${ loginUser == null }">
 						<a href="loginForm.me" class="nav-link" id="chat" onclick="alert('로그인 후 이용해주세요');">
@@ -143,12 +143,12 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-				<h1>
-			<a href="main.do" class="brand-link">
-				<span class="brand-image im ml-2">🗿</span>
-				<span class="brand-text logotext">CODEMOA‍</span>
-			</a>
-				</h1>
+			<h1>
+				<a href="main.do" class="brand-link">
+					<span class="brand-image im ml-2">🗿</span>
+					<span class="brand-text logotext">CODEMOA‍</span>
+				</a>
+			</h1>
 			<!-- Sidebar -->
 			<div class="sidebar">
 
@@ -158,7 +158,7 @@
 						<div class="image ml-2">
 							<h5>🚪</h5>
 						</div>
-						
+
 						<div class="image">
 							<a href="loginForm.me">로그인을 해주세요</a>
 						</div>
@@ -170,16 +170,13 @@
 						</c:url>
 
 						<div id="userProfileMini" class="text-center img-circle elevation-2 userImg">
-							<span style="line-height: 57px;">
-								${ loginUser.nickName }
-							</span>
+							<span style="line-height: 57px;"> ${ loginUser.nickName } </span>
 						</div>
 
 						<div class="info">
 							<h5>
 								<a href="${ mypage }"> ${ loginUser.nickName }</a>
 							</h5>
-
 						</div>
 					</c:if>
 				</div>
@@ -224,26 +221,6 @@
 						</li>
 
 
-<%-- 						<c:choose>
-							<c:when test="${ loginUser != null and loginUser.admin =='Y'}">
-								<li class="nav-item">
-									<a onclick="location.href='adminPage.ad'" class="nav-link">
-										<i class="nav-icon fab fa-github"></i>
-										<p>사용자 관리</p>
-									</a>
-								</li>
-							</c:when>
-
-							<c:otherwise>
-								<li class="nav-item">
-									<a onclick="location.href='adminPage.ad'" class="nav-link" style="visibility: hidden;">
-										<i class="nav-icon fab fa-github"></i>
-										<p>사용자 관리</p>
-									</a>
-							</c:otherwise>
-						</c:choose> --%>
-
-
 					</ul>
 
 				</nav>
@@ -269,11 +246,12 @@
 				<b>Version</b> 3.1.0
 			</div>
 		</footer>
+		
 	</div>
 
 	<script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	
+
 	<script>
 		$('#dark').on('click', function() {
 
@@ -383,7 +361,7 @@
 		}
 		
 	</script>
-	
+
 	<script>
 	// 채팅창 띄우기
 	var winHeight = document.body.clientHeight;

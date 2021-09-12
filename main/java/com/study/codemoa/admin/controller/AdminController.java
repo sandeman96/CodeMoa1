@@ -1,20 +1,25 @@
 package com.study.codemoa.admin.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.study.codemoa.admin.model.exception.AdminException;
 import com.study.codemoa.admin.model.service.AdminService;
 import com.study.codemoa.admin.model.vo.BoardInfo;
 import com.study.codemoa.admin.model.vo.BoardPagination;
@@ -32,6 +37,26 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
+	
+//	@RequestMapping("adminBoard.ad")
+//	public String adminBoard() {
+//		return "adminBoard";
+//	}
+//	
+//	@RequestMapping("adminMember.ad")
+//	public String adminMember() {
+//		return "adminMember";
+//	}
+//	
+//	@RequestMapping("updateMember.ad")
+//	public String updateMember() {
+//		return "adminUpdateMember";
+//	}
+	
 	
 	/* 관리자 메인 화면 */
 	@RequestMapping(value = "/adminPage.ad")
@@ -107,24 +132,44 @@ public class AdminController {
 
 	}
 	
+	/* 신고된 유저 */
+	@RequestMapping(value="/adminReportMember.ad")
+	public ModelAndView memberReport(@RequestParam(value="pageP", required=false) Integer pageP,
+			Report p, Member m, ModelAndView mv) {
+		
+		int currentPageP = 1;
+		if(pageP != null) {
+			currentPageP = pageP;
+		}
 	
+		int listCountP = adService.getListCountP();
+		
+		ReportInfo rpi = ReportPagination.getReportInfo(currentPageP, listCountP);
+		
+		ArrayList<Report> pList = adService.selectMemberReport(rpi, p);
+		ArrayList<Member> mList = adService.selectReportM(m);
+		
+		
+		mv.addObject("pList", pList);
+		mv.addObject("rpi", rpi);
+		mv.addObject("mList", mList);
+		mv.setViewName("adminReportMember");
+	
+		return mv;
+
+	}
+	
+	/*신고 insert 화면*/
 	@RequestMapping("adminInsertReport.ad")
 	public String adminReport() {
 		return "adminInsertReport";
 	}
 	
-	/*Report insert*/
+	/*게시글 신고 insert*/
 	@RequestMapping(value="insertReport.ad", method= RequestMethod.POST)
 	public String insertReport(@ModelAttribute Report p, 
 			HttpServletRequest request, @RequestParam("pBtype") int pBtype) {
 		int result = adService.insertReport(p);
-
-//	    String referer = request.getHeader("Referer");
-//	    if (result > 0) {
-//	    return "redirect:boardDetail.bo";
-//		} else {
-//			throw new BoardException("게시글 등록에 실패했습니다.");
-//		}
 		
 		String path = "";
 		if (result > 0) {
@@ -161,29 +206,7 @@ public class AdminController {
 		return mv;
 	}
 	
-	/* 신고된 유저 */
-	@RequestMapping(value="/adminReportMember.ad")
-	public ModelAndView memberReport(@RequestParam(value="pageP", required=false) Integer pageP,
-			Report p, ModelAndView mv) {
-		
-		int currentPageP = 1;
-		if(pageP != null) {
-			currentPageP = pageP;
-		}
 	
-		int listCountP = adService.getListCountP();
-		
-		ReportInfo rpi = ReportPagination.getReportInfo(currentPageP, listCountP);
-		
-		ArrayList<Report> pList = adService.selectMemberReport(rpi, p);
-	
-		mv.addObject("pList", pList);
-		mv.addObject("rpi", rpi);
-		mv.setViewName("adminReportMember");
-	
-		return mv;
-
-	}
 	
 	/* 신고글 삭제 */
 	@RequestMapping("adminDeleteReport.ad")
@@ -213,115 +236,286 @@ public class AdminController {
 			return "redirect:adminReportBoard.ad";
 	}
 	
-//	@RequestMapping(value="/adminDeleteReport.ad")
-//	public String deleteBoardReport(HttpServletRequest request) {
-//
-//		String[] ajaxMsg = request.getParameterValues("valueArr");
-//		int size = ajaxMsg.length;
-//		for(int i = 0; i < size; i++ ) {
-//			adService.deleteBoardReport(ajaxMsg[i]);
-//		}
-//		return "redirect:adminReportBoard";	
-//	}
-	
-	
-//	@RequestMapping("adminDeleteReport.ad")
-//	public String deleteBoardReport(@RequestParam("pNo") int pNo) {
-//		Report report = adService.selectBoardReport(pNo, false);
-//		
-//		
-//		if(report != null) {	
-//			mv.addObject("p", report).setViewName("adminDetailReport");
-//			
-//		} else {
-//			throw new BoardException("게시글 삭제에 실패했습니다.");
-//		}	
-//		return "redirect:adminReportBoard.ad";
-//	}
-	
-	/* 신고글 삭제 */
-//	@RequestMapping("adminDeleteReport.ad")
-//	public String deleteBoardReport(@RequestParam("pNo") int pNo) {
-//		
-//		int result = adService.deleteBoardReport(pNo);
-//		
-//		if(result > 0) {	
-//			return "redirect:adminReportBoard.ad";
-//		} else {
-//			throw new BoardException("게시글 삭제에 실패했습니다.");
-//		}		
-//	}
-	
-//	@RequestMapping(value="/adminReportMember.ad", method = RequestMethod.GET)
-//	public String MemberReport(@ModelAttribute("Report") Report p, @RequestParam("pNo") int pNo,
-//			@RequestParam(value="pageP", required=false) Integer pageP, Model model) {
-//		
-//		int currentPageP = 1;
-//		if(pageP != null) {
-//			currentPageP = pageP;
-//		}
-//	
-//		int listCountP = adService.getListCountP();
-//		
-//		ReportInfo rpi = ReportPagination.getReportInfo(currentPageP, listCountP);
-//		
-//		ArrayList<Report> pList = adService.selectBoardReport(rpi, p);
-//		model.addAttribute("reportMember", reportMember);
-//	
-//		return "/adminReportMember";
-//
-//	}
-
-	
-	@RequestMapping("adminBoard.ad")
-	public String adminBoard() {
-		return "adminBoard";
-	}
-	
-	@RequestMapping("adminMember.ad")
-	public String adminMember() {
-		return "adminMember";
-	}
+	/* 유저 정보 업데이트 */
+	@RequestMapping("userEnable.ad")
+	public String userEnable(@RequestParam("id") String id) {
 		
-	@RequestMapping("adminCalendar.ad")
-	public String adminCalendar() {
-		return "calendar";
+		int result = adService.userEnable(id);
+		
+		if(result > 0) {	
+			return "redirect:adminReportMember.ad";
+		} else {
+			throw new BoardException("게시글 삭제에 실패했습니다.");
+		}		
 	}
 	
-	@RequestMapping("checkPwd.ad")
-	public String checkPwd() {
+	
+	/* 유저 정보 업데이트*/
+	@RequestMapping(value="userCheckEnable.ad")
+	public String userCheckEnable( HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		int size = ajaxMsg.length;
+		
+		for(int i = 0; i < size; i++) {
+			adService.userEnable(ajaxMsg[i]);
+		}
+			return "redirect:adminReportMember.ad";
+	}
+	
+	/* 보드글 삭제 */
+	@RequestMapping("adminDeleteRoportB.ad")
+	public String deleteRoportB(@RequestParam("bNo") String bNo) {
+		
+		int result = adService.deleteReportB(bNo);
+		
+		if(result > 0) {	
+			return "redirect:adminReportBoard.ad";
+		} else {
+			throw new BoardException("게시글 삭제에 실패했습니다.");
+		}		
+	}
+	
+	
+	/* 보드글 다중 삭제*/
+	@RequestMapping(value="adminDeleteCheckRoportB.ad")
+	public String deleteCheckReportB( HttpServletRequest request) {
+		
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		int size = ajaxMsg.length;
+		
+		for(int i = 0; i < size; i++) {
+			adService.deleteReportB(ajaxMsg[i]);
+		}
+			return "redirect:adminReportBoard.ad";
+	}
+	
+/*----------------------------------본--------------------------------*/
+	
+	/* 사용자 전체 List */
+	@RequestMapping("adminMember{memberType}.ad")
+	public ModelAndView adminMember(@PathVariable String memberType, String table_search,
+			@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
+		
+		int currentPageM = 1;
+		if (page != null) {
+			currentPageM = page;
+		}
+
+		HashMap<String, String> map = new HashMap<>();
+		String madmin = null;
+		String mstatus = null;
+		
+		switch (memberType) {
+		case "":
+			break;
+		case "Out":
+			mstatus = "N";
+			map.put("mstatus", mstatus);
+			break;
+		case "User":
+			madmin = "N";
+			map.put("madmin", madmin);
+			break;
+		case "Admin":
+			madmin = "Y";
+			map.put("madmin", madmin);
+			break;
+		case "Search":
+			map.put("table_search", table_search);
+			break;
+		default:
+			throw new AdminException("게시판 조회에 실패하였습니다.");
+		}
+
+		int listCountM = adService.getListCountM2(map);
+		MemberInfo mi = MemberPagination.getMemberInfo(currentPageM, listCountM);
+		ArrayList<Member> mList = adService.selectMember2(map, mi);
+		
+		System.out.println(listCountM);
+		for(Member m : mList) {
+			System.out.println(m);
+		}
+		
+		mv.addObject("mList", mList).addObject("mi", mi).addObject("table_search", table_search);
+		mv.setViewName("adminMember");
+
+		return mv;
+	}
+
+	/* 사용자 update 전, pwd 확인 */
+	@RequestMapping("adminPwdConfirm.ad")
+	public String adminPwdConfirm() {
 		return "adminPwdConfirm";
 	}
 	
-	@RequestMapping("updateMember.ad")
-	public String updateMember() {
-		return "adminUpdateMember";
+	/* 비밀번호 일치 확인 */
+	@ResponseBody
+	@RequestMapping(value="adminPwdCheck.ad", method = RequestMethod.POST)
+	public String adminPwdCheck(Member m, ModelAndView mv) {
+		
+		Member loginUser = adService.pwdCheck(m);
+		
+		if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
+			return "success";
+		} else {
+			return "error";
+		}
 	}
 	
-//	@RequestMapping("adminPage.ad")
-//	public ModelAndView boardList(@RequestParam(value="page", required=false) Integer page, ModelAndView mv) {
-//		int currentPage = 1;
-//		if(page != null) {
-//			currentPage = page;
-//		}
-//		
-//		int listCount = adService.getListCount();
-//		
-//		PageInfo pi	= Pagination.getPageInfo(currentPage, listCount);
-//		
-//		ArrayList<Board> list = adService.selectList(pi);
-//		
-//		if(list != null) {
-//			mv.addObject("list", list).addObject("pi", pi);
-//			// mv.addObject("list" list);
-//			// mv.addObject("pi", pi);
-//			mv.setViewName("adminPage");
-//		} else {
-//			throw new BoardException("게시글 전체 조회에 실패했습니다.");
-//		}
-//		
-//		return mv;
-//	}
-	
+	@RequestMapping("adminUpdateMember{memberType}.ad")
+	public ModelAndView adminUpdateMember(@PathVariable String memberType, String table_search,
+			@RequestParam(value = "page", required = false) Integer page, ModelAndView mv) {
 
+		int currentPageM = 1;
+		if (page != null) {
+			currentPageM = page;
+		}
+
+		HashMap<String, String> map = new HashMap<>();
+		String madmin = null;
+		String mstatus = null;
+
+		switch (memberType) {
+		case "":
+			break;
+		case "Out":
+			mstatus = "N";
+			map.put("mstatus", mstatus);
+			break;
+		case "User":
+			madmin = "N";
+			map.put("madmin", madmin);
+			break;
+		case "Admin":
+			madmin = "Y";
+			map.put("madmin", madmin);
+			break;
+		case "Search":
+			map.put("table_search", table_search);
+			break;
+		default:
+			throw new AdminException("게시판 조회에 실패하였습니다.");
+		}
+
+		int listCountM = adService.getListCountM2(map);
+		MemberInfo mi = MemberPagination.getMemberInfo(currentPageM, listCountM);
+		ArrayList<Member> mList = adService.selectMember2(map, mi);
+
+		mv.addObject("mList", mList).addObject("mi", mi).addObject("table_search", table_search);
+		mv.setViewName("adminUpdateMember");
+
+		return mv;
+	}
+	
+	/* 사용자 update */
+	@ResponseBody
+	@RequestMapping(value="updateAdminMember.ad", method = RequestMethod.POST)
+	public String updateAdminMember(String id, String admin) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("mAdmin", admin);
+		
+		int result = adService.updateAdminMember(map);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			throw new AdminException("사용자 수정에 실패하셨습니다.");
+		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="updateStatusMember.ad", method = RequestMethod.POST)
+	public String updateStatusMember(String id, String status) {
+		
+		HashMap<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("mStatus", status);
+		
+		int result = adService.updateStatusMember(map);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			throw new AdminException("사용자 수정에 실패하셨습니다.");
+		}
+	}
+
+	/* 게시판 조회 */
+	@RequestMapping("adminBoard{boardType}.ad")
+	public ModelAndView adminBoard(@PathVariable String boardType,
+			@RequestParam(value = "page", required = false) Integer page, String table_search, ModelAndView mv) {
+
+		int currentPageB = 1;
+		if (page != null) {
+			currentPageB = page;
+		}
+
+		HashMap<String, String> map = new HashMap<>();
+		String bType = null;
+
+		switch (boardType) {
+		case "":
+			break;
+		case "QA":
+			bType = "1";
+			map.put("bType", bType);
+			break;
+		case "Tips":
+			bType = "2";
+			map.put("bType", bType);
+			break;
+		case "Study":
+			bType = "3";
+			map.put("bType", bType);
+			break;
+		case "Search":
+			map.put("table_search", table_search);
+			break;
+		default:
+			throw new AdminException("게시판 조회에 실패하였습니다.");
+		}
+
+		int listCountB = adService.getListCountB2(map);
+		BoardInfo bi = BoardPagination.getBoardInfo(currentPageB, listCountB);
+		ArrayList<Board> bList = adService.selectBoard2(map, bi);
+
+		mv.addObject("bList", bList).addObject("bi", bi).addObject("page", page).addObject("table_search", table_search);
+		mv.setViewName("adminBoard");
+
+		return mv;
+	}
+	
+	/* 게시글 status 업데이트 */
+	@ResponseBody
+	@RequestMapping(value = "adminUpdateBoard.ad", method = RequestMethod.POST)
+	public String adminUpdateBoard(int bNo, String bStatus) {
+
+		HashMap<String, String> map = new HashMap<>(); 
+		map.put("bNo", bNo+"");
+		map.put("bStatus", bStatus); 
+		int result = adService.updateBoard(map);
+		
+		if (result > 0) {
+			return "success";
+		} else {
+			throw new AdminException("게시글 수정에 실패하셨습니다.");
+		}
+	}
+	
+	/* 디테일 */
+	@RequestMapping("boardDetail.ad")
+	public String boardDetail(@RequestParam("bNo") int bNo, String side, String page) {
+		return "redirect:boardDetail.bo?bNo=" + bNo + "&page=" + page + "&side=" + side;
+	}
+	
+	/* mypage 접근 */
+	@RequestMapping("memberDetail.ad")
+	public String myPage(Model model, @RequestParam(value = "userId") String userId, String side) {
+		return "redirect:mypage.me?userId=" + userId + "&side=" + side;
+	}
 }

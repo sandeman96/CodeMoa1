@@ -10,18 +10,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/jqvmap/jqvmap.min.css">
-<!-- Theme style -->
+
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
 <style>
 input[type=radio]:checked + label {color:white; background-color:gray;}
 input[type=radio]{display:none;}
@@ -51,37 +44,44 @@ input[type=radio]{display:none;}
 					<div class="row">
 						<div class="col-12">
 							<div class="card">
-								<div class="card-header d-flex p-0">
-									<h3 class="card-title p-3">신고된 사용자 리스트</h3>
-									<ul class="nav nav-pills ml-auto p-2">
-										<li class="nav-item">
+								<div class="card-header d-flex p-0 align-items-center">
+									<h3 class="col-4 card-title p-3">신고된 사용자 리스트</h3>
+<!-- 									<ul class="nav nav-pills ml-auto p-2"> -->
+<!-- 										<li class="nav-item"> -->
 <!-- 											<div class="btn-group"> -->
 <!-- 						                        <button type="button" class="btn btn-default btn-sm">전체</button> -->
 <!-- 						                        <button type="button" class="btn btn-default btn-sm">Tech</button> -->
 <!-- 						                        <button type="button" class="btn btn-default btn-sm">Community</button> -->
 <!-- 						                        <button type="button" class="btn btn-default btn-sm">Git Trending</button> -->
 <!-- 						                    </div> -->
-										</li>
-										<li>&ensp;</li>
-										<li class="nav-item">
-											<div class="card-tools">         
-					                           <div class="input-group input-group-sm" style="width: 150px;">
-					                              <input type="text" class="form-control float-right" placeholder="Search">
-					                              <div class="input-group-append">
-					                                 <button type="submit" class="btn btn-default">
-					                                 <i class="fas fa-search"></i>
-					                              </button>
-					                              </div>
-					                           </div>
-					                        </div>
-					                	</li>
-					                	<li>&ensp;</li>
-										<li class="nav-item">
-											<input type="button" class="btn btn-block btn-warning btn-sm"
-											style=""  value="선택된글 삭제" onclick="deleteValue();">
-										</li>				
-									</ul>
+<!-- 										</li> -->
+<!-- 										<li>&ensp;</li> -->
+<!-- 										<li class="nav-item"> -->
+<!-- 											<div class="card-tools">          -->
+<!-- 					                           <div class="input-group input-group-sm" style="width: 150px;"> -->
+<!-- 					                              <input type="text" class="form-control float-right" placeholder="Search"> -->
+<!-- 					                              <div class="input-group-append"> -->
+<!-- 					                                 <button type="submit" class="btn btn-default"> -->
+<!-- 					                                 <i class="fas fa-search"></i> -->
+<!-- 					                              </button> -->
+<!-- 					                              </div> -->
+<!-- 					                           </div> -->
+<!-- 					                        </div> -->
+<!-- 					                	</li> -->
+					                	
+<!-- 									</ul> -->
+					                	<div class="col-2 text-center" >
+											<button type="button" class="btn btn-warning btn-sm"
+											 onclick="updateUser()">선택된유저 제한</button>
+										</div>
+										<div class="col-6 text-right">
+											<button type="button" class="btn btn-warning btn-sm mr-4"
+											 onclick="deleteValue();">선택된글 삭제</button>
+										</div>				
 								</div>
+								
+								
+								
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0">
 									<table class="table table-hover">
@@ -90,6 +90,9 @@ input[type=radio]{display:none;}
 												<th>NO</th>
 												<th>신고종류</th>
 												<th>신고된 닉네임</th> 
+												<th style="border-right: 1px solid #dee2e6;">
+													<input type="checkbox" id="allCheck" name="allCheck2">
+												</th>
 												<th>신고자</th>
 												<th>제목</th>
 												<th>내용</th>
@@ -99,6 +102,7 @@ input[type=radio]{display:none;}
 												</th>
 											</tr>
 										</thead>
+										
 										<tbody>
 											<c:forEach var="p" items="${ pList }">							
 											<tr>
@@ -114,8 +118,37 @@ input[type=radio]{display:none;}
 												<c:url var="mypage" value="mypage.me">
 													<c:param name="userId" value="${ p.pReporter }" />
 												</c:url>
-												
-												<td><a href="${ mypage }">${ p.pMnick }</a></td>
+												<td>
+												<c:set var="flag" value="false"/>
+														<c:forEach var="m" items="${ mList }">
+															<c:if test="${ !flag }">
+<%-- 																<c:if test="${ p.pMnick eq m.nickName}"> --%>
+																<c:if test="${m.nickName eq p.pMnick and m.enable =='0'}">
+																<a href="${ mypage }" style="color: blue;">${ p.pMnick }</a>(처리전)
+																		<c:set var="flag" value="true"/>
+																</c:if>
+																
+																<c:if test="${ m.nickName eq p.pMnick and m.enable =='1'}">
+																		<a href="${ mypage }" style="color: red;">${ p.pMnick }</a> (제한완료)
+																		<c:set var="flag" value="true"/>	
+																</c:if>
+																
+																<c:if test="${ m.nickName ne p.pMnick and m.enable =='0'}">
+																		<a style="color: black;">${ p.pMnick } -> ${ m.nickName } (변경됨)</a>
+																		<c:set var="flag" value="true"/>	
+																</c:if>
+															</c:if>
+														</c:forEach>
+												</td>
+												<td style="border-right: 1px solid #dee2e6;">
+												<c:set var="flag2" value="false"/>
+													<c:forEach var="m" items="${ mList }">
+													<c:if test="${ !flag2 }">
+													<input type="checkbox" name="RowCheck2" value="${ m.id }" > 
+														<c:set var="flag2" value="true"/> 
+													</c:if>
+													</c:forEach>
+												</td>
 												
 												<c:url var="mypage" value="mypage.me">
 													<c:param name="userId" value="${ p.pReceiver }" />
@@ -192,10 +225,13 @@ input[type=radio]{display:none;}
 						</div>
 					</div>
 				</div>
+				<c:if test="${ pList.isEmpty() }">
+						<h3 style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">등록된 신고가 없습니다.</h3>
+				</c:if>
 		</section>
 	</div> 
 
-
+<!-- 신고글 삭제  -->
 <script type="text/javascript">
 	$(function(){
 		var chkObj = document.getElementsByName("RowCheck");
@@ -225,9 +261,12 @@ input[type=radio]{display:none;}
 			}
 		}
 		if(valueArr.length == 0) {
-			alert("선택된 글이 없습니다.")
+			alert("선택된 글이 없습니다.");
+		}else if(confirm("정말 삭제하시겠습니까?") == false){
+			alert('삭제 취소')
+			return;
 		}else {
-			var chk = confirm("정말 삭제하시겠습니까?");
+			var chk
 			$.ajax({
 				url : url,
 				type : 'POST',
@@ -241,6 +280,64 @@ input[type=radio]{display:none;}
 						 location.href = "adminReportMember.ad";
 					} else {
 						alert("삭제 실패");
+					}
+				}
+			});
+		}
+	
+	}
+	
+</script>
+
+<!-- 보드 글 삭제 -->  
+<script type="text/javascript">
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck2");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck2']").click(function(){
+			var chk_listArr = $("input[name='RowCheck2']");
+			for (var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck2']").click(function(){
+			if($("input[name='RowCheck2']:checked").length == rowCnt){
+				$("input[name='allCheck2']")[0].checked = true;
+			} else {
+				$("input[name='allCheck2']")[0].checked = false;
+			}
+		});
+	});
+	function updateUser(){
+		var url = "userCheckEnable.ad";
+		var valueArr = new Array();
+		var mList = $("input[name='RowCheck2']");
+		for(var i = 0; i < mList.length; i++){
+			if(mList[i].checked){
+				valueArr.push(mList[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 유저가 없습니다.");
+		}else if(confirm("유저 상태를 변경 하시겠습니까?") == false){
+			alert('삭제 취소')
+			return;
+		}else {
+			var chk
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success: function(jdata){
+					if(jdata = 1){
+						alert("변경 완료");
+						 location.href = "adminReportMember.ad";
+					} else {
+						alert("변경 실패");
 					}
 				}
 			});

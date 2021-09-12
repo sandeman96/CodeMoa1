@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -20,8 +19,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
-	<c:import url="../common/menu.jsp" />
-	
+
+	<c:choose>
+		<c:when test="${ loginUser != null && loginUser.admin == 'Y' }">
+			<c:import url="../admin/adminSidebar.jsp" />
+		</c:when>
+		<c:otherwise>
+			<c:import url="../common/menu.jsp" />
+		</c:otherwise>
+	</c:choose>
+
+
 	<div class="wrapper">
 		<div class="content-wrapper">
 			<section class="content-header">
@@ -32,38 +40,34 @@
 
 			<section class="content">
 				<div class="col-md-12">
-				<form action="insertBoard.bo"  method="post">
-				<c:set var="bFirst" value="Y"/>
-					<div class="card card-outline card-warning">
-						<div class="card-body">
-							<div class="col-sm-2" style="display: inline-block;">
-								<select class="selectpicker form-control" name="bType">
-									<optgroup label="Tech">
-										<option value="1">Q&amp;A</option>
-										<option value="2">Tips</option>
-									</optgroup>
-									<optgroup label="Community">
-										<option value="3">Study</option>
-									</optgroup>
-								</select>
+					<form action="insertBoard.bo" method="post">
+						<c:set var="bFirst" value="Y" />
+						<div class="card card-outline card-warning">
+							<div class="card-body">
+								<div class="col-sm-2" style="display: inline-block;">
+									<select class="selectpicker form-control" name="bType">
+										<optgroup label="Tech">
+											<option value="1">Q&amp;A</option>
+											<option value="2">Tips</option>
+										</optgroup>
+										<optgroup label="Community">
+											<option value="3">Study</option>
+										</optgroup>
+									</select>
+								</div>
+								<div class="col-sm-9 mb-3" style="display: inline-block;">
+									<input type="hidden" name="bWriter" value="${ loginUser.id }"> <input type="hidden" name="bFirst" id="bFirst" value="Y"> <input type="text" id="bTitle" name="bTitle" class="form-control" placeholder="제목을 입력하세요">
+
+								</div>
+								<textarea id="summernote" name="bContent" placeholder="내용을 입력하세요"></textarea>
 							</div>
-							<div class="col-sm-9 mb-3" style="display: inline-block;">
-								<input type="hidden" name="bWriter" value="${ loginUser.id }">
-								<input type="hidden" name="bFirst" id="bFirst" value="Y">
-								<input type="text" id="bTitle" name="bTitle" class="form-control" placeholder="제목을 입력하세요">
-								
+							<div class="card-body">
+								<input type="text" id="tags" name="tags" class="form-control" placeholder="#태그를 입력하세요"> <input name='tags' class='some_class_name' placeholder='write some tags' value='css, html, javascript, css' autofocus>
 							</div>
-							<textarea id="summernote" name="bContent" placeholder="내용을 입력하세요"></textarea>
-                       </div>
-						<div class="card-body">
-							<input type="text" id="tags" name="tags" class="form-control" placeholder="#태그를 입력하세요">
-							<input name='tags' class='some_class_name' placeholder='write some tags' value='css, html, javascript, css' autofocus>
+							<div class="row mb-2" style="justify-content: center;">
+								<button type="submit" class="btn btn-warning" id="insertBoardBtn" style="font-size: 0.8rem; color: #939597; width: 7rem;">완료</button>
+							</div>
 						</div>
-						<div class="row mb-2" style="justify-content:center;">
-							<button type="submit" class="btn btn-warning" id="insertBoardBtn"
-									style="font-size: 0.8rem; color: #939597; width: 7rem;">완료</button>
-						</div>
-					</div>
 					</form>
 				</div>
 			</section>
@@ -138,7 +142,7 @@
 			}
 </script>
 
-<script>
+	<script>
 $("#first").click(function(){
  var chk = $("#first").prop("checked");
  if(chk) {
@@ -149,7 +153,7 @@ $("#first").click(function(){
 });
 </script>
 
-<script>
+	<script>
  $("#first").click(function(){
   var first_val = null;
   
@@ -172,13 +176,13 @@ $("#first").click(function(){
  });
 </script>
 	<!-- jQuery -->
-   <script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
-   <!-- Bootstrap 4 -->
-   <script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-   <!-- AdminLTE App -->
-   <script src="/codemoa/resources/dist/js/adminlte.min.js"></script>
-   <!-- AdminLTE for demo purposes -->
-   <script src="/codemoa/resources/dist/js/demo.js"></script>
+	<script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="/codemoa/resources/dist/js/adminlte.min.js"></script>
+	<!-- AdminLTE for demo purposes -->
+	<script src="/codemoa/resources/dist/js/demo.js"></script>
 	<!-- Summernote -->
 	<script src="/codemoa/resources/plugins/summernote/summernote-bs4.min.js"></script>
 </body>

@@ -27,28 +27,30 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminDAO adDAO;
 	
+	
+	
 	@Override
-	public int getListCountM() {
+	public int getListCountM() { // 이름 겹침
 		return adDAO.getListCountM(sqlSession);
 	}
 	
 	@Override
-	public int getListCountB() {
+	public int getListCountB() { // 이름 겹침
 		return adDAO.getListCountB(sqlSession);
 	}
 	
 	@Override
-	public int getListCountP() {
+	public int getListCountP() { 
 		return adDAO.getListCountP(sqlSession);
 	}
 
 	@Override
-	public ArrayList<Member> selectMember(Member m, MemberInfo mi) {
+	public ArrayList<Member> selectMember(Member m, MemberInfo mi) { // 이름 겹침
 		return adDAO.selectMember(sqlSession, m, mi);
 	}
 
 	@Override
-	public ArrayList<Board> selectBoard(Board b, Report p, BoardInfo bi) {
+	public ArrayList<Board> selectBoard(Board b, Report p, BoardInfo bi) { // 이름 겹침
 		return adDAO.selectBoard(sqlSession, b, p, bi);
 	}
 	
@@ -61,8 +63,6 @@ public class AdminServiceImpl implements AdminService {
 	public int insertReport(Report p) {
 		return adDAO.insertReport(sqlSession, p);
 	}
-
-	
 	
 	@Override
 	public ArrayList<Report> selectBoardReport(ReportInfo rpi, Report p) {
@@ -73,8 +73,6 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<Report> selectMemberReport(ReportInfo rpi, Report p) {
 		return adDAO.selectMemberReport(sqlSession, rpi, p);
 	}
-
-
 
 	@Override
 	public int deleteBoardReport(String pNo) {
@@ -91,11 +89,60 @@ public class AdminServiceImpl implements AdminService {
 		return adDAO.selectReportB(sqlSession, b);
 	}
 
-//	@Override
-//	public void deleteBoardReport(String string) {
-//		return adDAO.deleteBoardReport(sqlSession, string);
-//		
-//	}
+	@Override
+	public ArrayList<Member> selectReportM(Member m) {
+		return adDAO.selectReportM(sqlSession, m);
+	}
 
+	@Override
+	public int userEnable(String id) {
+		return adDAO.userEnable(sqlSession, id);
+	}
+
+	@Override
+	public int deleteReportB(String bNo) {
+		return adDAO.deleteReportB(sqlSession, bNo);
+	}
 	
+	/* -----------------------본---------------------- */
+	
+	@Override
+	public int getListCountM2(HashMap<String, String> map) {
+		return adDAO.getListCountM2(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Member> selectMember2(HashMap<String, String> map, MemberInfo mi) {
+		return adDAO.selectMember2(sqlSession, map, mi);
+	}
+
+	@Override
+	public int getListCountB2(HashMap<String, String> map) {
+		return adDAO.getListCountB2(sqlSession, map);
+	}
+
+	@Override
+	public ArrayList<Board> selectBoard2(HashMap<String, String> map, BoardInfo bi) {
+		return adDAO.selectBoard2(sqlSession, map, bi);
+	}
+
+	@Override
+	public Member pwdCheck(Member m) {
+		return adDAO.pwdCheck(sqlSession, m);
+	}
+
+	@Override
+	public int updateBoard(HashMap<String, String> map) {
+		return adDAO.updateBoard(sqlSession, map);
+	}
+
+	@Override
+	public int updateAdminMember(HashMap<String, String> map) {
+		return adDAO.updateAdminMember(sqlSession, map);
+	}
+
+	@Override
+	public int updateStatusMember(HashMap<String, String> map) {
+		return adDAO.updateStatusMember(sqlSession, map);
+	}
 }

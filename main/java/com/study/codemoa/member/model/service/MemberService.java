@@ -37,4 +37,6 @@ public interface MemberService {
 
 	int deleteReply(int no);
 
+	int updateNick(Member m);
+
 }

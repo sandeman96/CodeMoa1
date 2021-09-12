@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Codemoa</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -19,129 +19,179 @@
 <!-- JQVMap -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/jqvmap/jqvmap.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="${contextPath}/codemoa/resources/css/admin.css" type="text/css">
-<!-- <link rel="stylesheet" href="/codemoa/resources/dist/css/admin.css"> -->
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 <!-- Daterange picker -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/daterangepicker/daterangepicker.css">
-<!-- summernote -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/summernote/summernote-bs4.min.css">
- <!-- fullCalendar -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/fullcalendar/main.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <style>
-/* 로그아웃 */
-#logoutBtn {
-	position: absolute;
-	bottom: 10px;
-	font-weight: bold;
-}
-#logoutBtn:hover {
-	background-color: rgba(255, 255, 255, .1);
-	color: #fff;
-}
-#dark i {
-	color: #f5df4d;
-}
-#chatbox {
-	position: absolute;
-	top: 58;
-	right: 15px;
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
 }
 </style>
-
 </head>
-<body>
-	<c:import url="../admin/adminSidebar.jsp" />
+<body class="hold-transition sidebar-mini layout-fixed">
+
+	<c:import url="../admin/adminSidebar.jsp"/>
 	
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<div class="container-fluid">
-				<div class="row mb-2">
-					<div class="col-sm-6">
-						<h1>사용자 관리</h1>
-					</div>
+				<div class="text-center p-3">
+					<h1>🔐 사용자 관리</h1>
 				</div>
 			</div><!-- /.container-fluid -->
 		</section>
-    
+    	
 		<section class="content">
-			<form action="checkPwd.ad">
-				<div class="container-fluid">
+			<form action="adminMemberSearch.ad" id="adminMember" onsubmit="return search();">
+				<div class="container-fluid" style="padding-left: 20px; padding-right: 20px;">
 					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header d-flex p-0">
-									<h3 class="card-title p-3">사용자 list</h3>
-									<ul class="nav nav-pills ml-auto p-2">
-										<li class="nav-item">
-											<div class="btn-group">
-						                        <button type="button" class="btn btn-default btn-sm">전체</button>
-						                        <button type="button" class="btn btn-default btn-sm">탈퇴</button>
-						                        <button type="button" class="btn btn-default btn-sm">사용자</button>
-						                        <button type="button" class="btn btn-default btn-sm">운영자</button>
-						                    </div>
-										</li>
-										<li>&ensp;</li>
-										<li class="nav-item">
-											<div class="card-tools">         
-					                           <div class="input-group input-group-sm" style="width: 150px;">
-					                              <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-					                              <div class="input-group-append">
-					                                 <button type="button" class="btn btn-default">
-					                                 <i class="fas fa-search"></i>
-					                              </button>
-					                              </div>
-					                           </div>
-					                        </div>
-					                	</li>
-										<li>&ensp;</li>
-										<li class="nav-item">
-											<button type="submit" class="btn btn-block btn-warning btn-sm">정보수정</button>
-										</li>									
-									</ul>
+						<div class="col-12 m-1">
+							<div>
+								<div class="row card-header d-flex p-2">
+									<div class="col-3 btn-group">
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminMember.ad'" style="width: 4rem;">전체</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminMemberOut.ad'" style="width: 4rem;">탈퇴</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminMemberUser.ad'" style="width: 4rem;">사용자</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminMemberAdmin.ad'" style="width: 4rem;">운영자</button>
+				                    </div>
+				                    <div class="col-6"></div>
+		                           <div class="input-group input-group-sm col-2" style="width: 200px;">
+		                              <input type="text" name="table_search" class="form-control" placeholder="Search">
+		                              <div class="input-group-append">
+		                                 <button type="submit" class="btn btn-default">
+		                                	 <i class="fas fa-search"></i>
+		                             	 </button>
+		                              </div>
+		                           </div>
+									<button type="button" class="btn bg-gradient-warning btn-sm col-1" 
+										onclick="location.href='adminPwdConfirm.ad'"
+										style="display: inline-block; width: 6rem;">수정하기</button>
 								</div>
 								<!-- /.card-header -->
+								<c:if test="${ mList.isEmpty() }">
+									<h3 style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+										조회된 사용자가 없습니다.
+									</h3>
+								</c:if>
+								<c:if test="${ !mList.isEmpty() }">
 								<div class="card-body table-responsive p-0">
-									<table class="table table-hover text-nowrap">
+									<table class="table text-nowrap">
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>이름</th>
+												<th>email</th>
 												<th>닉네임</th>
-												<th>연락처</th>
-												<th>이메일</th>
 												<th>권한</th>
+												<th></th>
 												<th>탈퇴</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td>2108</td>
-												<td>rosegold</td>
-												<td>rose</td>
-												<td>01011112222</td>
-												<td>rose@rose.com</td>
-												<td>사용자</td>
-												<td>◎</td>
-											</tr>
+											<c:forEach var="m" items="${ mList }">
+												<c:url var="mdetail" value="memberDetail.ad">
+													<c:param name="userId" value="${ m.id }" />
+													<c:param name="side" value="Y" />
+												</c:url>
+												<tr class="detail" data-href='${mdetail}'>
+													<td>${ m.id }</td>
+													<td>${ m.email }</td>												
+													<td>${ m.nickName }</td>
+													<td style="width: 25px">
+														<c:if test="${ m.admin eq 'Y' }">운영자</c:if>
+														<c:if test="${ m.admin eq 'N' }">회원</c:if>
+													</td>
+													<td></td>
+													<td>
+														<c:if test="${ m.status eq 'N' }">탈퇴</c:if>
+													</td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
 								</div>
+								</c:if>
+								
 								<!-- /.card-body -->
-								<div class="card-footer clearfix">
-									<div class="card-tools d-flex justify-content-center">
-										<ul class="pagination pagination-sm m-0">
-											<li class="page-item"><a class="page-link" href="#">&laquo;</a>
-											<li class="page-item"><a class="page-link" href="#">1</a>
-											<li class="page-item"><a class="page-link" href="#">2</a>
-											<li class="page-item"><a class="page-link" href="#">3</a>
-											<li class="page-item"><a class="page-link" href="#">&raquo;</a>	
+								<div class="pagination-margin mt-5 mb-5">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination" style="justify-content: center;">
+											<!-- [이전] -->
+											<c:if test="${ mi.currentPageM <= 1 }">
+												<li class="page-item disabled">
+													<a class="page-link" aria-label="Previous">
+														<span aria-hidden="true">&laquo;</span>
+													</a>
+												</li>
+											</c:if>
+											<c:if test="${ mi.currentPageM > 1 }">
+												<li class="page-item">
+													<c:choose>
+														<c:when test="${ table_search eq null }">
+															<a class="page-link" href="adminMember${memberType}.ad?page=${ mi.currentPageM - 1 }" aria-label="Previous">
+																<span aria-hidden="true">&laquo;</span>
+															</a>
+														</c:when>
+														<c:otherwise>
+															<a class="page-link" href="adminMember${memberType}.ad?table_search=${ table_search }&page=${ mi.currentPageM - 1 }" aria-label="Previous">
+																<span aria-hidden="true">&laquo;</span>
+															</a>
+														</c:otherwise>
+													</c:choose>
+													
+												</li>
+											</c:if>
+			
+											<!-- 페이지 -->
+											<c:forEach var="m" begin="${ mi.startPageM }" end="${ mi.endPageM }">
+												<c:if test="${ m eq mi.currentPageM }">
+													<li class="page-item disabled">
+														<a class="page-link">${ m }</a>
+													</li>
+												</c:if>
+												<c:if test="${ m ne mi.currentPageM }">
+													<c:choose>
+														<c:when test="${ table_search eq null }">
+															<a class="page-link" href="adminMember${memberType}.ad?page=${m}">${ m }</a>
+														</c:when>
+														<c:otherwise>
+															<a class="page-link" href="adminMember${memberType}.ad?table_search=${ table_search }&page=${m}">${ m }</a>
+														</c:otherwise>
+													</c:choose>
+												</c:if>
+											</c:forEach>
+											
+											<!-- [다음] -->
+											<c:if test="${ mi.currentPageM >= mi.maxPageM }">
+												<li class="page-item disabled">
+													<a class="page-link" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</li>
+											</c:if>
+											<c:if test="${ mi.currentPageM < mi.maxPageM }">
+												<li class="page-item">
+													<c:choose>
+														<c:when test="${ table_search eq null }">
+															<a class="page-link" href="adminMember${memberType}.ad?page=${ mi.currentPageM + 1 }" aria-label="Next">
+																<span aria-hidden="true">&raquo;</span>
+															</a>
+														</c:when>
+														<c:otherwise>
+															<a class="page-link" href="adminMember${memberType}.ad?table_search=${ table_search }&page=${ mi.currentPageM + 1 }" aria-label="Next">
+																<span aria-hidden="true">&raquo;</span>
+															</a>
+														</c:otherwise>
+													</c:choose>
+												</li>
+											</c:if>			
 										</ul>
-									</div>
+									</nav>
 								</div>
 							<!-- /.card -->
 							</div>
@@ -151,10 +201,32 @@
 			</form>
 		</section>
 	</div> 
-<!-- 	</div> -->
-     <!-- ./Content-wrapper 콘텐츠 레퍼 -->
 	
-   <!-- jQuery -->
+	<!-- 검색어 없으면 넘어가지 않음 -->
+	<script>
+		/* 디테일 들어가기 */
+		jQuery(document).ready(function($) {
+		    $(".detail").click(function() {
+		        window.location = $(this).data("href");
+		    });
+		});
+		
+		function search(){
+			var search = $('#adminMember [name="table_search"]').val()
+			
+			if(search.trim() == ""){
+				Swal.fire({
+					  position: 'middle',
+					  icon: 'warning',
+					  title: '검색어를 입력해주세요.',
+					  timer: 1300
+					})
+				return false;
+			} else return true
+		}
+	</script>
+
+	<!-- jQuery -->
    <script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
    <!-- Bootstrap 4 -->
    <script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

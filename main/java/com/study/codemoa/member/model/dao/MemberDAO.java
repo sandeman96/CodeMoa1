@@ -84,4 +84,9 @@ public class MemberDAO {
 		return sqlSession.update("memberMapper.deleteReply", no);
 	}
 
+	public int updateNick(SqlSessionTemplate sqlSession, Member m) {
+
+		return sqlSession.update("memberMapper.updateNick", m);
+	}
+
 }

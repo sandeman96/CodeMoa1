@@ -212,23 +212,23 @@
 		
 		
 		//image 보내기
-// 		  function uploadSummernoteImageFile(file, el) {
-// 				data = new FormData();
-// 				data.append("file", file);
-// 				$.ajax({
-// 					data : data,
-// 					type : "POST",
-// 					url : "uploadSummernoteImageFile.bo",
-// 					contentType : false,
-// 					enctype : 'multipart/form-data',
-// 					processData : false,
-// 					success : function(data) {
-// 						$(el).summernote('editor.insertImage', data.url);
+		  function uploadSummernoteImageFile(file, el) {
+				data = new FormData();
+				data.append("file", file);
+				$.ajax({
+					data : data,
+					type : "POST",
+					url : "uploadSummernoteImageFile.bo",
+					contentType : false,
+					enctype : 'multipart/form-data',
+					processData : false,
+					success : function(data) {
+						$(el).summernote('editor.insertImage', data.url);
 						
-// 						console.log(data.url);
-// 					}
-// 				});
-// 			}
+						console.log(data.url);
+					}
+				});
+			}
 	</script>
 	
 	<script>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +10,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/fontawesome-free/css/all.min.css">
-<!-- Ionicons -->
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Tempusdominus Bootstrap 4 -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-<!-- JQVMap -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/jqvmap/jqvmap.min.css">
+
 <!-- Theme style -->
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
-<!-- overlayScrollbars -->
-<link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+
 <style>
 input[type=radio]:checked + label {color:white; background-color:gray;}
 input[type=radio]{display:none;}
@@ -52,36 +45,16 @@ input[type=radio]{display:none;}
 					<div class="row">
 						<div class="col-12">
 							<div class="card">
-								<div class="card-header d-flex p-0">
-									<h3 class="card-title p-3">신고된 게시판 리스트</h3>
-									<ul class="nav nav-pills ml-auto p-2">
-										<li class="nav-item">
-<!-- 											<div class="btn-group"> -->
-<!-- 						                        <button type="button" class="btn btn-default btn-sm">전체</button> -->
-<!-- 						                        <button type="button" class="btn btn-default btn-sm">Tech</button> -->
-<!-- 						                        <button type="button" class="btn btn-default btn-sm">Community</button> -->
-<!-- 						                        <button type="button" class="btn btn-default btn-sm">Git Trending</button> -->
-<!-- 						                    </div> -->
-										</li>
-										<li>&ensp;</li>
-										<li class="nav-item">
-											<div class="card-tools">         
-					                           <div class="input-group input-group-sm" style="width: 150px;">
-					                              <input type="text" class="form-control float-right" placeholder="Search">
-					                              <div class="input-group-append">
-					                                 <button type="submit" class="btn btn-default">
-					                                 <i class="fas fa-search"></i>
-					                              </button>
-					                              </div>
-					                           </div>
-					                        </div>
-					                	</li>
-					                	<li>&ensp;</li>
-										<li class="nav-item">
-											<input type="button" class="btn btn-block btn-warning btn-sm"
-											style=""  value="선택된글 삭제" onclick="deleteValue();">
-										</li>				
-									</ul>
+								<div class="card-header d-flex p-0 align-items-center">
+									<h3 class="col-4 card-title p-3">신고된 사용자 리스트</h3>
+					                	<div class="col-3 text-right" >
+											<button type="button" class="btn btn-warning btn-sm"
+											 onclick="deleteBoard()">선택된 글 삭제</button>
+										</div>
+										<div class="col-5 text-right">
+											<button type="button" class="btn btn-warning btn-sm mr-4"
+											 onclick="deleteValue();">선택된 신고글 삭제</button>
+										</div>				
 								</div>
 								<!-- /.card-header -->
 								<div class="card-body table-responsive p-0">
@@ -91,9 +64,12 @@ input[type=radio]{display:none;}
 												<th>NO</th>
 												<th>신고종류</th>
 												<th>신고된 보드 번호</th> 
+												<th style="border-right: 1px solid #dee2e6;">
+													<input type="checkbox" id="allCheck2" name="allCheck2">
+												</th>
 												<th>신고자</th>
 												<th>제목</th>
-												<th>내용</th>
+<!-- 												<th>내용</th> -->
 												<th>신고일</th>
 												<th>
 													<input type="checkbox" id="allCheck" name="allCheck">
@@ -122,7 +98,10 @@ input[type=radio]{display:none;}
 														<td>기타</td>
 													</c:otherwise>
 												</c:choose>
-												<td>
+												<c:url var="mypage" value="mypage.me">
+													<c:param name="userId" value="${ p.pReporter }" />
+												</c:url>
+													<td style="width: 20rem;">
 <%-- 													<button onclick="test();" style="color: #f5825f;">${ p.pBno } 번</button> --%>
 <%-- 													<a href="boardDetail.bo?bNo=${ p.pBno }&page=${p.pBpage}">${ p.pBno } 번</a> --%>
 													
@@ -136,7 +115,7 @@ input[type=radio]{display:none;}
 															
 																</c:if>
 																<c:if test="${b.bNo eq p.pBno and b.bStatus =='Y'}">
-																		<a href="boardDetail.bo?bNo=${ p.pBno }&page=${p.pBpage}">${ p.pBno } 번 </a>
+																		<a href="boardDetail.bo?bNo=${ b.bNo }&page=${p.pBpage}">${ p.pBno } 번 </a>
 <%-- 																		<c:set var="flag" value="true"/>	 --%>
 																</c:if>
 																
@@ -152,6 +131,19 @@ input[type=radio]{display:none;}
  												
 												</td>
 												
+												<td style="border-right: 1px solid #dee2e6;">
+												<c:set var="flag2" value="false"/>
+													<c:forEach var="b" items="${ bList }">
+													<c:if test="${ !flag2 }">
+														<c:if test="${ p.pBno eq b.bNo }">
+															<input type="checkbox" name="RowCheck2" value="${b.bNo}" > 
+															<c:set var="flag2" value="true"/> 
+														</c:if>
+														
+													</c:if>
+													</c:forEach>
+												</td>
+												
 												<c:url var="mypage" value="mypage.me">
 													<c:param name="userId" value="${ p.pReceiver }" />
 												</c:url>
@@ -165,7 +157,6 @@ input[type=radio]{display:none;}
 												<td>
 													<a href="${reportDetail}" style="color: #f5825f;">${ p.pTitle }</a>
 												</td>
-												<td>${ p.pContent }</td>
 												<td>${ p.pDate }</td>
 												<td>
 													<input type="checkbox" name="RowCheck" value="${ p.pNo }" >  
@@ -227,6 +218,9 @@ input[type=radio]{display:none;}
 						</div>
 					</div>
 				</div>
+				<c:if test="${ pList.isEmpty() }">
+						<h3 style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">등록된 신고가 없습니다.</h3>
+				</c:if>
 		</section>
 	</div> 
 
@@ -254,15 +248,79 @@ input[type=radio]{display:none;}
 		var url = "adminDeleteReportCheck.ad";
 		var valueArr = new Array();
 		var pList = $("input[name='RowCheck']");
+		console.log(pList);
+		console.log(valueArr);
 		for(var i = 0; i < pList.length; i++){
 			if(pList[i].checked){
 				valueArr.push(pList[i].value);
 			}
 		}
 		if(valueArr.length == 0) {
-			alert("선택된 글이 없습니다.")
+			alert("선택된 글이 없습니다.");
+		}else if(confirm("정말 삭제하시겠습니까?") == false){
+			alert('삭제 취소')
+			return;
 		}else {
-			var chk = confirm("정말 삭제하시겠습니까?");
+			var chk
+			$.ajax({
+				url : url,
+				type : 'POST',
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success: function(jdata){
+					if(jdata = 1){
+						alert("삭제 성공");
+						 location.href = "adminReportBoard.ad";
+					} else {
+						alert("삭제 실패");
+					}
+				}
+			});
+		}
+	
+	}
+	
+</script>
+
+<!-- 보드 변경 -->  
+<script type="text/javascript">
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck2");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck2']").click(function(){
+			var chk_listArr = $("input[name='RowCheck2']");
+			for (var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck2']").click(function(){
+			if($("input[name='RowCheck2']:checked").length == rowCnt){
+				$("input[name='allCheck2']")[0].checked = true;
+			} else {
+				$("input[name='allCheck2']")[0].checked = false;
+			}
+		});
+	});
+	function deleteBoard(){
+		var url = "adminDeleteCheckRoportB.ad";
+		var valueArr = new Array();
+		var bList = $("input[name='RowCheck2']");
+		console.log(bList);
+		console.log(valueArr);
+		for(var i = 0; i < bList.length; i++){
+			if(bList[i].checked){
+				valueArr.push(bList[i].value);
+			}
+		}
+		if(valueArr.length == 0) {
+			alert("선택된 글이 없습니다.");
+		}else if(confirm("정말 삭제하시겠습니까?") == false){
+			alert('삭제 취소')
+			return;
+		}else {
 			$.ajax({
 				url : url,
 				type : 'POST',
@@ -283,46 +341,6 @@ input[type=radio]{display:none;}
 	}
 	
 </script>
-
-<!-- <script>
-$("#allCheck").click(function(){
- var chk = $("#allCheck").prop("checked");
- if(chk) {
-  $(".chBox").prop("checked", true);
- } else {
-  $(".chBox").prop("checked", false);
- }
-});
-</script>
-
-<script>
- $(".chBox").click(function(){
-  $("#allCheck").prop("checked", false);
- });
-</script>
-
-<script>
- $(".selectDelete_btn").click(function(){
-  var confirm_val = confirm("정말 삭제하시겠습니까?");
-  
-  if(confirm_val) {
-   var checkArr = new Array();
-   
-   $("input[class='chBox']:checked").each(function(){
-    checkArr.push($(this).attr("data-cartNum"));
-   });
-    
-   $.ajax({
-    url : "/shop/deleteCart",
-    type : "post",
-    data : { chbox : checkArr },
-    success : function(){
-     location.href = "/shop/cartList";
-    }
-   });
-  } 
- });
-</script> -->
    
    <!-- jQuery -->
    <script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>

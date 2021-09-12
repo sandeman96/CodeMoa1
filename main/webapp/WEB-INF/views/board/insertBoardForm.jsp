@@ -23,7 +23,16 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
-	<c:import url="../common/menu.jsp" />
+	
+	<c:choose>
+		<c:when test="${ loginUser != null && loginUser.admin == 'Y' }">
+			<c:import url="../admin/adminSidebar.jsp" />
+		</c:when>
+		<c:otherwise>
+			<c:import url="../common/menu.jsp" />
+		</c:otherwise>
+	</c:choose>
+	
 	
 	<div class="wrapper">
 		<div class="content-wrapper">
@@ -36,6 +45,7 @@
 			<section class="content">
 				<div class="col-md-12">
 				<form action="insertBoard.bo"  method="post">
+					<input type="hidden" name="bFirst" id="bFirst" value="N">
 					<div class="card card-outline card-warning">
 						<div class="card-body">
 							<div class="col-sm-2" style="display: inline-block;">

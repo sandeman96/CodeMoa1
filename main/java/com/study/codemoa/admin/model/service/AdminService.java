@@ -1,6 +1,7 @@
 package com.study.codemoa.admin.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.study.codemoa.admin.model.vo.BoardInfo;
 import com.study.codemoa.admin.model.vo.MemberInfo;
@@ -10,6 +11,8 @@ import com.study.codemoa.board.model.vo.Board;
 import com.study.codemoa.member.model.vo.Member;
 
 public interface AdminService {
+	
+	
 
 	ArrayList<Member> selectMember(Member m, MemberInfo mi);
 
@@ -35,9 +38,28 @@ public interface AdminService {
 
 	ArrayList<Board> selectReportB(Board b);
 
-//	void deleteBoardReport(String string);
+	ArrayList<Member> selectReportM(Member m);
 
+	int userEnable(String id);
 
+	int deleteReportB(String bNo);
+	
+	/* -----------------------본----------------------- */
+	
+	int getListCountM2(HashMap<String, String> map);
 
+	ArrayList<Member> selectMember2(HashMap<String, String> map, MemberInfo mi);
+
+	int getListCountB2(HashMap<String, String> map);
+
+	ArrayList<Board> selectBoard2(HashMap<String, String> map, BoardInfo bi);
+
+	Member pwdCheck(Member m);
+
+	int updateBoard(HashMap<String, String> map);
+
+	int updateAdminMember(HashMap<String, String> map);
+
+	int updateStatusMember(HashMap<String, String> map);
 
 }

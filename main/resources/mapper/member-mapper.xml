@@ -56,6 +56,7 @@
 		<result column="M_LOCATION" property="location" />
 		<result column="M_SKILL" property="skill" />
 		<result column="M_NOTE" property="note" />
+		<result column="M_ENABLE" property="enable" />
 	</resultMap>
 	
 	<select id="selectNickName" resultType="_int">
@@ -132,6 +133,12 @@
 		<result column="lCount" property="lCount" />
 		<result column="rCount" property="rCount" />
 	</resultMap>
+	
+	<update id="updateNick">
+		update member
+		set m_nick=#{nickName}, m_enable=#{enable}
+		where m_id=#{id}
+	</update>
 	
 
 </mapper>

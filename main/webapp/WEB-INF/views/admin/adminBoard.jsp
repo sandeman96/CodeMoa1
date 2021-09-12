@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 관리</title>
+<title>Codemoa</title>
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -22,63 +22,86 @@
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="/codemoa/resources/plugins/daterangepicker/daterangepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<style>
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+}
+</style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
 	<c:import url="../admin/adminSidebar.jsp"/>
 	
+	<%-- <c:if test="${ msg != null }">
+	  	<script>
+	  		alert('${ msg }');
+	  	</script>
+	</c:if> --%>
+	
+	<c:if test="${ loginUser == null }">
+		<div class="content-wrapper">
+			<section class="content mt-5">
+				<div class="error-page">
+					<div class="error-content">
+						<h3>
+							<i class="fas fa-exclamation-triangle text-danger"></i>
+							로그인 해주세요.
+						</h3>
+					</div>
+				</div>
+				<!-- /.error-page -->
+			</section>
+		</div>
+	</c:if>
+	
+	<c:if test='${ loginUser != null || loginUser.admin eq "Y" }'>
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
 			<div class="container-fluid">
-				<div class="row mb-2">
-					<div class="col-sm-6">
-						<h1>게시판 관리</h1>
-					</div>
+				<div class="text-center p-3">
+					<h1>&#128451; 게시글 관리</h1>
 				</div>
 			</div><!-- /.container-fluid -->
 		</section>
     
 		<section class="content">
-			<form action="#" onsubmit="return update();">
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col-12">
-							<div class="card">
-								<div class="card-header d-flex p-0">
-									<h3 class="card-title p-3">게시판 list</h3>
-									<ul class="nav nav-pills ml-auto p-2">
-										<li class="nav-item">
-											<div class="btn-group">
-						                        <button type="button" class="btn btn-default btn-sm">전체</button>
-						                        <button type="button" class="btn btn-default btn-sm">신고</button>
-						                        <button type="button" class="btn btn-default btn-sm">Tech</button>
-						                        <button type="button" class="btn btn-default btn-sm">Community</button>
-						                        <button type="button" class="btn btn-default btn-sm">Git Trending</button>
-						                    </div>
-										</li>
-										<li>&ensp;</li>
-										<li class="nav-item">
-											<div class="card-tools">         
-					                           <div class="input-group input-group-sm" style="width: 150px;">
-					                              <input type="text" class="form-control float-right" placeholder="Search">
-					                              <div class="input-group-append">
-					                                 <button type="submit" class="btn btn-default">
-					                                 <i class="fas fa-search"></i>
-					                              </button>
-					                              </div>
-					                           </div>
-					                        </div>
-					                	</li>
-					                	<li>&ensp;</li>
-										<li class="nav-item">
-											<button type="button" class="btn btn-block btn-warning btn-sm">Status 수정</button>
-										</li>				
-									</ul>
+			<div class="container-fluid" style="padding-left: 20px; padding-right: 20px;">
+				<div class="row">
+					<div class="col-12">
+						<!-- <div class="card"> -->
+						<div>
+							<form action="adminBoardSearch.ad" id="adminBoard" onsubmit="return search();">
+								<div class="row card-header p-2">
+									<div class="col-3 btn-group">
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminBoard.ad'" style="width: 4rem;">전체</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminBoardQA.ad'" style="width: 4rem;">Q&A</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminBoardTips.ad'" style="width: 4rem;">Tips</button>
+				                        <button type="button" class="btn btn-default btn-sm" onclick="location.href='adminBoardStudy.ad'" style="width: 4rem;">Study</button>
+				                    </div>
+				                    <div class="col-7"></div>      
+		                           <div class="input-group input-group-sm col-2" style="width: 200px;">
+		                              <input type="text" name="table_search" class="form-control" placeholder="Search">
+		                              <div class="input-group-append">
+		                                 <button type="submit" class="btn btn-default">
+		                                 <i class="fas fa-search"></i>
+		                              </button>
+		                              </div>
+		                           </div>
 								</div>
 								<!-- /.card-header -->
+								
+								<c:if test="${ bList.isEmpty() }">
+									<h3 style="text-align: center; margin-top: 3rem; margin-bottom: 3rem;">
+										조회된 게시글이 없습니다.
+									</h3>
+								</c:if>
+								<c:if test="${ !bList.isEmpty() }">
 								<div class="card-body table-responsive p-0">
 									<table class="table table-hover">
 										<thead>
@@ -89,108 +112,182 @@
 												<th>제목</th>
 												<th>작성일</th>
 												<th>Status</th>
-												<th>신고</th>
 											</tr>
 										</thead>
 										<tbody>
 											<c:forEach var="b" items="${ bList }">
-											<tr>
-												<td>${ b.bNo }</td>
-												<td>${ b.bType }</td>
-												<td>${ b.bWriter }</td>
-												<td>${ b.bTitle }</td>
-												<td>${ b.bDate }</td>
-												<td>
-													<c:if test="${ b.bStatus eq 'Y'}">
-														 <div class="btn-group btn-group-toggle" data-toggle="buttons">
-										                  <label class="btn btn-sm btn-secondary">
-										                    <input type="radio" name="options" id="option_b1" autocomplete="off" checked> Y
-										                  </label>
-										                  <label class="btn btn-sm btn-secondary">
-										                    <input type="radio" name="options" id="option_b2" autocomplete="off"> N
-										                  </label>
-										                </div>
-													</c:if>
-													<c:if test="${ b.bStatus eq 'N'}">
-														<div class="btn-group btn-group-toggle" data-toggle="buttons">
-										                  <label class="btn btn-sm btn-secondary">
-										                    <input type="radio" name="options" id="option_b1" autocomplete="off"> Y
-										                  </label>
-										                  <label class="btn btn-sm btn-secondary">
-										                    <input type="radio" name="options" id="option_b2" autocomplete="off" checked> N
-										                  </label>
-										                </div>
-													</c:if>
-												</td>
-												<td>
-													안녕
-												</td>
-											</tr>
+												<c:url var="bdetail" value="boardDetail.ad">
+													<c:param name="bNo" value="${ b.bNo }" />
+													<c:param name="page" value="1" />
+													<c:param name="side" value="Y" />
+												</c:url>
+												<tr>
+													<td class="bNo detail" data-href='${bdetail}'>${ b.bNo }</td>
+													<td class="detail" data-href='${bdetail}'>
+														<c:if test="${ b.bType == 1 }">Q&A</c:if>
+														<c:if test="${ b.bType == 2 }">Tips</c:if>
+														<c:if test="${ b.bType == 3 }">Study</c:if>
+													</td>
+													<td class="detail" data-href='${bdetail}'>${ b.bWriter }</td>
+													<td class="detail" data-href='${bdetail}'>${ b.bTitle }</td>
+													<td class="detail" data-href='${bdetail}'>${ b.bDate }</td>
+													<td>
+													<c:choose>
+														<c:when test="${ !empty loginUser }">
+															<div class="btn-group btn-group-toggle" data-toggle="buttons">
+												                <label class="btn btn-outline-warning btn-sm">
+												                  <input type="radio" class="Status" <c:if test="${ b.bStatus eq 'Y'}">checked</c:if> value="Y">Y 
+												                </label>
+												                <label class="btn btn-outline-warning btn-sm">
+												                  <input type="radio" class="Status" <c:if test="${ b.bStatus eq 'N'}">checked</c:if> value="N">N
+												                </label>
+											               </div>
+										               </c:when>
+										               <c:otherwise>${ b.bStatus }</c:otherwise>
+										               </c:choose>
+													</td>
+												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</div>
+								</c:if>
+								</form>
 								<!-- /.card-body -->
-								<div class="card-footer clearfix">
-									<div class="card-tools d-flex justify-content-center">
-										<ul class="pagination pagination-sm m-0">
+								<!-- <div class="card-footer clearfix"> -->
+								<div class="pagination-margin mt-5 mb-5">
+									<nav aria-label="Page navigation example">
+										<ul class="pagination" style="justify-content: center;">
 											<!-- [이전] -->
-											<c:if test="${ pi.currentPage <= 1 }">
-												<li class="page-item"><a class="page-link">&laquo;</a>
+											<c:if test="${ bi.currentPageB <= 1 }">
+												<li class="page-item disabled">
+													<a class="page-link" aria-label="Previous">
+														<span aria-hidden="true">&laquo;</span>
+													</a>
+												</li>
 											</c:if>
-											<c:if test="${ pi.currentPage > 1 }">
-												<c:url var="before" value="adminBoard.ad">
-													<c:param name="page" value="${ pi.currentPage - 1 }"/>
-												</c:url>
-												<li class="page-item"><a href="${ before }" class="page-link">&laquo;</a>
+											<c:if test="${ bi.currentPageB > 1 }">
+												<li class="page-item">
+												<c:choose>
+													<c:when test="${ table_search eq null }">
+														<a class="page-link" href="adminBoard${boardType}.ad?page=${ bi.currentPageB - 1 }" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span>
+														</a>
+													</c:when>
+													<c:otherwise>
+														<a class="page-link" href="adminBoard${boardType}.ad?table_search=${ table_search }&page=${ bi.currentPageB - 1 }" aria-label="Previous">
+															<span aria-hidden="true">&laquo;</span>
+														</a>
+													</c:otherwise>
+												</c:choose>
+												</li>
 											</c:if>
-														
+			
 											<!-- 페이지 -->
-											<c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-												<c:if test="${ p eq pi.currentPage }">
-													<li class="page-item"><a class="page-link" style="color: red;">${ p }</a>
+											<c:forEach var="b" begin="${ bi.startPageB }" end="${ bi.endPageB }">
+												<c:if test="${ b eq bi.currentPageB }">
+													<li class="page-item disabled">
+														<a class="page-link">${ b }</a>
+													</li>
 												</c:if>
-														
-												<c:if test="${ p ne pi.currentPage }">
-													<c:url var="pagination" value="adminBoard.ad">
-														<c:param name="page" value="${ p }"/>
-													</c:url>
-													<li class="page-item"><a href="${ pagination }" class="page-link">${ p }</a>
-												</c:if>	
+												<c:if test="${ b ne bi.currentPageB }">
+													<li class="page-item">
+													<c:choose>
+														<c:when test="${ table_search eq null }">
+															<a class="page-link" href="adminBoard${boardType}.ad?page=${b}">${ b }</a>
+														</c:when>
+														<c:otherwise>
+															<a class="page-link" href="adminBoard${boardType}.ad?table_search=${ table_search }&page=${b}">${ b }</a>
+														</c:otherwise>
+													</c:choose>
+													</li>
+												</c:if>
 											</c:forEach>
-													
+			
 											<!-- [다음] -->
-											<c:if test="${ pi.currentPage >= pi.maxPage }">
-												<li class="page-item"><a class="page-link">&raquo;</a>
+											<c:if test="${ bi.currentPageB >= bi.maxPageB }">
+												<li class="page-item disabled">
+													<a class="page-link" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</li>
 											</c:if>
-											<c:if test="${ pi.currentPage < pi.maxPage }">
-												<c:url var="after" value="adminBoard.ad">
-													<c:param name="page" value="${ pi.currentPage + 1 }"/>
-												</c:url> 
-												<li class="page-item"><a href="${ after }" class="page-link">&raquo;</a>
-											</c:if>				
+											<c:if test="${ bi.currentPageB < bi.maxPageB }">
+												<li class="page-item">
+												<c:choose>
+												<c:when test="${ table_search eq null }">
+													<a class="page-link" href="adminBoard${boardType}.ad?page=${ bi.currentPageB + 1 }" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:when>
+												<c:otherwise>
+													<a class="page-link" href="adminBoard${boardType}.ad?table_search=${ table_search }&page=${ bi.currentPageB + 1 }" aria-label="Next">
+														<span aria-hidden="true">&raquo;</span>
+													</a>
+												</c:otherwise>
+												</c:choose>
+												</li>
+											</c:if>
 										</ul>
-									</div>
+									</nav>
 								</div>
 							<!-- /.card -->
 							</div>
 						</div>
 					</div>
 				</div>
-			</form>
 		</section>
-	</div> 
-	
+	</div>
+	</c:if>
+	<br>
 	<script>
-		function update() {
-			if(confirm("정말 수정하시겠습니까?") == true){
-			     alert("Status 수정이 완료되었습니다");
-			     return true;
-			 }else{
-			     return false;
-			 }
+		/* 디테일 들어가기 */
+		jQuery(document).ready(function($) {
+		    $(".detail").click(function() {
+		        window.location = $(this).data("href");
+		    });
+		});
+		
+		$('.Status').click(function() {	
+			var bNo = $(this).parents('td').siblings('.bNo').text();
+			var bStatus = $(this).val();
+			
+			$.ajax({
+				type : "POST",
+				url : "adminUpdateBoard.ad",
+				data: { bNo : bNo, bStatus : bStatus },
+				success : function(data) {
+					Swal.fire({
+						  position: 'middle',
+						  icon: 'success',
+						  title: 'Status가 수정되었습니다.',
+						  showConfirmButton: false,
+						  timer: 1000
+						})
+						setTimeout(saved, 1000);
+					
+					function saved(){
+						location.reload();
+					}
+				}
+			});
+		});
+		
+		function search(){
+			var search = $('#adminBoard [name="table_search"]').val()
+			
+			if(search.trim() == ""){
+				Swal.fire({
+					  position: 'middle',
+					  icon: 'warning',
+					  title: '검색어를 입력해주세요.',
+					  timer: 1300
+					})
+				return false;
+			} else return true
 		}
 	</script>
+
    
    <!-- jQuery -->
    <script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>

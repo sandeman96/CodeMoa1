@@ -66,13 +66,25 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login.me", method = RequestMethod.POST)
-	public String login(@ModelAttribute Member m, Model model, @RequestParam("id") String id, @RequestParam("pwd") String pwd) {
+	public String login(@ModelAttribute Member m, Model model, @RequestParam("id") String id,
+			@RequestParam("pwd") String pwd) {
 
 		Member loginUser = mService.login(m);
-		
-		if(loginUser != null) {
+
+		if (loginUser != null) {
 			if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
 				model.addAttribute("loginUser", loginUser);
+				if (loginUser.getAdmin().equals("Y")) {
+					return "redirect:adminPage.ad";
+				}
+				
+				if(loginUser.getEnable().equals("0")) {
+					return "redirect:main.do";
+				} else if(loginUser.getEnable().equals("1")) {
+		        	model.addAttribute("msg", "부적절한 닉네임으로 신고 되었습니다, 닉네임을 바꿔주세요");
+		            return "/loginError";
+		        }
+				
 			} else {
 				model.addAttribute("msg", "failed");
 				return "loginForm";
@@ -81,7 +93,7 @@ public class MemberController {
 			model.addAttribute("msg", "failed");
 			return "loginForm";
 		}
-		
+
 		return "redirect:main.do";
 	}
 
@@ -227,6 +239,24 @@ public class MemberController {
 
 	}
 
+	@RequestMapping("nickUpdate.me")
+	public String updateNick(@ModelAttribute Member m) {
+		System.out.println(m);
+
+		m.setEnable("0");
+
+		int result = mService.updateNick(m);
+		System.out.println(result);
+
+		if (result > 0) {
+
+			return "redirect:logout.me";
+		} else {
+			throw new MemberException("닉네임 변경 실패");
+		}
+
+	}
+
 	@RequestMapping("mdelete.me")
 	public String deleteMember(@RequestParam("dUser") String id, SessionStatus session) {
 		int result = mService.deleteMember(id);
@@ -288,7 +318,6 @@ public class MemberController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@RequestMapping("nickNameCheck.me")
@@ -413,7 +442,6 @@ public class MemberController {
 		} else {
 			return "fail";
 		}
-
 	}
 
 	@RequestMapping("deleteReply.me")
@@ -432,9 +460,10 @@ public class MemberController {
 			return "fail";
 		}
 	}
-	
+
 	public String fileIs(String userId) {
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+				.getRequest();
 
 		String root = request.getSession().getServletContext().getRealPath("resources") + "/userProfile";
 
@@ -490,7 +519,8 @@ public class MemberController {
 	}
 
 	@RequestMapping("deleteImg.me")
-	public String deleteImg(@RequestParam("userImg") String userImg, HttpServletRequest request, HttpSession session, Model m) {
+	public String deleteImg(@RequestParam("userImg") String userImg, HttpServletRequest request, HttpSession session,
+			Model m) {
 		String renameFileName = ((Member) session.getAttribute("loginUser")).getId();
 		String root = request.getSession().getServletContext().getRealPath("resources") + "/userProfile";
 		File dFile = new File(root + "\\" + userImg);
@@ -506,12 +536,12 @@ public class MemberController {
 		m.addAttribute("userId", renameFileName);
 		return "redirect:mypage.me";
 	}
-	
+
 	@RequestMapping("profileImg.me")
 	@ResponseBody
 	public String profileImg(@RequestParam("userId") String userId) {
 		String userImg = fileIs(userId);
-		
+
 		return userImg;
 	}
 

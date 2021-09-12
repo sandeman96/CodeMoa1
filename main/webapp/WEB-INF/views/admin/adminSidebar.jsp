@@ -21,23 +21,31 @@
 <!-- overlayScrollbars -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
+
 <style>
 #logoutBtn {
 	position: absolute;
-	bottom: 10px;
+	bottom: 15px;
 	font-weight: bold;
 }
+
 #logoutBtn:hover {
 	background-color: rgba(255, 255, 255, .1);
 	color: #fff;
 }
+
 #dark i {
 	color: #f5df4d;
 }
-#chatbox {
-	position: absolute;
-	top: 58;
-	right: 15px;
+
+.logotext {
+	font-size: 30px;
+	line-height: 70px;
+}
+
+.im {
+	font-size: 40px;
+	line-height: 70px;
 }
 </style>
 
@@ -70,134 +78,178 @@
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item">
-					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
-						<i class="fas fa-expand-arrows-alt"></i>
-					</a>
-				</li>
 
 				<li class="nav-item">
 					<a id="dark" class="nav-link" data-widget="dark-mode" data-slide="true" href="#" role="button">
 						<i class="fas fa-moon"></i>
 					</a>
 				</li>
+
+				<li class="nav-item">
+					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
+						<i class="fas fa-expand-arrows-alt"></i>
+					</a>
+				</li>
+
 			</ul>
 		</nav>
 		<!-- /.navbar -->
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="index.jsp" class="brand-link">
-				<img src="/codemoa/resources/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">CODE MOA</span>
+			<a href="adminPage.ad" class="brand-link">
+				<span class="brand-image im ml-2">🗿</span>
+				<span class="brand-text logotext">CODEMOA‍</span>
 			</a>
 
 			<!-- Sidebar -->
 			<div class="sidebar">
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 pb-3 mb-3 d-flex">
+				<div class="user-panel mt-3 pb-3 mb-3 flex-column align-items-center">
 					<c:if test="${ loginUser == null }">
-						<div class="info">
-							<a href="loginForm.me" class="d-block">로그인을 해주세요</a>
+						<div class="image ml-2">
+							<h5>🚪</h5>
+						</div>
+
+						<div class="image">
+							<a href="loginForm.me">로그인을 해주세요</a>
 						</div>
 					</c:if>
 
 					<c:if test="${ loginUser != null }">
-					<c:url var="mypage" value="mypage.me">
-						<c:param name="userId" value="${ loginUser.id }"/>
-					</c:url>
-						<div class="image">
-							<img src="resources/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-						</div>
-						<div class="info">
-							<a href="${ mypage }" class="d-block">${ loginUser.nickName }</a>
-						</div>
+
+						<span class="brand-image logotext ml-2"> 👷 ‍ </span>
+
+						<span class="brand-text">
+							<a href="adminPage.ad">
+								${ loginUser.nickName }
+								<span class="text-sm">(관리자)</span>
+							</a>
+						</span>
+
 					</c:if>
 				</div>
 
-            <!-- Sidebar Menu -->
-            <nav class="mt-2">
-               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-				
-				 <li class="nav-item">
-                     <a onclick="location.href='adminPage.ad'" class="nav-link">
-                        <i class="nav-icon fab fa-github"></i>
-                        <p>관리자 메인 화면</p>
-                     </a>
-                  </li>
-				
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                           	사용자 관리
-                           <i class="fas fa-angle-left right"></i>
-                        </p>
-                     </a>
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="adminMember.ad" class="nav-link">
-                              <p>사용자 관리</p>
-                           </a>
-                        </li>
-                        <li class="nav-item">
-                           <a href="adminReportMember.ad" class="nav-link">
-                              <p>신고된 사용자</p>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
+				<!-- Sidebar Menu -->
+				<nav class="mt-2">
+					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-newspaper"></i>
-                        <p>
-                           	게시글 관리
-                           <i class="fas fa-angle-left right"></i>
-                        </p>
-                     </a>
-                     
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                          <a href="adminBoard.ad" class="nav-link">
-                              <p>게시판 관리</p>
-                           </a>
-                        </li>
-                     </ul>
-                     
-                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                           <a href="adminReportBoard.ad" class="nav-link">
-                              <p>신고된 게시글</p>
-                           </a>
-                        </li>
-                     </ul>
-                  </li>
+						<li class="nav-item">
+							<a href='adminPage.ad' class="nav-link">
+								<i class="nav-icon fas fa-home"></i>
+								<p>관리자 메인 화면</p>
+							</a>
+						</li>
 
-                  <li class="nav-item">
-                     <a onclick="location.href='adminCalendar.ad'" class="nav-link">
-                        <i class="nav-icon fa fa-calendar"></i>
-                        <p>캘린더 관리</p>
-                     </a>
-                  </li>
+						<li class="nav-item">
+							<a href="adminMember.ad" class="nav-link">
+								<i class="nav-icon fas fa-users"></i>
+								<p>
+									사용자
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+							<ul class="nav nav-treeview">
 
-               </ul>
-               
-            </nav>
-            	<c:if test="${ loginUser != null }">
+								<li class="nav-item">
+									<a href="adminMember.ad" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>사용자 관리</p>
+									</a>
+								</li>
+
+								<li class="nav-item">
+									<a href="adminReportMember.ad" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>신고된 사용자</p>
+									</a>
+								</li>
+
+							</ul>
+						</li>
+
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="nav-icon fas fa-newspaper"></i>
+								<p>
+									게시글 관리
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="adminBoard.ad" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>게시판 관리</p>
+									</a>
+								</li>
+							</ul>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="adminReportBoard.ad" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>신고된 게시글</p>
+									</a>
+								</li>
+							</ul>
+						</li>
+
+
+
+
+						<li class="nav-item">
+							<a href="#" class="nav-link">
+								<i class="nav-icon fab fa-medium"></i>
+								<p>
+									사용자 메뉴
+									<i class="fas fa-angle-left right"></i>
+								</p>
+							</a>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="boardListFaq.bo" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										Q&amp;A
+									</a>
+								</li>
+							</ul>
+
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="boardListTips.bo" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										Tips
+									</a>
+								</li>
+							</ul>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="boardListStudy.bo" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										Study
+									</a>
+								</li>
+							</ul>
+						</li>
+
+
+					</ul>
+
+				</nav>
+				<c:if test="${ loginUser != null }">
 					<a href="logout.me" id="logoutBtn" class="nav-link">
 						&nbsp;&nbsp;
 						<i class="nav-icon fas fa-sign-out-alt"></i>
 						<p class="float-right">LOGOUT</p>
 					</a>
 				</c:if>
-            <!-- /.sidebar-menu -->
-         </div>
-         <!-- /.sidebar -->
-      </aside>
-
+				<!-- /.sidebar-menu -->
+			</div>
+			<!-- /.sidebar -->
+		</aside>
 
 		<footer class="main-footer">
 			<strong>Copyright &copy; <a href="https://adminlte.io">CodeMoA.io</a>.
@@ -205,10 +257,13 @@
 			<div class="float-right d-none d-sm-inline-block">
 				<b>Version</b> 3.1.0
 			</div>
-		</footer> 
+		</footer>
+
 	</div>
 
+
 	<script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
+
 	<script>
 		$('#dark').on('click', function() {
 			var toggle = $(this).children().attr('class').indexOf('moon');
@@ -218,17 +273,6 @@
 			} else {
 				$(this).children().removeClass('fa-sun').addClass('fa-moon');
 				$('body').removeClass('dark-mode');
-			}
-		});
-		
-		/* 채팅창 */
- 		$('#chat').on('click', function() {
-			if ($('#bool').val() == 'false') {
-				$('#bool').val('true');
-				$('#chatbox').css('display', 'block');
-			} else {
-				$('#bool').val('false');
-				$('#chatbox').css("display", 'none');
 			}
 		});
 	</script>

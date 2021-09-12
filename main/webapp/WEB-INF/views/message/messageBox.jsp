@@ -45,6 +45,10 @@
 <body>
 
 	<c:import url="../common/menu.jsp" />
+	
+	<c:if test="${ loginUser != null && loginUser.admin == 'Y' }">
+		<c:import url="../admin/adminSidebar.jsp" />
+	</c:if>
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">

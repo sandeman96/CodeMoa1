@@ -1,5 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%-- <%@ page session="false"%> --%>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <link rel="stylesheet" href="/codemoa/resources/plugins/fontawesome-free/css/all.min.css">
 <link rel="stylesheet" href="/codemoa/resources/dist/css/adminlte.min.css">
-<script	src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="/codemoa/resources/plugins/summernote/summernote-bs4.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -78,149 +77,209 @@ a:link, a:visited {
 	color: black;
 	cursor: default;
 }
+
 body {
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica,
+		Arial, sans-serif;
 }
 </style>
 </head>
 <body>
-	<c:import url="../common/menu.jsp" />
 
-	<div class="wrapper">
-		<div class="content-wrapper"  style="width:70rem;">
-			<section class="content-header">
-				<div class="container-fluid mb-3">
-					<h1 style="text-align: center; margin-bottom: 3rem;">
-						<c:choose>
-							<c:when test="${b.bType eq 1 }">
+	<c:choose>
+		<c:when test="${ loginUser != null && loginUser.admin == 'Y' }">
+			<c:import url="../admin/adminSidebar.jsp" />
+		</c:when>
+		<c:otherwise>
+			<c:import url="../common/menu.jsp" />
+		</c:otherwise>
+	</c:choose>
+
+	<div class="content-wrapper" style="width: 70rem;">
+		<section class="content-header">
+			<div class="container-fluid mb-3">
+				<h1 style="text-align: center; margin-bottom: 3rem;">
+					<c:choose>
+						<c:when test="${b.bType eq 1 }">
 							&#128587;Q&amp;A
-							<c:set var="boardName" value="Faq"/>
-							<c:set var="tagName" value="Q&A"/>
-							</c:when>
-							<c:when test="${b.bType eq 2}">
+							<c:set var="boardName" value="Faq" />
+							<c:set var="tagName" value="Q&A" />
+						</c:when>
+						<c:when test="${b.bType eq 2}">
 							&#129488;Tips
-							<c:set var="boardName" value="Tips"/>
-							<c:set var="tagName" value="Tips"/>
-							</c:when>
-							<c:otherwise>
+							<c:set var="boardName" value="Tips" />
+							<c:set var="tagName" value="Tips" />
+						</c:when>
+						<c:otherwise>
 							&#128488;Study
-							<c:set var="boardName" value="Study"/>
-							<c:set var="tagName" value="Study"/>
-							</c:otherwise>
-						</c:choose>
-					</h1>
-					<div class="col-sm-12 btn" style="text-align: right;">
-						<c:if test="${ loginUser.id eq b.bWriter }">
-							<button type="button" class="btn btn-warning"
-								onclick="location.href='updateBoardForm.bo?page=${page}&bNo=${b.bNo}'"
-								style="font-size: 0.8rem; color: #939597; width: 7rem;">수정하기</button>
-							<button type="button" id="checkDelete" class="btn btn-warning"
-								style="font-size: 0.8rem; color: #939597; width: 7rem;">삭제하기</button>
-						</c:if>
-					</div>
+							<c:set var="boardName" value="Study" />
+							<c:set var="tagName" value="Study" />
+						</c:otherwise>
+					</c:choose>
+				</h1>
+				<div class="col-sm-12 btn" style="text-align: right;">
+					<c:choose>
+						<c:when test="${  b.bFirst =='Y' }">
+							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#reportModal" style="font-size: 0.8rem; color: #939597; width: 7rem; visibility: hidden;">신고하기</button>
+						</c:when>
+						<c:when test="${ loginUser != null and b.bFirst =='N' }">
+							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#reportModal" style="font-size: 0.8rem; color: #939597; width: 7rem;">신고하기</button>
+							<div class="modal fade" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">해당 글을 신고 하시겠습니까?</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-footer">
+											<form action="adminInsertReport.ad" method="get">
+												<input type="hidden" name="bType" id="bType" value="${ b.bType }"> <input type="hidden" name="bNo" id="bNo" value="${ b.bNo }"> <input type="hidden" name="bWriter" id="bWriter" value="${ b.bWriter }"> <input type="hidden" name="bTitle" id="bTitle" value="${ b.bTitle }"> <input type="hidden" name="nickName" id="nickName" value="${ b.nickName }"> <input type="hidden" name="bContent" id="bContent" value="${ b.bContent }"> <input type="hidden" name="bDate" id="bDate" value="${ b.bDate }"> <input type="hidden" name="page" id="page" value="${ page }"> <input type="submit" class="btn btn-primary" value="신고하러가기" onclick="location.href='adminInsertReport.ad?bNo=${b.bNo}'">
+											</form>
+
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#needLogin" style="font-size: 0.8rem; color: #939597; width: 7rem;">신고하기</button>
+							<div class="modal fade" id="needLogin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">로그인 후 이용해주세요</h5>
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary 2" onclick="location.href='loginForm.me'">로그인 하러가기</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal">확인</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
+
+					<c:if test="${ loginUser.id eq b.bWriter }">
+						<button type="button" class="btn btn-warning" onclick="location.href='updateBoardForm.bo?page=${page}&bNo=${b.bNo}'" style="font-size: 0.8rem; color: #939597; width: 7rem;">수정하기</button>
+						<button type="button" id="checkDelete" class="btn btn-warning" style="font-size: 0.8rem; color: #939597; width: 7rem;">삭제하기</button>
+					</c:if>
 				</div>
-			</section>
-	
-			<section class="content">
-				<div class="container-fluid">
-					<div class="card">
-						<!-- /.card-header -->
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover" style="color: #939597;">
-								<tbody>
-									<tr>
-										<td><span>
-												<button type="button" class="btn-first-tag">${tagName}</button>&nbsp;
-										</span> <c:if test="${ b.bTags ne null}">
-												<c:forTokens var="tag" items="${ b.bTags }" delims=",">
-													<span>
-														<button type="button" class="btn-tag">
-															<c:out value="${tag}" />
-														</button>&nbsp;
-													</span>
-												</c:forTokens>
-											</c:if> <br> <span style="font-size: 1.5rem; color: black; font-weight: 500;">${ b.bTitle }</span></td>
-										<td><a href="mypage.me?userId=${b.bWriter}">${ b.nickName }</a></td>
-										<td>${ b.bDate }</td>
-										<td><c:choose>
-												<c:when
-													test="${ !empty loginUser && loginUser.id eq likey.lId }">
-													<a href="javascript: likeFunc();"> <i
-														class="like bi bi-hand-thumbs-up-fill"
-														style="color: #1e8bc3">${ b.lCount }</i>
-													</a>
-												</c:when>
-												<c:when test="${ empty loginUser }">
-													<i class="bi bi-hand-thumbs-up">${ b.lCount }</i>
-												</c:when>
-												<c:otherwise>
-													<a href="javascript: likeFunc();"> <i
-														class="like bi bi-hand-thumbs-up">${ b.lCount }</i>
-													</a>
-												</c:otherwise>
-											</c:choose></td>
-										<td><span><i class="bi bi-eye"></i>${ b.bCount }</span></td>
-										<td><span><i class="bi bi-chat"></i>${ b.rCount }</span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-						<div class="card-body">
-							<div class="summernoteContent" name="bContent">${b.bContent}</div>
-						</div>
+			</div>
+		</section>
 
-
-						<div class="card-body table-responsive p-0">
-							<table class="table table-hover" style="color: #939597;">
-								<tbody>
-									<tr>
-										<c:if test="${ !empty loginUser }">
-											<td>
-												<div>
-													<button id="insertReply" class="btn btn-warning"
-														type="button"
-														style="font-size: 0.8rem; color: #939597; width: 7rem;">댓글
-														달기</button>
-												</div>
-											</td>
+		<section class="content">
+			<div class="container-fluid">
+				<div class="card">
+					<!-- /.card-header -->
+					<div class="card-body table-responsive p-0">
+						<table class="table table-hover" style="color: #939597;">
+							<tbody>
+								<tr>
+									<td>
+										<span>
+											<button type="button" class="btn-first-tag">${tagName}</button>
+											&nbsp;
+										</span>
+										<c:if test="${ b.bTags ne null}">
+											<c:forTokens var="tag" items="${ b.bTags }" delims=",">
+												<span>
+													<button type="button" class="btn-tag">
+														<c:out value="${tag}" />
+													</button>
+													&nbsp;
+												</span>
+											</c:forTokens>
 										</c:if>
+										<br>
+										<span style="font-size: 1.5rem; color: black; font-weight: 500;">${ b.bTitle }</span>
+									</td>
+									<td>
+										<a href="mypage.me?userId=${b.bWriter}">${ b.nickName }</a>
+									</td>
+									<td>${ b.bDate }</td>
+									<td>
+										<c:choose>
+											<c:when test="${ !empty loginUser && loginUser.id eq likey.lId }">
+												<a href="javascript: likeFunc();">
+													<i class="like bi bi-hand-thumbs-up-fill" style="color: #1e8bc3">${ b.lCount }</i>
+												</a>
+											</c:when>
+											<c:when test="${ empty loginUser }">
+												<i class="bi bi-hand-thumbs-up">${ b.lCount }</i>
+											</c:when>
+											<c:otherwise>
+												<a href="javascript: likeFunc();">
+													<i class="like bi bi-hand-thumbs-up">${ b.lCount }</i>
+												</a>
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td>
+										<span>
+											<i class="bi bi-eye"></i>${ b.bCount }</span>
+									</td>
+									<td>
+										<span>
+											<i class="bi bi-chat"></i>${ b.rCount }</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="card-body">
+						<div class="summernoteContent" name="bContent">${b.bContent}</div>
+					</div>
+
+
+					<div class="card-body table-responsive p-0">
+						<table class="table table-hover" style="color: #939597;">
+							<tbody>
+								<tr>
+									<c:if test="${ !empty loginUser }">
 										<td>
-											<c:if test="${ b.rCount == 0 }">
-												<div style="display: none;" id="beforeClick">댓글이 없습니다.</div>
-											</c:if>
-											<div style="display: none;" id="afterClick">
-												<button id="saveReply" class="btn btn-warning" type="button"
-													style="font-size: 0.8rem; color: #939597; width: 7rem;">작성
-													완료</button>
-												<button id="cancelReply" class="btn btn-warning"
-													type="button"
-													style="font-size: 0.8rem; color: #939597; width: 7rem;">취소</button>
-												<textarea id="summernoteReply"></textarea>
+											<div>
+												<button id="insertReply" class="btn btn-warning" type="button" style="font-size: 0.8rem; color: #939597; width: 7rem;">댓글 달기</button>
 											</div>
 										</td>
-									</tr>
-								</tbody>
-							</table>
+									</c:if>
+									<td>
+										<c:if test="${ b.rCount == 0 }">
+											<div style="display: none;" id="beforeClick">댓글이 없습니다.</div>
+										</c:if>
+										<div style="display: none;" id="afterClick">
+											<button id="saveReply" class="btn btn-warning" type="button" style="font-size: 0.8rem; color: #939597; width: 7rem;">작성 완료</button>
+											<button id="cancelReply" class="btn btn-warning" type="button" style="font-size: 0.8rem; color: #939597; width: 7rem;">취소</button>
+											<textarea id="summernoteReply"></textarea>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 
-							<table id="replyHere" class="table table-hover"
-								style="color: #939597;">
-								<tbody></tbody>
-							</table>
-						</div>
+						<table id="replyHere" class="table table-hover" style="color: #939597;">
+							<tbody></tbody>
+						</table>
 					</div>
-					<!-- /.card-body -->
 				</div>
-			</section>
-			<!-- /.content -->
-		</div>
+				<!-- /.card-body -->
+			</div>
+		</section>
+		<!-- /.content -->
 	</div>
+
 	<script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
 	<script src="/codemoa/resources/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<script src="/codemoa/resources/dist/js/adminlte.min.js"></script>
 	<script src="/codemoa/resources/dist/js/demo.js"></script>
 	<script src="/codemoa/resources/plugins/summernote/summernote-bs4.min.js"></script>
-	<!-- sweetalert2 -->
-	<script src="/codemoa/resources/plugins/sweetalert2.all.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		$(function() {
 			getReplyList();
