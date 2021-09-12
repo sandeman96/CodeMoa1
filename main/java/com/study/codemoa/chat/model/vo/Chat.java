@@ -1,24 +1,22 @@
 package com.study.codemoa.chat.model.vo;
 
-import java.sql.Date;
-
 public class Chat {
-	private String cNo;
-	private Date cDate;
-	private String cChat;
-	private int cRNo;
-	private String cSender;
+	private String cNo;		// 채팅 번호
+	private String cDate;	// 작성 시간
+	private String cChat;	// 내용
+	private int crNo;		// 방 번호
+	private String cSender;	// 보낸 사람
 
 	public Chat() {
 
 	}
 
-	public Chat(String cNo, Date cDate, String cChat, int cRNo, String cSender) {
+	public Chat(String cNo, String cDate, String cChat, int crNo, String cSender) {
 		super();
 		this.cNo = cNo;
 		this.cDate = cDate;
 		this.cChat = cChat;
-		this.cRNo = cRNo;
+		this.crNo = crNo;
 		this.cSender = cSender;
 	}
 
@@ -30,11 +28,11 @@ public class Chat {
 		this.cNo = cNo;
 	}
 
-	public Date getcDate() {
+	public String getcDate() {
 		return cDate;
 	}
 
-	public void setcDate(Date cDate) {
+	public void setcDate(String cDate) {
 		this.cDate = cDate;
 	}
 
@@ -47,11 +45,11 @@ public class Chat {
 	}
 
 	public int getcRNo() {
-		return cRNo;
+		return crNo;
 	}
 
 	public void setcRNo(int cRNo) {
-		this.cRNo = cRNo;
+		this.crNo = cRNo;
 	}
 
 	public String getcSender() {
@@ -64,7 +62,7 @@ public class Chat {
 
 	@Override
 	public String toString() {
-		return "Chat [cNo=" + cNo + ", cDate=" + cDate + ", cChat=" + cChat + ", cRNo=" + cRNo + ", cSender=" + cSender
+		return "Chat [cNo=" + cNo + ", cDate=" + cDate + ", cChat=" + cChat + ", crNo=" + crNo + ", cSender=" + cSender
 				+ "]";
 	}
 

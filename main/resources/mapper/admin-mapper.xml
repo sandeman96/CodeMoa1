@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="adminMapper">
+	
+	<!-- 보드 관련 쿼리 -->
+	
+	<select id="selectBoard" resultMap="boardResultSet">
+		select b_no, b_title, b_content, b_date, b_status, b_writer, b_type
+		from board
+		 order by b_no desc
+	</select>
+	
+	<select id="reportBoard" resultMap="boardResultSet">
+  		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick
+  		from board
+  		join member on (b_writer = m_id)
+  		where b_status='Y' and b_type=#{bType} order by b_first desc
+  	</select>
+  	
+  	<!-- 리포트 페이지용 보드 -->
+  	<select id="selectReportB" resultMap="boardResultSet">
+		select b_no, b_title, b_content, b_date, b_status, b_writer, b_type
+		from board
+	</select>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<id column="B_NO" property="bNo" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="M_NICK" property="nickName" />
+		<result column="B_DATE" property="bDate" />
+		<result column="B_COUNT" property="bCount" />
+		<result column="B_STATUS" property="bStatus" />
+		<result column="B_FIRST" property="bFirst" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="lCount" property="lCount" />
+	</resultMap>
+	
+	<select id="getListCount" resultType="_int">
+		select count(*)
+		from board
+		where b_status='Y'
+	</select>
+	
+	<select id="selectList" resultType="_int">
+		select count(*)
+		from board
+	</select>
+	
+	<!-- 맴버관련 쿼리 -->
+	
+	<select id="selectMember" resultMap="memberResultSet">
+		select m_id, m_pwd, m_nick, m_status, m_admin, m_email
+		from member
+		order by m_email desc
+	</select>	
+	
+	<resultMap type="Member" id="memberResultSet">
+		<id column="M_ID" property="id" />
+		<result column="M_EMAIL" property="email" />
+		<result column="M_PWD" property="pwd" />
+		<result column="M_NICK" property="nickName" />
+		<result column="M_STATUS" property="status" />
+		<result column="M_ADMIN" property="admin" />
+		<result column="M_EDU" property="education" />
+		<result column="M_LOCATION" property="location" />
+		<result column="M_SKILL" property="skill" />
+		<result column="M_NOTE" property="note" />
+	</resultMap>
+	
+	<select id="getMemberCount" resultType="_int">
+		select count(*)
+		from member
+	</select>
+	
+	<select id="getOutMemberCount" resultType="_int">
+		select count(*)
+		from member
+		where m_status ='N'
+	</select>
+	
+	<select id="memberUser">
+		select m_id, m_pwd, m_nick, m_status, m_admin, m_email
+		from member
+		where m_sadmin ='N'
+	</select>
+	
+	<!-- 신고관련 쿼리 -->
+	
+	<select id="selectReport" resultMap="reportResultSet">
+		 select p_no, p_type, p_title, p_content, p_date, p_status, p_bno, p_receiver, p_reporter, p_bpage, p_mnick
+  			from report
+  		order by p_no desc
+	</select>
+	
+	<select id="selectReportBoardList" resultMap="reportResultSet">
+  		 select p_no, p_type, p_title, p_content, p_date, p_status, p_bno, p_receiver, p_reporter, p_bpage, p_mnick
+  			from report
+        	left join member on (p_reporter = m_id)
+        where (p_type= 3 or p_type= 4 or p_type= 5 or p_type=6) and p_status='Y'
+  		order by p_no desc
+  	</select>
+  	
+  	<select id="selectReportMemberList" resultMap="reportResultSet">
+  		 select p_no, p_type, p_title, p_content, p_date, p_status, p_bno, p_receiver, p_reporter, p_bpage, p_mnick
+  			from report
+        	
+        where (p_type= 1 or p_type= 2) and p_status='Y'
+  		order by p_no desc
+  	</select>
+	
+	<resultMap type="Report" id="reportResultSet">
+		<id column="P_NO" property="pNo" />
+		<result column="P_TYPE" property="pType" />
+		<result column="P_TITLE" property="pTitle" />
+		<result column="P_CONTENT" property="pContent" />
+		<result column="P_DATE" property="pDate" />
+		<result column="P_STATUS" property="pStatus" />
+		<result column="P_BNO" property="pBno" />
+		<result column="P_RECEIVER" property="pReceiver" />
+		<result column="P_REPORTER" property="pReporter" />
+		<result column="P_BPAGE" property="pBpage" />
+		<result column="P_MNICK" property="pMnick" />
+		<result column="P_BTYPE" property="pBtype" />
+	</resultMap>
+	
+	<insert id="insertReport">
+  		insert into report values (seq_rno.nextval, #{pType}, #{pTitle}, #{pContent},
+  		sysdate, default, #{pBno}, #{pReceiver}, #{pReporter}, #{pBpage}, #{pMnick}, #{pBtype})
+  		
+  	</insert>
+  	
+  	<select id="getReportCount" resultType="_int">
+		select count(*)
+		from report
+		where p_status='Y'
+	</select>
+	
+	<select id="selectReportBoard" resultMap="reportResultSet">
+  		select p_no, p_type, p_title, p_content, p_date, p_status, p_bno, p_receiver, p_reporter, m_nick
+  			from report
+        	left join member on (p_reporter = m_id)
+        where p_no = #{pNo}
+  	</select>
+  	
+  	<update id="deleteReport">
+  		update report
+  		set p_status='N'
+  		where p_no = #{pNo}
+  	</update>
+	
+</mapper>

@@ -11969,7 +11969,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
     display: block;
     font-size: 1.25rem;
     line-height: 1.5;
-    padding: 0.8125rem 0.5rem;
+    padding: 0.5rem;
     transition: width 0.3s ease-in-out;
     white-space: nowrap;
 }
@@ -12012,11 +12012,11 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 }
 .brand-link .brand-image {
     float: left;
-    line-height: 0.8;
-    margin-left: 0.8rem;
+    /* line-height: 0.8;
+    margin-left: 0.5rem; */
     margin-right: 0.5rem;
-    margin-top: -3px;
-    max-height: 33px;
+    margin-top: 3px;
+    max-height: 57px;
     width: auto;
 }
 .brand-link .brand-image-xs {
@@ -40523,7 +40523,6 @@ a.text-muted:hover {
 }
 .accent-info .btn-link,
 .accent-info .nav-tabs .nav-link,
-.accent-info a:not(.dropdown-item):not(.btn-app):not(.nav-link):not(.brand-link):not(.page-link):not(.btn) {
     color: #17a2b8;
 }
 .accent-info .btn-link:hover,

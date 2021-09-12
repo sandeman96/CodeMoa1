@@ -44,12 +44,25 @@
 }
 
 #userProfileMini {
-	display: inline-block; 
-	height: 50px;
-	width: 50px;
+	display: inline-block;
+	height: 57px;
+	width: 57px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+	overflow: hidden;
+/* 	white-space: nowrap;
+	text-overflow: ellipsis; */
+	word-break:break-all;
+}
+
+.logotext {
+	font-size: 30px;
+	line-height: 70px;
+}
+.im{
+	font-size: 40px;
+	line-height: 70px;
 }
 
 </style>
@@ -75,128 +88,40 @@
 					</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="/codemoa/" class="nav-link">Home</a>
+					<a href="main.do" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item d-none d-sm-inline-block">
-					<a href="#" class="nav-link">Contact</a>
+					<a href="javascript:contact();"  class="nav-link">Contact</a>
 				</li>
 			</ul>
 
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 
-				<!-- Messages Dropdown Menu -->
+								<!-- Messages Dropdown Menu -->
 				<li class="nav-item dropdown">
-					<a id="chat" class="nav-link" data-toggle="dropdown" href="#">
-						<i class="far fa-comments" title=""></i>
-						<span class="badge badge-danger navbar-badge">3</span>
-						<input id="bool" type="hidden" value="false">
-					</a>
-					<div>
-						<!-- ==============================채팅창=========================== -->
-						<div id="chatbox" style="display: none">
-
-							<!-- DIRECT CHAT WARNING -->
-							<div class="card card-warning direct-chat direct-chat-warning" style="width: 25rem;">
-								<div class="card-header">
-									<h3 class="card-title">Direct Chat</h3>
-
-									<div class="card-tools">
-										<span title="3 New Messages" class="badge bg-danger">3</span>
-										<button type="button" class="btn btn-tool" data-card-widget="collapse">
-											<i class="fas fa-minus"></i>
-										</button>
-										<button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
-											<i class="fas fa-comments"></i>
-										</button>
-									</div>
-								</div>
-								<!-- /.card-header -->
-
-								<div class="card-body">
-
-									<div class="direct-chat-messages">
-
-										<div class="direct-chat-msg">
-											<div class="direct-chat-infos clearfix">
-												<span class="direct-chat-name float-left">Alexander Pierce</span>
-												<span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
-											</div>
-											<!-- /.direct-chat-infos -->
-											<img class="direct-chat-img" src="resources/dist/img/user1-128x128.jpg" alt="Message User Image">
-											<!-- /.direct-chat-img -->
-											<div class="direct-chat-text">Is this template really for free? That's unbelievable!</div>
-											<!-- /.direct-chat-text -->
-										</div>
-										<!-- /.direct-chat-msg -->
-
-										<!-- Message to the right -->
-										<div class="direct-chat-msg right">
-											<div class="direct-chat-infos clearfix">
-												<span class="direct-chat-name float-right">Sarah Bullock</span>
-												<span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
-											</div>
-											<!-- /.direct-chat-infos -->
-											<img class="direct-chat-img" src="resources/dist/img/user3-128x128.jpg" alt="Message User Image">
-											<!-- /.direct-chat-img -->
-											<div class="direct-chat-text">You better believe it!</div>
-											<!-- /.direct-chat-text -->
-										</div>
-										<!-- /.direct-chat-msg -->
-									</div>
-									<!--/.direct-chat-messages-->
-
-									<!-- Contacts are loaded here -->
-									<div class="direct-chat-contacts">
-										<ul class="contacts-list">
-											<li>
-												<img class="contacts-list-img" src="resources/dist/img/user1-128x128.jpg" alt="User Avatar">
-
-												<div class="contacts-list-info">
-													<span class="contacts-list-name">
-														Count Dracula <small class="contacts-list-date float-right">2/28/2015</small>
-													</span>
-													<span class="contacts-list-msg">How have you been? I was...</span>
-												</div>
-												<!-- /.contacts-list-info -->
-
-											</li>
-											<!-- End Contact Item -->
-										</ul>
-										<!-- /.contatcts-list -->
-									</div>
-									<!-- /.direct-chat-pane -->
-								</div>
-								<!-- /.card-body -->
-
-								<div class="card-footer">
-									<form action="#" method="post">
-										<div class="input-group">
-											<input type="text" name="message" placeholder="Type Message ..." class="form-control">
-											<span class="input-group-append">
-												<button type="submit" class="btn btn-warning">Send</button>
-											</span>
-										</div>
-									</form>
-								</div>
-
-								<!-- /.card-footer-->
-							</div>
-							<!--/.direct-chat -->
-
-						</div>
-
-					</div>
+					<c:if test="${ loginUser != null }">
+						<a id="chat" class="nav-link" data-toggle="dropdown" href="#">
+							<i class="far fa-comments" title=""></i>
+							<input id="bool" type="hidden" value="false">
+						</a>
+						
+					</c:if>
+					<c:if test="${ loginUser == null }">
+						<a href="loginForm.me" class="nav-link" id="chat" onclick="alert('로그인 후 이용해주세요');">
+							<i class="far fa-comments" title=""></i>
+						</a>
+					</c:if>
 				</li>
 
 				<!-- Notifications Dropdown Menu -->
 				<c:if test="${ loginUser != null }">
-				<li class="nav-item dropdown">
-					<a class="nav-link" href="messageBox.ms">
-						<i class="far fa-bell"></i>
-						<span id="msgBadge" class="badge badge-warning navbar-badge"></span>
-					</a>
-				</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link" href="messageBox.ms">
+							<i class="far fa-bell"></i>
+							<span id="msgBadge" class="badge badge-warning navbar-badge"></span>
+						</a>
+					</li>
 				</c:if>
 
 				<li class="nav-item">
@@ -204,7 +129,7 @@
 						<i class="fas fa-moon"></i>
 					</a>
 				</li>
-				
+
 				<li class="nav-item">
 					<a class="nav-link" data-widget="fullscreen" href="#" role="button">
 						<i class="fas fa-expand-arrows-alt"></i>
@@ -218,38 +143,43 @@
 		<!-- Main Sidebar Container -->
 		<aside class="main-sidebar sidebar-dark-primary elevation-4">
 			<!-- Brand Logo -->
-			<a href="/codemoa/" class="brand-link">
-				<img src="/codemoa/resources/img/codemoa.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-				<span class="brand-text font-weight-light">CODE MOA</span>
+				<h1>
+			<a href="main.do" class="brand-link">
+				<span class="brand-image im ml-2">🗿</span>
+				<span class="brand-text logotext">CODEMOA‍</span>
 			</a>
+				</h1>
 			<!-- Sidebar -->
 			<div class="sidebar">
 
 				<!-- Sidebar user panel (optional) -->
-				<div class="user-panel mt-3 mb-3 d-flex">
+				<div class="user-panel mt-3 pb-3 mb-3 flex-column align-items-center">
 					<c:if test="${ loginUser == null }">
-						<div class="info text-center">
-							<a href="loginForm.me" class="d-block mb-3">로그인을 해주세요</a>
+						<div class="image ml-2">
+							<h5>🚪</h5>
+						</div>
+						
+						<div class="image">
+							<a href="loginForm.me">로그인을 해주세요</a>
 						</div>
 					</c:if>
 
 					<c:if test="${ loginUser != null }">
-					<c:url var="mypage" value="mypage.me">
-						<c:param name="userId" value="${ loginUser.id }"/>
-					</c:url>
-					
+						<c:url var="mypage" value="mypage.me">
+							<c:param name="userId" value="${ loginUser.id }" />
+						</c:url>
+
 						<div id="userProfileMini" class="text-center img-circle elevation-2 userImg">
-							<h6 style="line-height: 50px;">
-								<b>${ loginUser.nickName }</b>
-							</h6>
+							<span style="line-height: 57px;">
+								${ loginUser.nickName }
+							</span>
 						</div>
-						
+
 						<div class="info">
 							<h5>
-							<a href="${ mypage }" class="d-block" style="line-height:50px;">
-							${ loginUser.nickName }
-							</a>
+								<a href="${ mypage }"> ${ loginUser.nickName }</a>
 							</h5>
+
 						</div>
 					</c:if>
 				</div>
@@ -293,20 +223,26 @@
 							</ul>
 						</li>
 
-						<li class="nav-item">
-							<a href="boardListCalendar.bo" class="nav-link">
-								<i class="nav-icon fas fa-calendar-alt"></i>
-								<p>Calendar</p>
-							</a>
-						</li>
 
+<%-- 						<c:choose>
+							<c:when test="${ loginUser != null and loginUser.admin =='Y'}">
+								<li class="nav-item">
+									<a onclick="location.href='adminPage.ad'" class="nav-link">
+										<i class="nav-icon fab fa-github"></i>
+										<p>사용자 관리</p>
+									</a>
+								</li>
+							</c:when>
 
-<!-- 						<li class="nav-item">
-							<a href="#" class="nav-link">
-								<i class="nav-icon fab fa-github"></i>
-								<p>Git Trending</p>
-							</a>
-						</li> -->
+							<c:otherwise>
+								<li class="nav-item">
+									<a onclick="location.href='adminPage.ad'" class="nav-link" style="visibility: hidden;">
+										<i class="nav-icon fab fa-github"></i>
+										<p>사용자 관리</p>
+									</a>
+							</c:otherwise>
+						</c:choose> --%>
+
 
 					</ul>
 
@@ -332,10 +268,12 @@
 			<div class="float-right d-none d-sm-inline-block">
 				<b>Version</b> 3.1.0
 			</div>
-		</footer> 
+		</footer>
 	</div>
 
 	<script src="/codemoa/resources/plugins/jquery/jquery.min.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	
 	<script>
 		$('#dark').on('click', function() {
 
@@ -418,13 +356,45 @@
 				success:function(data){
 					if('${userImg}' != 'none'){
 					console.log(data);
-						$("#userProfileMini h6").text("");
+						$("#userProfileMini span").text("");
 						$("#userProfileMini").css({"background-image" :"url(/codemoa/resources/userProfile/"+data+")"});
 					}
 				}
 			});
 		}
 		
+		function contact(){
+			console.log('contact!!');
+			Swal.fire({
+				  title: '모두를 위한 코딩 커뮤니티, <br>코드모아입니다.',
+				  text: '광고문의  codemoa0916@gmail.com',
+				  width: 600,
+				  padding: '3em',
+				  background: '#fff url(https://sweetalert2.github.io//images/trees.png)',
+				  backdrop: 'rgba(143, 188, 147, 0.9) url("/codemoa/resources/img/mo.gif") center top no-repeat',
+				  showClass: {
+					    popup: 'animate__animated animate__fadeInDown'
+				  },
+				  hideClass: {
+					  popup: 'animate__animated animate__fadeOutUp'
+				  
+				  }
+			})
+		}
+		
+	</script>
+	
+	<script>
+	// 채팅창 띄우기
+	var winHeight = document.body.clientHeight;
+	var winWidth = document.body.clientWidth;
+	var winX = window.screenLeft;
+	var winY = window.screenTop;
+	var h = winY + (winHeight - 380) / 2;
+	var w = winX + (winWidth - 400) / 2;
+	$('#chat').on('click', function(){
+		window.open("goRoom.ch", "chatting", "top=" + h + ", left=" + w + ", width=400, height=380, status=no,toolbars=no,scrollbars=no, resizable=no");
+	});
 	</script>
 
 </body>

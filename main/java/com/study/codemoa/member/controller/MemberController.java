@@ -17,7 +17,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,9 +36,6 @@ import com.study.codemoa.board.model.vo.Reply;
 import com.study.codemoa.member.model.exception.MemberException;
 import com.study.codemoa.member.model.service.MemberService;
 import com.study.codemoa.member.model.vo.Member;
-import com.study.codemoa.message.exception.MessageException;
-
-import oracle.net.aso.f;
 
 @SessionAttributes("loginUser")
 @Controller
@@ -68,26 +66,30 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "login.me", method = RequestMethod.POST)
-	public String login(@ModelAttribute Member m, Model model) {
+	public String login(@ModelAttribute Member m, Model model, @RequestParam("id") String id, @RequestParam("pwd") String pwd) {
 
 		Member loginUser = mService.login(m);
-
-		if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
-			model.addAttribute("loginUser", loginUser);
+		
+		if(loginUser != null) {
+			if (bcrypt.matches(m.getPwd(), loginUser.getPwd())) {
+				model.addAttribute("loginUser", loginUser);
+			} else {
+				model.addAttribute("msg", "failed");
+				return "loginForm";
+			}
 		} else {
-			model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
-
+			model.addAttribute("msg", "failed");
 			return "loginForm";
 		}
-
-		return "redirect:/";
+		
+		return "redirect:main.do";
 	}
 
 	@RequestMapping("logout.me")
 	public String logout(SessionStatus session) {
 		session.setComplete();
 
-		return "redirect:/";
+		return "redirect:main.do";
 	}
 
 	@RequestMapping("enrollview.me")
@@ -107,7 +109,7 @@ public class MemberController {
 
 		if (result > 0) {
 			model.addAttribute("loginUser", m);
-			return "redirect:/";
+			return "redirect:main.do";
 		} else {
 			throw new MemberException("회원 가입 실패");
 		}
@@ -184,9 +186,8 @@ public class MemberController {
 		// System.out.println(result);
 
 		if (result > 0) {
-
 			model.addAttribute("userId", m.getId());
-
+			model.addAttribute("loginUser", m);
 			return "redirect:mypage.me";
 		} else {
 			throw new MemberException("회원 정보 수정에 실패하였습니다.");
@@ -232,11 +233,11 @@ public class MemberController {
 
 		if (result > 0) {
 			session.setComplete();
+			return "redirect:main.do";
 		} else {
 			throw new MemberException("회원탈퇴에 실패하였습니다.");
 		}
 
-		return "redirect:/";
 	}
 
 	@RequestMapping("sendemail.me")
@@ -249,7 +250,6 @@ public class MemberController {
 		for (int i = 0; i < 6; i++) {
 			rand += (int) (Math.random() * 9 + 1);
 		}
-		System.out.println("이메일인증번호" + rand);
 
 		String mailContent = "<div style='text-align: center;'><h1>코드모아 " + what + "이메일 인증</h1>";
 		mailContent += "<h3>인증번호를 입력해주세요</h3>";
@@ -264,6 +264,7 @@ public class MemberController {
 			mail.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 			mailSender.send(mail);
 			response.getWriter().println(rand);
+			System.out.println("이메일인증번호 : " + rand);
 			System.out.println("========================== 전송완료! =============================");
 		} catch (MessagingException e) {
 			e.printStackTrace();
@@ -368,7 +369,7 @@ public class MemberController {
 
 				if (loginUser != null) {
 					model.addAttribute("loginUser", loginUser);
-					return "redirect:/";
+					return "redirect:main.do";
 				} else {
 					throw new MemberException("로그인 실패");
 				}
@@ -382,7 +383,7 @@ public class MemberController {
 
 			if (bcrypt.matches(pwd, loginUser.getPwd())) {
 				model.addAttribute("loginUser", loginUser);
-				return "index.jsp";
+				return "redirect:main.do";
 			} else {
 				model.addAttribute("msg", "아이디 또는 비밀번호를 확인해주세요");
 				throw new MemberException("로그인 실패");
@@ -433,8 +434,9 @@ public class MemberController {
 	}
 	
 	public String fileIs(String userId) {
-		
-		String root = "D:\\Final_Project\\CodeMoa\\src\\main\\webapp\\resources\\userProfile";
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+
+		String root = request.getSession().getServletContext().getRealPath("resources") + "/userProfile";
 
 		File file = new File(root);
 
@@ -459,7 +461,7 @@ public class MemberController {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = root + "/userProfile";
 
-		System.out.println(request.getSession().getServletContext());
+		System.out.println(savePath);
 
 		File folder = new File(savePath);
 		if (!folder.exists()) {
@@ -488,9 +490,9 @@ public class MemberController {
 	}
 
 	@RequestMapping("deleteImg.me")
-	public String deleteImg(@RequestParam("userImg") String userImg, HttpSession session, Model m) {
+	public String deleteImg(@RequestParam("userImg") String userImg, HttpServletRequest request, HttpSession session, Model m) {
 		String renameFileName = ((Member) session.getAttribute("loginUser")).getId();
-		String root = "D:\\Final_Project\\CodeMoa\\src\\main\\webapp\\resources\\userProfile";
+		String root = request.getSession().getServletContext().getRealPath("resources") + "/userProfile";
 		File dFile = new File(root + "\\" + userImg);
 		System.out.println(userImg);
 

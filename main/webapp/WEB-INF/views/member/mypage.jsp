@@ -70,7 +70,11 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
+	overflow: hidden;
+	word-break:break-all;
 }
+
+
 </style>
 
 </head>
@@ -88,33 +92,24 @@
 							<i class="fas fa-exclamation-triangle text-danger"></i>
 							존재하지 않는 회원입니다.
 						</h3>
-
 					</div>
 				</div>
-				<!-- /.error-page -->
-
 			</section>
 
 		</div>
 	</c:if>
+	
 	<c:if test="${ user.status == 'Y' }">
 
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
-					<div class="row mb-2">
+					<div class="mb-2 mt-2">
 						<div class="col-sm-6">
-							<h1>${ user.nickName }님의페이지</h1>
+							<h1 >${ user.nickName }님의 페이지 📌</h1>
 						</div>
-						<div class="col-sm-6">
-							<ol class="breadcrumb float-sm-right">
-								<li class="breadcrumb-item">
-									<a href="#">Home</a>
-								</li>
-								<li class="breadcrumb-item active">User Profile</li>
-							</ol>
-						</div>
+
 					</div>
 				</div>
 				<!-- /.container-fluid -->
@@ -137,19 +132,19 @@
 							<c:if test="${ loginUser.id eq user.id }">
 								<button type="button" class="float-right btn btn-default" data-toggle="dropdown" aria-expanded="false">🎨</button>
 								<div class="dropdown-menu" style="">
-								<c:if test="${ userImg == 'none' }">
-									<form id="upload" action="uploadImg.me" method="post" enctype="multipart/form-data">
-										<div class="dropdown-item btn btn-default btn-file">
-											upload photo <input type="file" id="profileImg" name="profileImg" onchange="LoadImg(this)">
-										</div>
-									</form>
-								</c:if>
-								<c:if test="${ userImg != 'none' }">
-								<c:url  var="deleteUserImg" value="deleteImg.me">
-									<c:param name="userImg" value="${ userImg }"/>
-								</c:url>
-									<a class="dropdown-item" href="${ deleteUserImg }">remove photo</a>
-								</c:if>
+								
+										<form id="upload" action="uploadImg.me" method="post" enctype="multipart/form-data">
+											<div class="dropdown-item btn btn-default btn-file">
+												upload photo <input type="file" id="profileImg" name="profileImg" onchange="LoadImg(this)">
+											</div>
+										</form>
+							
+									<c:if test="${ userImg != 'none' }">
+										<c:url var="deleteUserImg" value="deleteImg.me">
+											<c:param name="userImg" value="${ userImg }" />
+										</c:url>
+										<a class="dropdown-item" href="${ deleteUserImg }">remove photo</a>
+									</c:if>
 								</div>
 							</c:if>
 
@@ -252,10 +247,12 @@
 
 										<!-- //////////////////Board///////////////// -->
 										<div class="active tab-pane" id="myBoard">
-
+										
+										<c:if test="${ loginUser.id eq user.id }">
 											<div class="custom-control custom-checkbox text-right">
 												<input class="bbox-toggle custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="bSelectAll"> <label for="bSelectAll" class="custom-control-label">전체선택</label>
 											</div>
+										</c:if>
 
 											<div class="box">
 												<c:if test="${bList.isEmpty()}">
@@ -307,20 +304,27 @@
 												</c:if>
 
 											</div>
+											
+											
+											<c:if test="${ loginUser.id eq user.id }">
 											<div class="mt-2 text-right">
 												<button type="button" class="btn btn-default btn-sm" onclick="deleteBoard();">
 													<i class="far fa-trash-alt"></i>
 												</button>
 											</div>
+											</c:if>
+											
 										</div>
 
 
 										<!-- //////////////////Reply///////////////// -->
 										<div class="tab-pane" id="myReply">
-
+										
+										<c:if test="${ loginUser.id eq user.id }">
 											<div class="custom-control custom-checkbox text-right">
 												<input class="rbox-toggle custom-control-input custom-control-input-danger custom-control-input-outline" type="checkbox" id="rSelectAll"> <label for="rSelectAll" class="custom-control-label">전체선택</label>
 											</div>
+										</c:if>
 
 
 											<div class="box">
@@ -376,12 +380,14 @@
 												</c:if>
 
 											</div>
-
+											
+											<c:if test="${ loginUser.id eq user.id }">
 											<div class="mt-2 text-right">
 												<button type="button" class="btn btn-default btn-sm" onclick="deleteReply();">
 													<i class="far fa-trash-alt"></i>
 												</button>
 											</div>
+											</c:if>
 
 										</div>
 										<!-- /.tab-pane -->
@@ -393,29 +399,42 @@
 
 												<div class="box">
 
-													<form action="mUpdate.me" method="post">
+													<form action="mUpdate.me" method="post" id="mupdate">
 
 														<div class="form-group row">
-															<label for="name" class="col-sm-2 col-form-label">ID</label>
-															<div class="col-sm-6">
+															<label for="name" class="col-2 col-form-label">ID</label>
+															<div class="col-6">
 																<input type="text" class="form-control" id="id" name="id" placeholder="Name" value="${ user.id }" readonly>
 															</div>
 														</div>
 
 														<div class="form-group row">
-															<label for="email" class="col-sm-2 col-form-label">Email</label>
-															<div class="col-sm-6">
+															<label for="email" class="col-2 col-form-label">Email</label>
+															<div class="col-6 input-group">
 																<input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${ user.email }">
+																<div class="input-group-append">
+																	<div class="input-group-text">
+																		<a href='javascript:sendEmail();' class="fas fa-envelope"></a>
+																	</div>
+																</div>
 															</div>
 															<div class="col-sm-4 feedback dupEmail text-sm">사용 불가능한 이메일입니다.</div>
 														</div>
 
+														<div id="emailNumInput" class="form-group row">
+															<label for="nickName" class="col-2 col-form-label">인증번호</label>
+															<div class="col-6">
+																<input type="text" class="form-control" id="emailNum">
+															</div>
+															<div class="col-4 feedback emailNum text-sm">인증번호</div>
+														</div>
+														
 														<div class="form-group row">
-															<label for="nickName" class="col-sm-2 col-form-label">NickName</label>
-															<div class="col-sm-6">
+															<label for="nickName" class="col-2 col-form-label">NickName</label>
+															<div class="col-6">
 																<input type="text" class="form-control" id="nickName" name="nickName" placeholder="NickName" value="${ user.nickName }">
 															</div>
-															<div class="col-sm-4 feedback dupNick text-sm">이미 사용중인 닉네임입니다.</div>
+															<div class="col-4 feedback dupNick text-sm">이미 사용중인 닉네임입니다.</div>
 														</div>
 
 
@@ -425,10 +444,10 @@
 																	<c:param name="userId" value="${ loginUser.id }" />
 																</c:url>
 
-																<button type="submit" class="btn btn-secondary">Save</button>
+																<button type="submit" id="mupdateBtn" class="btn btn-secondary">Save</button>
 
 
-																<button type="button" class="btn btn-warning" onclick="location.href='${mypage}'">Cancle</button>
+																<button type="reset" class="btn btn-warning" onclick="location.href='${mypage}'">Cancle</button>
 
 																<button type="button" class="btn btn-danger float-right" data-toggle="modal" data-target="#modal-sm">Leave</button>
 															</div>
@@ -440,33 +459,36 @@
 														<i id="pwdModify" class="fas fa-chevron-down mt-5"> 비밀번호 수정</i>
 													</h6>
 
-													<form action="mpwdupdate.me" method="post">
+													<form action="mpwdupdate.me" method="post" id="mpwdupdate">
 
 														<div class="modify pwdMod">
 															<div class="form-group row">
-																<label for="pwd" class="col-sm-2 col-form-label">Password</label>
-																<div class="col-sm-10">
-																	<input type="text" class="form-control" id="pwd" name="pwd" placeholder="Password">
+																<label for="pwd" class="col-2 col-form-label">Password</label>
+																<div class="col-6">
+																	<input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password" required>
 																</div>
 															</div>
 
 															<div class="form-group row">
-																<label for="newPwd" class="col-sm-2 col-f=orm-label">New Pwd</label>
-																<div class="col-sm-10">
-																	<input type="text" class="form-control" id="newPwd" name="newPwd" placeholder="Password">
+																<label for="newPwd" class="col-2 col-f=orm-label">New Pwd</label>
+																<div class="col-6">
+																	<input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="Password">
 																</div>
+																<br>
+																<div class="col-8 feedback pwdreg text-sm text-right">비밀번호는 8-12자리,영문 대·소문자,숫자,특수문자를 사용하세요.</div>
 															</div>
 
 															<div class="form-group row">
-																<label for="newPwd2" class="col-sm-2 col-form-label">New Pwd</label>
-																<div class="col-sm-10">
-																	<input type="text" class="form-control" id="newPwd2" name="newPwd2" placeholder="Password">
+																<label for="newPwd2" class="col-2 col-form-label">New Pwd</label>
+																<div class="col-6">
+																	<input type="password" class="form-control" id="newPwd2" name="newPwd2" placeholder="Password">
 																</div>
+																<div class="col-sm-4 feedback repwd text-sm">비밀번호가 일치하지 않습니다.</div>
 															</div>
 
 															<div class="form-group row">
 																<div class="offset-sm-2 col-sm-10">
-																	<button type="submit" class="btn btn-secondary">Save</button>
+																	<button type="submit" class="btn btn-secondary" id="mpwdupdateBtn">Save</button>
 																	<button type="button" class="btn btn-warning" onclick="location.href='${mypage}'">Cancle</button>
 																</div>
 															</div>
@@ -546,28 +568,32 @@
 			line();
 			// random();
 			
-			if('${userImg}' != 'none'){
-			$("#userProfile h3").text("");
-			$("#userProfile").css({"background-image" :"url(/codemoa/resources/userProfile/${userImg})"});
+			$('#emailNumInput').hide();
+
+			if ('${userImg}' != 'none') {
+				$("#userProfile h3").text("");
+				$("#userProfile").css({"background-image" : "url(/codemoa/resources/userProfile/${userImg})"});
 			}
 		});
-		
+
 		var id = $('#id').val();
 
-		$('#pwdModify').on('click', function() {
-			$('.pwdMod').fadeToggle();
+		$('#pwdModify').on(
+				'click',
+				function() {
+					$('.pwdMod').fadeToggle();
 
-			var toggle = $(this).attr('class').indexOf('down');
+					var toggle = $(this).attr('class').indexOf('down');
 
-			if (toggle > 0) {
-				$(this).removeClass('fa-chevron-down').addClass(
+					if (toggle > 0) {
+						$(this).removeClass('fa-chevron-down').addClass(
 								'fa-chevron-up');
-			} else {
-				$(this).removeClass('fa-chevron-up').addClass(
+					} else {
+						$(this).removeClass('fa-chevron-up').addClass(
 								'fa-chevron-down');
-			}
+					}
 
-		});
+				});
 
 		$("#aboutEdit").on('click', function() {
 			$('.about').show();
@@ -617,87 +643,160 @@
 		}
 
 		function line() {
-			$('#education').parent().prev().html(
-					$('#education').val().replace(/\n/g, '<br>'));
-			$('#location').parent().prev().html(
-					$('#location').val().replace(/\n/g, '<br>'));
-			$('#skill').parent().prev().html(
-					$('#skill').val().replace(/\n/g, '<br>'));
-			$('#note').parent().prev().html(
-					$('#note').val().replace(/\n/g, '<br>'));
+			$('#education').parent().prev().html($('#education').val().replace(/\n/g, '<br>'));
+			$('#location').parent().prev().html($('#location').val().replace(/\n/g, '<br>'));
+			$('#skill').parent().prev().html($('#skill').val().replace(/\n/g, '<br>'));
+			$('#note').parent().prev().html($('#note').val().replace(/\n/g, '<br>'));
 		}
-		
-		$('#nickName').on('keyup blur', function(){
+
+		var emailStatus = true;
+		var nickStatus = true;
+
+		$('#nickName').on('keyup blur', function() {
 			$('.dupNick').hide().text('').css('color', 'inherit');
-			if($(this).val() != '${ user.nickName }' && $(this).val().trim() != ''){
-				$.ajax({
-					url:'nickNameCheck.me',
-					data:{
-						nickName: $('#nickName').val() 
-					}, success:function(data){
-						console.log(data);
-						if(data == 0){
-							$('.dupNick').show().text('사용 가능한 닉네임입니다.').css('color', 'green');
-						} else if(data == 1){
-							$('.dupNick').show().text('이미 사용중인 닉네임 입니다.').css('color', 'red');
-						}
+			var words = ["시발", "병신", "지랄", "버러지", "씹새"];
+			for (var n = 0; n < words.length; n++) { 
+			var nick = $(this).val();
+				if (nick.indexOf(words[n]) != -1) {
+					$(this).val('');
+					
+					Swal.fire({
+						  icon: 'error',
+						  title: 'Oops...',
+						  text: '비속어는 사용할 수 없습니다.',
+					})
+					
+					nickStatus = false;
+				} else{
+								
+					if ($(this).val() != '${ user.nickName }' && $(this).val().trim() != '') {
+						$.ajax({
+							url : 'nickNameCheck.me',
+							data : {
+								nickName : $('#nickName').val()
+							}, success : function(data) {
+								// console.log(data);
+								if (data == 0) {
+									$('.dupNick').show().text('사용 가능한 닉네임입니다.').css('color', 'green');
+									nickStatus = true;
+								} else if (data == 1) {
+									$('.dupNick').show().text('이미 사용중인 닉네임 입니다.').css('color', 'red');
+									nickStatus = false;
+								}
+							}
+						});
+					} else {
+						nickStatus = false;
 					}
-				});
+				}
 			}
-			
+
 		});
 		
-		$('#email').on('keyup blur', function(){
-			
-			var emailRegExp = /^[a-zA-Z0-9]+([-_\.]?[0-9a-zA-Z]+[-_\.])*@[a-zA-Z]+\.[a-zA-Z]+$/;
-			
-			var email = $(this).val();
-			
-			console.log(emailRegExp.test(email));
-			
-			if(!emailRegExp.test(email)){
-				$('.dupEmail').show().text('이메일 형식이 올바르지 않습니다.').css('color', 'red');
-			} else{
-			
-				$('.dupEmail').hide().text('').css('color', 'inherit');
-				if(email != '${ user.email }' && email.trim() != ''){
-					$.ajax({
-					
-						url:'emailCheck.me',
-						data:{
-							email: email
-						}, success:function(data){
-							console.log(data);
-							if(data == 0){
-								$('.dupEmail').show().text('사용 가능한 이메일입니다.').css('color', 'green');
-							} else if(data == 1){
-								$('.dupEmail').show().text('사용 불가능한 이메일 입니다.').css('color', 'red');
-							}
+		function sendEmail(){
+			$('#emailNumInput').show();
+
+			$.ajax({
+				url : 'sendemail.me',
+				data : {
+					mail : $('#email').val(),
+					what : '이메일 변경'
+				},
+				success : function(data) {
+					console.log('인증번호 : '+data);
+					$('#emailNum').on('keyup blur', function(){
+						if(data == $(this).val()){
+							$('#email').attr('readonly', true); // 이메일인증이 완료되면 readonly로 변경하여 수정 X
+							$('#emailNum').hide();
 						}
-					
+					});
+				}
+			});
+		}
+		
+
+		$('#email').on('keyup blur', function() {
+			var emailRegExp = /^[a-zA-Z0-9]+([-_\.]?[0-9a-zA-Z]+[-_\.])*@[a-zA-Z]+\.[a-zA-Z]+$/;
+
+			var email = $(this).val();
+
+			console.log(emailRegExp.test(email));
+
+			if (!emailRegExp.test(email) || email.trim() == '') {
+				$('.dupEmail').show().text('이메일 형식이 올바르지 않습니다.').css('color', 'red');
+				emailStatus = false;
+			} else {
+				$('.dupEmail').hide().text('').css('color', 'inherit');
+					if (email != '${ user.email }' && email.trim() != '') {
+						$.ajax({
+							url : 'emailCheck.me',
+							data : {
+								email : email
+							},
+							success : function(data) {
+								console.log(data);
+								if (data == 0) {
+									$('.dupEmail').show().text('사용 가능한 이메일입니다.').css('color', 'green');
+									emailStatus = true;
+								} else if (data == 1) {
+									$('.dupEmail').show().text('사용 불가능한 이메일 입니다.').css('color', 'red');
+									emailStatus = false;
+								}
+							}
+
 					});
 				}
 			}
 		});
-		
-		/* function random(){
-			var back_R = Math.floor(Math.random() * 256);
-			var back_G = Math.floor(Math.random() * 256);
-			var back_B = Math.floor(Math.random() * 256);
 
-			var font_R = Math.floor(Math.random() * 256);
-			var font_G = Math.floor(Math.random() * 256);
-			var font_B = Math.floor(Math.random() * 256);
-			
-			var backColor = 'rgb(' + back_R + ', ' + back_G + ', ' + back_B + ')';
-			var fontColor = 'rgb(' + font_R + ', ' + font_G + ', ' + font_B + ')';
-			
-			$('#userProfile').css({
-				'background-color': backColor,
-				'color' :fontColor
-			});
-		} */
 		
+		$('#mupdate').on('keyup blur', function() {
+			if (emailStatus == true && nickStatus == true) {
+				$('#mupdateBtn').removeAttr('disabled');
+			} else {
+				$('#mupdateBtn').attr('disabled', true);
+			}
+		});
+		
+		var pwdStatus = false;
+		var pwdCheckStatus = false;
+		
+		$('#newPwd').on('keyup blur', function(){
+			var pwdRegExp = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,12}$/;
+			var pwd = $(this).val();
+			
+			if (pwdRegExp.test(pwd) && pwd.trim() != '') {
+				pwdStatus = true;
+				$('.pwdreg').hide();
+			} else {
+				$('.pwdreg').show().css('color', 'red');				
+			}
+			
+		});
+		
+		$('#newPwd2').on('keyup blur', function(){
+			var pwd = $(this).val();
+			
+			if(pwd == $('#newPwd').val() && pwd.trim() != ''){
+				pwdCheckStatus = true;
+				$('.repwd').hide();
+			} else {
+				$('.repwd').show().css('color', 'red');	
+			}
+			
+		});
+		
+		$('#mpwdupdate').on('change click', function() {
+			if (pwdStatus == true && pwdCheckStatus == true) {
+				$('#mpwdupdateBtn').removeAttr('disabled');
+			} else {
+				$('#mpwdupdateBtn').attr('disabled', true);
+	
+			}
+		});
+
+
+		// 댓글 선택 삭제
 		$(function() {
 			//Enable check and uncheck all functionality
 			$('.rbox-toggle').click(function() {
@@ -714,6 +813,8 @@
 			})
 
 		})
+		
+		// 게시글 선택 삭제
 		$(function() {
 			//Enable check and uncheck all functionality
 			$('.bbox-toggle').click(function() {
@@ -730,79 +831,79 @@
 			})
 
 		})
-		
-		function deleteBoard(){
-			var no= new Array();
-			$('.boardCheck:checked').each(function(i){
+
+		function deleteBoard() {
+			var no = new Array();
+			$('.boardCheck:checked').each(function(i) {
 				no[i] = $(this).attr("id")
 			});
 			console.log(no);
-			
+
 			$.ajax({
-				url:'deleteBoard.me', 
-				traditional :true, 
-				data:{
+				url : 'deleteBoard.me',
+				traditional : true,
+				data : {
 					'no' : no
-				}, success:function(data){
+				},
+				success : function(data) {
 					console.log(data);
-					if(data == 'success'){
+					if (data == 'success') {
 						location.reload();
 					}
 				}
 			});
 		}
-		
-		function deleteReply(){
-			var no= new Array();
-			$('.replyCheck:checked').each(function(i){
+
+		function deleteReply() {
+			var no = new Array();
+			$('.replyCheck:checked').each(function(i) {
 				no[i] = $(this).attr("id")
 			});
 			console.log(no);
-			
+
 			$.ajax({
-				url:'deleteReply.me', 
-				traditional :true, 
-				data:{
+				url : 'deleteReply.me',
+				traditional : true,
+				data : {
 					'no' : no
-				}, success:function(data){
+				},
+				success : function(data) {
 					console.log(data);
-					if(data == 'success'){
+					if (data == 'success') {
 						location.reload();
 					}
 				}
 			});
 		}
-		
-		
+
 		function LoadImg(value) {
 
 			if (value.files && value.files[0]) {
 				var reader = new FileReader();
 
 				reader.onload = function(e) {
-					
-				Swal.fire({
-					  title: '이미지 미리보기',
-					  text: '업로드할 이미지를 확인해주세요',
-					  imageUrl: e.target.result,
-					  imageWidth: 170,
-					  imageHeight: 170,
-					  imageAlt: 'Profile Image',
-					  showCancelButton: true,
-					  confirmButtonColor: '#3085d6',
-					  cancelButtonColor: '#d33',
-					  confirmButtonText: 'save'
-				}).then(function (result){
-					if (result.isConfirmed) {
-						Swal.fire('이미지 변경 성공!')
-						$('#upload').submit();
+
+					Swal.fire({
+						title : '이미지 미리보기',
+						text : '업로드할 이미지를 확인해주세요',
+						imageUrl : e.target.result,
+						imageWidth : 170,
+						imageHeight : 170,
+						imageAlt : 'Profile Image',
+						showCancelButton : true,
+						confirmButtonColor : '#3085d6',
+						cancelButtonColor : '#d33',
+						confirmButtonText : 'save'
+					}).then(function(result) {
+						if (result.isConfirmed) {
+							Swal.fire('이미지 변경 성공!')
+							$('#upload').submit();
 						}
 					});
 				}
 				reader.readAsDataURL(value.files[0]);
 			}
 		}
-			
 	</script>
 
 </body>

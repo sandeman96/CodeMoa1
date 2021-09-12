@@ -16,12 +16,16 @@ public class Board {
 	private int lCount;
 	private int rCount;
 	private String bTags;
+	private int afterNo;
+	private String bSearch;
+	private String bTagSearch;
 
 	public Board() {
 	}
 
 	public Board(int bNo, int bType, String bTitle, String bContent, String nickName, Date bDate, int bCount,
-			String bStatus, String bFirst, String bWriter, int lCount, int rCount, String bTags) {
+			String bStatus, String bFirst, String bWriter, int lCount, int rCount, String bTags, int afterNo,
+			String bSearch, String bTagSearch) {
 		super();
 		this.bNo = bNo;
 		this.bType = bType;
@@ -36,6 +40,9 @@ public class Board {
 		this.lCount = lCount;
 		this.rCount = rCount;
 		this.bTags = bTags;
+		this.afterNo = afterNo;
+		this.bSearch = bSearch;
+		this.bTagSearch = bTagSearch;
 	}
 
 	public int getbNo() {
@@ -142,11 +149,39 @@ public class Board {
 		this.bTags = bTags;
 	}
 
+	public int getAfterNo() {
+		return afterNo;
+	}
+
+	public void setAfterNo(int afterNo) {
+		this.afterNo = afterNo;
+	}
+
+	public String getbSearch() {
+		return bSearch;
+	}
+
+	public void setbSearch(String bSearch) {
+		this.bSearch = bSearch;
+	}
+
+	public String getbTagSearch() {
+		return bTagSearch;
+	}
+
+	public void setbTagSearch(String bTagSearch) {
+		this.bTagSearch = bTagSearch;
+	}
+
 	@Override
 	public String toString() {
 		return "Board [bNo=" + bNo + ", bType=" + bType + ", bTitle=" + bTitle + ", bContent=" + bContent
 				+ ", nickName=" + nickName + ", bDate=" + bDate + ", bCount=" + bCount + ", bStatus=" + bStatus
 				+ ", bFirst=" + bFirst + ", bWriter=" + bWriter + ", lCount=" + lCount + ", rCount=" + rCount
-				+ ", bTags=" + bTags + "]";
+				+ ", bTags=" + bTags + ", afterNo=" + afterNo + ", bSearch=" + bSearch + ", bTagSearch=" + bTagSearch
+				+ "]";
 	}
+
+
+
 }

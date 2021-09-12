@@ -3,30 +3,25 @@ package com.study.codemoa.chat.model.vo;
 import java.sql.Date;
 
 public class ChatRoom {
-	private int crNo;
-	private String crTitle;
-	private String crDetail;
-	private Date crDate;
-	private String crSecret;
-	private String crPwd;
-	private String crMaker;
-	private String crMember;
+	private int crNo; 			// 방 번호
+	private String crTitle;		// 방 제목
+	private Date crDate;		// 개설일
+	private String crSecret;	// 비밀방 여부
+	private String crPwd;		// 비밀번호
+	private String crMaker;		// 개설자
 
 	public ChatRoom() {
 
 	}
 
-	public ChatRoom(int crNo, String crTitle, String crDetail, Date crDate, String crSecret, String crPwd,
-			String crMaker, String crMember) {
+	public ChatRoom(int crNo, String crTitle, Date crDate, String crSecret, String crPwd, String crMaker) {
 		super();
 		this.crNo = crNo;
 		this.crTitle = crTitle;
-		this.crDetail = crDetail;
 		this.crDate = crDate;
 		this.crSecret = crSecret;
 		this.crPwd = crPwd;
 		this.crMaker = crMaker;
-		this.crMember = crMember;
 	}
 
 	public int getCrNo() {
@@ -43,14 +38,6 @@ public class ChatRoom {
 
 	public void setCrTitle(String crTitle) {
 		this.crTitle = crTitle;
-	}
-
-	public String getCrDetail() {
-		return crDetail;
-	}
-
-	public void setCrDetail(String crDetail) {
-		this.crDetail = crDetail;
 	}
 
 	public Date getCrDate() {
@@ -85,19 +72,10 @@ public class ChatRoom {
 		this.crMaker = crMaker;
 	}
 
-	public String getCrMember() {
-		return crMember;
-	}
-
-	public void setCrMember(String crMember) {
-		this.crMember = crMember;
-	}
-
 	@Override
 	public String toString() {
-		return "ChatRoom [crNo=" + crNo + ", crTitle=" + crTitle + ", crDetail=" + crDetail + ", crDate=" + crDate
-				+ ", crSecret=" + crSecret + ", crPwd=" + crPwd + ", crMaker=" + crMaker + ", crMember=" + crMember
-				+ "]";
+		return "ChatRoom [crNo=" + crNo + ", crTitle=" + crTitle + ", crDate=" + crDate + ", crSecret=" + crSecret
+				+ ", crPwd=" + crPwd + ", crMaker=" + crMaker + "]";
 	}
 
 }
