@@ -1,6 +1,53 @@
 # CodeMoa1
 👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻👨‍💻
 
+09-12 전부 합치고 테스트 해본 파일입니다.
+주요 기능등은 잘되나.. 
+본인의 문제인지 혹은 코드의 문제인지 모르겠는 오류가 있습니다.
+안되는건 아래에 적어두었습니다..
+
+그외에
+채팅 쪽지 크롤링 전부 확인해봤으며 모두다 잘 작동됩니다
+
+쪽지(받은 쪽지 보낸 쪽지 확인가능. 안읽은 쪽지 알림)
+채팅(방 생성, 비번 생성과 확인, 채팅가능)
+관리자 기능(신고 처리, 일반 게시글 유저 처리 등), 
+게시판 (순서 정렬, 게시글 검색, 버튼, 태그 등) 
+회원가입(이메일 인증가능, 카카오 로그인, 회원가입등)
+마이페이지(자신이 쓴글 확인, 정보 설정, 본인 정보 수정 등)
+메인페이지(TopN 확인 가능, 달력 확인 가능 등)
+사이드바(회원 이미지 랜덤 색, admin시 admin용사이드로 고정 등)
+
+글쓰기, 수정, 삭제, 관리자 삭제, 글 부활 등 여러 기능 모두 작동합니다.
+
+아래에 오류한번만 확인해주시고 저한테 잘못된 부분 한번만 알려주세요..!
+
+
+Request processing failed; nested exception is org.mybatis.spring.MyBatisSystemException: nested exception is org.apache.ibatis.reflection.ReflectionException: Could not set property 'bTitle' of 'class com.study.codemoa.board.model.vo.Reply' with value '오류나서 테이블 다 날림' Cause: org.apache.ibatis.reflection.ReflectionException: There is no setter for property named 'bTitle' in 'class com.study.codemoa.board.model.vo.Reply'
+
+자신이 쓴 댓글이 하나라도 있으면 마이페이지에 들어가면 나오는 오류
+(제가 합칠때 무언가를 잘못했을수도 있습니다... 위가 500에러 코드입니다)
+
+마이페이지에서 사진 못올리는 오류, 정확히는 버튼이 클릭이 안됩니다
+(이것도 제가 잘못한거 같습니다..)
+
+동작이 안되는 오류외에 제가 확인한 자잘한 오류입니다.
+
+myPage에서 본인이 쓴 게시글에 댓글이 작성됐다 지워져도 마이페이지 게시글에서는 댓글이 있다고 나옵니다.
+
+TopN이 삭제된 게시글도 받아옵니다
+
+카카오 로그인시 닉네임이 신고되도 바로 로그인 됩니다
+
+admin페이지에서 신고된 게시글을 상세보기로 들어간 뒤 삭제하면 일반 게시글 리스트로 넘어갑니다
+(deleteBoard 에서 오류
+delNo를 사용하자니 500에러가 나고
+delNo를 빼면 관리자페이지에서 신고글 상세에서 삭제시 관리자 페이지가 아닌 유저페이지로넘어가는 오류입니다)
+
+
+** SQL 테이블중
+MEMBER에 M_ENABLE이 들어갑니다..!
+
 21/09/11
 현재 깃에 올라와있는 모든 파일을 합쳐서 올렸습니다
 안되는게 몇가지 있습니다..제가 몇가지 빼먹은거 같은데 
