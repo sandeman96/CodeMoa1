@@ -112,7 +112,7 @@ body {
 										</thead>
 										<tbody>
 											<c:forEach var="m" items="${ mList }">
-												<c:url var="mdetail" value="memberDetail.ad">
+												<c:url var="mdetail" value="mypage.me">
 													<c:param name="userId" value="${ m.id }" />
 												</c:url>
 												<tr class="detail" data-href='${mdetail}'>
