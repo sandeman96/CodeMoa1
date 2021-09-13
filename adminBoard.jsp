@@ -25,7 +25,7 @@
 <!-- Daterange picker -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/daterangepicker/daterangepicker.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+ 
 <style>
 body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
