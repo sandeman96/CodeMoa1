@@ -125,7 +125,7 @@ body {
 													</td>
 													<td></td>
 													<td>
-														<c:if test="${ m.status eq 'N' }">탈퇴</c:if>
+														<c:if test="${ m.status eq 'N' }">&#11093;</c:if>
 													</td>
 													<td>
 														<c:set var="flag" value="false"/>
