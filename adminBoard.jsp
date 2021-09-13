@@ -25,7 +25,7 @@
 <!-- Daterange picker -->
 <link rel="stylesheet" href="/codemoa/resources/plugins/daterangepicker/daterangepicker.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
- 
+
 <style>
 body {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif; 
@@ -117,12 +117,12 @@ body {
 										</thead>
 										<tbody>
 											<c:forEach var="b" items="${ bList }">
-												<c:url var="bdetail" value="boardDetail.ad">
+												<c:url var="bdetail" value="boardDetail.bo">
 													<c:param name="bNo" value="${ b.bNo }" />
 													<c:param name="page" value="1" />
 												</c:url>
 												<tr>
-													<td class="bNo detail" data-href='${bdetail}'>${ b.bNo }</td>
+													<td class="bNo" data-href='${bdetail}'>${ b.bNo }</td>
 													<td class="detail" data-href='${bdetail}'>
 														<c:if test="${ b.bType == 1 }">Q&A</c:if>
 														<c:if test="${ b.bType == 2 }">Tips</c:if>
