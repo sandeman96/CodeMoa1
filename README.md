@@ -2,7 +2,7 @@
 👨‍💻
 adminBoard, adminMember, adminUpdateMember파일 수정
 
-👨‍💻 AdminController 아래 부분 수정
+👨‍💻 AdminController 아래 부분 삭제
 /* 디테일 */
    @RequestMapping("boardDetail.ad")
    public String boardDetail(@RequestParam("bNo") int bNo, String page) {
