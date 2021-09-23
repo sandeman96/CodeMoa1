@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="messageMapper">
+
+	<select id="selectList" parameterType="hashmap" resultType="_int">
+		select count(*)
+		from message
+		where
+		<if test="type == 'receive'">
+			MG_RECEIVER = #{userId} and MG_RSTATUS = 'Y'
+		</if>
+		<if test="type == 'send'">
+			MG_SENDER = #{userId} and MG_SSTATUS = 'Y'
+		</if>
+	</select>
+
+	<insert id="insertMessage">
+		insert into message
+		values(seq_mgno.nextval,
+		#{mgContent}, #{mgReceiver}, #{mgSender}, sysdate, default, default,
+		default)
+	</insert>
+
+	<resultMap type="Message" id="messageResultSet">
+		<id column="MG_NO" property="mgNo" />
+		<result column="MG_CONTENT" property="mgContent" />
+		<result column="MG_RECEIVER" property="mgReceiver" />
+		<result column="MG_SENDER" property="mgSender" />
+		<result column="MG_DATE" property="mgDate" />
+		<result column="MG_RSTATUS" property="mgRStatus" />
+		<result column="MG_SSTATUS" property="mgSStatus" />
+		<result column="MG_OPEN" property="mgOpen" />
+		<result column="M_NICK" property="mgNick" />
+	</resultMap>
+
+	<select id="receiveBox" resultMap="messageResultSet">
+		select mg_no, mg_content, mg_sender, to_char(mg_date,'YYYY-MM-DD HH24:MI') as "MG_DATE", mg_rstatus, mg_open, m_nick
+		from message
+    	join member on(mg_sender = m_id)
+		where MG_RECEIVER = #{userId} and MG_RSTATUS = 'Y'
+		order by MG_NO desc
+	</select>
+
+	<select id="sendBox" resultMap="messageResultSet">
+		select mg_no, mg_content, mg_receiver, to_char(mg_date,'YYYY-MM-DD HH24:MI') as "MG_DATE", mg_rstatus, mg_open, m_nick
+		from message
+		join member on(mg_receiver = m_id)
+		where MG_SENDER = #{userId} and MG_SSTATUS = 'Y'
+		order by MG_NO desc
+	</select>
+
+	<update id="readMessage">
+		update message
+		set MG_OPEN = 'N'
+		where MG_NO = #{mgNo}
+		and MG_RECEIVER = #{mgReceiver}
+	</update>
+
+	<update id="deleteMessage" parameterType="hashmap">
+		update message
+		set 
+		<if test="type == 'receive'">
+			MG_RSTATUS = 'N'
+		</if>
+		<if test="type == 'send'">
+			MG_SSTATUS = 'N'
+		</if>
+		where MG_NO = #{no}
+	</update>
+	
+	<select id="selectNick" parameterType="string" resultType="string">
+		select m_id 
+		from member
+		where m_nick = #{nick}
+	</select>
+	
+	<select id="nickList" resultType="string">
+		select m_nick
+		from member
+	</select>
+	
+	<select id="searchMessage" parameterType="hashmap" resultMap="messageResultSet">
+		select mg_no, mg_content, mg_receiver, mg_sender, to_char(mg_date,'YYYY-MM-DD HH24:MI') as "MG_DATE", mg_rstatus, mg_open, m_nick
+		from message
+		<if test="type == 'receive'">
+			join member on(mg_sender = m_id)
+			where MG_RECEIVER = #{userId} and MG_RSTATUS = 'Y'
+		</if>
+		<if test="type == 'send'">
+			join member on(mg_receiver = m_id)
+			where MG_SENDER = #{userId} and MG_SSTATUS = 'Y'
+		</if>
+		and mg_content like '%'||#{keyword}||'%' or m_nick like '%'||#{keyword}||'%'
+	</select>
+	
+	<select id="msgAlarm" resultType="_int">
+		select count(*)
+		from message
+		where mg_receiver = #{id} and mg_open='Y'
+	</select>
+	
+</mapper>
