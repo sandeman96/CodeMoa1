@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<select id="login" resultMap="memberResultSet">
+		select *
+		from member
+		where m_id=#{id}
+		and m_status='Y'
+	</select>
+
+	<insert id="insertMember">
+		insert into member
+		values(#{id}, #{email}, #{pwd}, #{nickName}, default, default, null, null, null, null, default)
+	</insert>
+	
+	
+	<select id="memberInfo" resultMap="memberResultSet">
+		select * 
+		from member
+		where m_id=#{user}
+	</select>
+	
+	<update id="updateIntroduce">
+		update member
+		set m_edu=#{education}, m_location=#{location}, m_skill=#{skill}, m_note=#{note}
+		where m_id=#{id}
+	</update>
+	
+	<update id="deleteMember">
+		update member
+		set m_status='N'
+		where m_id=#{id}
+	</update>
+	
+	<update id="updateMember">
+		update member
+		set m_email=#{email}, m_nick=#{nickName}
+		where m_id=#{id}
+	</update>
+	
+	
+	<update id="updatePwd" parameterType="hashmap">
+		update member set m_pwd=#{newPwd}
+		where m_id=#{userId}
+	</update>
+
+	<resultMap type="Member" id="memberResultSet">
+		<id column="M_ID" property="id" />
+		<result column="M_EMAIL" property="email" />
+		<result column="M_PWD" property="pwd" />
+		<result column="M_NICK" property="nickName" />
+		<result column="M_STATUS" property="status" />
+		<result column="M_ADMIN" property="admin" />
+		<result column="M_EDU" property="education" />
+		<result column="M_LOCATION" property="location" />
+		<result column="M_SKILL" property="skill" />
+		<result column="M_NOTE" property="note" />
+		<result column="M_ENABLE" property="enable" />
+	</resultMap>
+	
+	<select id="selectNickName" resultType="_int">
+		select count(*)
+		from member
+		where m_nick=#{nickName}
+	</select>
+
+	<select id="selectId" resultType="_int">
+		select count(*)
+		from member 
+		where m_id=#{id} 
+	</select>
+
+	<select id="selectEmail" resultType="_int">
+		select count(*)
+		from member
+		where m_email=#{email}
+	</select>
+	
+	<select id="selectMyBoard" parameterType="string" resultMap="boardResultSet">
+		select b_no, b_type, b_title, b_content, b_date, b_count, b_status, b_first, b_writer, m_nick,
+				(select count(l_no) from likey where l_bno = b_no) as "lCount", 
+				(select count(r_no) from reply where r_bno = b_no) as "rCount"
+		from board
+		join member on (b_writer = m_id)
+		where b_status='Y' and b_writer = #{id}
+		order by b_no desc
+	</select>
+	
+	<select id="selectMyReply" parameterType="string" resultMap="replyResultSet">
+		select r_no, r_bno, r_date, r_content, r_status, r_writer, b_title
+		from reply
+		join board on(r_bno = b_no)
+		where r_status ='Y' and r_writer = #{id} and b_status='Y'
+		order by r_bno desc, r_date desc
+	</select>
+	
+	
+	<update id="deleteBoard" parameterType="_int">
+		update board
+		set b_status='N'
+		where b_no=#{no}
+	</update>
+	
+	<update id="deleteReply" parameterType="_int">
+		update reply
+		set r_status='N'
+		where r_no=#{no}
+	</update>
+	
+	<resultMap type="Reply" id="replyResultSet">
+  		<id column="R_NO" property="rNo"/>
+  		<result column="R_DATE" property="rDate"/>
+	  	<result column="R_CONTENT" property="rContent"/>
+	  	<result column="R_STATUS" property="rStatus"/>
+	  	<result column="R_WRITER" property="rWriter"/>
+	  	<result column="R_BNO" property="rBNo"/>
+	  	<result column="M_NICK" property="nickName"/>
+	  	<result column="B_TITLE" property="bTitle"/>
+	 </resultMap>
+	
+	<resultMap type="Board" id="boardResultSet">
+		<id column="B_NO" property="bNo" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="M_NICK" property="nickName" />
+		<result column="B_DATE" property="bDate" />
+		<result column="B_COUNT" property="bCount" />
+		<result column="B_STATUS" property="bStatus" />
+		<result column="B_FIRST" property="bFirst" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="lCount" property="lCount" />
+		<result column="rCount" property="rCount" />
+	</resultMap>
+	
+	<update id="updateNick">
+		update member
+		set m_nick=#{nickName}, m_enable=#{enable}
+		where m_id=#{id}
+	</update>
+	
+
+</mapper>

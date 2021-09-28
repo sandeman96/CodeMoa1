@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="boardMapper">
+	<select id="getListCount" resultType="_int">
+		select count(*) from board where b_status='Y' and b_type=#{bType}
+		<choose>
+				<when test="bTagSearch != null"> and b_tags like '%'||#{bTagSearch}||'%' </when>
+				<when test="bSearch != null"> and b_title like '%'||#{bSearch}||'%' </when>
+				<when test="bFirst != null"> and b_first=#{bFirst} </when>
+			</choose>
+	</select>
+	<select id="selectList" parameterType="hashmap" resultMap="boardResultSet">					
+			SELECT *
+			FROM (
+			SELECT b.b_no, b.b_type, b.b_title, b.b_content, b.b_date, b.b_count, b.b_status, 
+			b.b_first, b.b_writer, m.m_nick, b.b_tags,
+			(SELECT COUNT(r.r_no) FROM reply r WHERE r.r_bno = b.b_no and r.r_status='Y') as "rCount",
+			(SELECT COUNT(l.l_no) FROM likey l WHERE l.l_bno = b.b_no) as "lCount"
+			 FROM board b join member m on (b.b_writer = m.m_id)
+			 WHERE b.b_status = 'Y' and b.b_type=#{bType} 
+			<choose>
+				<when test="bTagSearch != null"> and b.b_tags like '%'||#{bTagSearch}||'%' </when>
+				<when test="bSearch != null"> and b.b_title like '%'||#{bSearch}||'%' </when>
+				<when test="bFirst != null"> and b_first=#{bFirst} </when>
+			</choose>
+			 order by b_first desc
+			 <choose>
+			 	<when test="standard == 'bNo'">, b_no desc)</when>
+			 	<when test="standard == 'bCount'">, b_count desc)</when>
+			 	<when test="standard == 'lCount'">, "lCount" desc)</when>
+			 	<when test="standard == 'rCount'">, "rCount" desc)</when>
+			 </choose>
+	</select>
+	<resultMap type="Board" id="boardResultSet">
+		<id column="B_NO" property="bNo" />
+		<result column="B_TYPE" property="bType" />
+		<result column="B_TITLE" property="bTitle" />
+		<result column="B_CONTENT" property="bContent" />
+		<result column="M_NICK" property="nickName" />
+		<result column="B_DATE" property="bDate" />
+		<result column="B_COUNT" property="bCount" />
+		<result column="B_STATUS" property="bStatus" />
+		<result column="B_FIRST" property="bFirst" />
+		<result column="B_WRITER" property="bWriter" />
+		<result column="lCount" property="lCount" />
+		<result column="rCount" property="rCount" />
+		<result column="B_TAGS" property="bTags" />
+		<result column="bSearch" property="bSearch"/>
+		<result column="bTagSearch" property="bTagSearch"/>
+	</resultMap>
+	<insert id="insertBoard" parameterType="Board">
+		insert into board values (seq_bno.nextval, #{bType}, #{bTitle}, #{bContent},
+		sysdate, default, default, #{bFirst}, #{bWriter}, #{bTags})
+		<selectKey resultType="int" keyProperty="afterNo" order="AFTER">
+		 	select seq_bno.currval from dual
+		</selectKey>		
+	</insert>
+	<update id="addCount">
+		update board set b_count = b_count +1
+		where b_no=#{bNo}
+	</update>
+	<select id="selectBoard" resultMap="boardResultSet">
+		SELECT *
+			FROM (
+			SELECT b.b_no, b.b_type, b.b_title, b.b_content, b.b_date, b.b_count, b.b_status, 
+			b.b_first, b.b_writer, b.b_tags, m.m_nick, 
+			(SELECT COUNT(r.r_no) FROM reply r WHERE r.r_bno = b.b_no and r.r_status='Y') as "rCount",
+			(SELECT COUNT(l.l_no) FROM likey l WHERE l.l_bno = b.b_no) as "lCount"
+			 FROM board b join member m on (b.b_writer = m.m_id)
+			 WHERE b.b_status = 'Y' and b_no=#{bNo})
+	</select>
+	<update id="updateBoard">
+		update board set b_type=#{bType}, b_title=#{bTitle}, b_content=#{bContent}, b_tags=#{bTags}
+		where b_no=#{bNo}
+	</update>
+	<update id="deleteBoard">
+		update board
+		set b_status='N'
+		where b_no=#{bNo}
+	</update>
+	<select id="selectLike" resultMap="likeResultSet">
+		select *
+		from likey
+		where l_bno=#{lBNo} and l_id=#{lId}
+	</select>	
+	<delete id="deleteLike">
+		delete from likey
+		where l_bno=#{lBNo} and l_id=#{lId}
+	</delete>	
+	<insert id="insertLike">
+		insert into likey values (seq_lno.nextval, #{lId}, #{lBNo})
+	</insert>
+	<resultMap type="Likey" id="likeResultSet">
+		<id column="L_NO" property="lNo" />
+		<result column="L_ID" property="lId" />
+		<result column="L_BNO" property="lBNo" />
+	</resultMap>	
+	<insert id="insertReply">
+		insert into Reply values (seq_rno.nextval, sysdate, #{rContent}, default, #{rWriter}, #{rBNo})
+	</insert>
+	<select id="selectReplyList" resultMap="replyResultSet">
+  		select r_no, r_date, r_content, r_status, m_nick, r_bno, r_writer from reply
+  		join member on (r_writer = m_id) join board on (r_bno=b_no)
+  		where r_bno = #{bNo}
+  		and r_status = 'Y'
+  		order by r_no desc
+  	</select>
+  	<resultMap type="Reply" id="replyResultSet">
+  		<id column="R_NO" property="rNo"/>
+  		<result column="R_DATE" property="rDate"/>
+	  	<result column="R_CONTENT" property="rContent"/>
+	  	<result column="R_STATUS" property="rStatus"/>
+	  	<result column="R_WRITER" property="rWriter"/>
+	  	<result column="R_BNO" property="rBNo"/>
+	  	<result column="M_NICK" property="nickName"/>
+	 </resultMap>
+	 <update id="updateReply">
+		update reply set r_content=#{rContent}
+		where r_no=#{rNo}
+	</update>
+	<update id="deleteReply">
+		update reply
+		set r_status='N'
+		where r_no=#{rNo}
+	</update>
+	<select id="selectTagList" resultMap="hashResultSet">					
+			select *
+			from hashtag
+			where h_status = 'Y'
+	</select>
+	<resultMap type="HashTag" id="hashResultSet">
+		<id column="H_NO" property="hNo" />
+		<result column="H_TAG" property="hTag" />
+		<result column="H_BNO" property="hBNo" />
+		<result column="H_STATUS" property="hStatus" />
+	</resultMap>
+	<insert id="insertHashTag">
+		insert into hashtag(h_no, h_tag, h_bno, h_status)
+		select seq_hno.nextval, a.* from(
+		<foreach collection="list" item="item" separator="union all ">
+			select #{item.hTag} as h_tag, #{item.hBNo} as h_bno, #{item.hStatus} as h_status from dual
+		</foreach>) a
+	</insert>
+<select id="selectCountList" resultType="boardDTO">
+   SELECT *
+     FROM (SELECT ROW_NUMBER() OVER(ORDER BY B_COUNT DESC, B_NO DESC) RNUM
+                , B_NO
+                , DECODE(B_TYPE, '1', 'Q&amp;A', '2', 'Tips', '3', 'Study', 'Unknown') B_TYPE
+                , B_TITLE
+                , TO_CHAR(B_DATE, 'YYYY-MM-DD') B_DATE
+                , B_WRITER
+                , M_NICK
+                , B_STATUS
+             FROM BOARD JOIN MEMBER ON (B_WRITER = M_ID)
+             WHERE B_STATUS = 'Y' AND B_FIRST = 'N'
+          )
+    WHERE RNUM BETWEEN 1 AND 4
+   </select>
+
+   <select id="selectLikeList" resultType="boardDTO">
+   SELECT *
+   FROM (SELECT ROW_NUMBER() OVER( ORDER BY NVL(L.CNT, 0) DESC, B.B_NO DESC) RNUM
+            , B.B_NO
+            , DECODE(B.B_TYPE, '1', 'Q&amp;A', '2', 'Tips', '3', 'Study', 'Unknown') B_TYPE
+            , B.B_TITLE
+            , TO_CHAR(B.B_DATE, 'YYYY-MM-DD') B_DATE
+            , M.M_NICK B_WRITER
+            , B.B_STATUS
+         FROM BOARD B, (SELECT L_BNO, COUNT(L_BNO) CNT
+         FROM LIKEY
+         GROUP BY L_BNO) L, MEMBER M
+         WHERE B.B_NO = L.L_BNO(+)
+         AND B.B_WRITER = M.M_ID
+         AND B.B_STATUS = 'Y'
+         AND B.B_FIRST = 'N'
+      )
+   WHERE RNUM BETWEEN 1 AND 4
+   </select>
+</mapper>

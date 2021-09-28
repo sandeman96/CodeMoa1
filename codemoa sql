@@ -1,0 +1,1192 @@
+--------------------------------------------------------
+--  파일이 생성됨 - 목요일-9월-16-2021   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Sequence SEQ_BNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_BNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 480 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_CNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_CNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_CRNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_CRNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_HNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_HNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 121 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_LNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_LNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 41 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_MGNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_MGNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_PNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_PNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SEQ_RNO
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "CODEMOA"."SEQ_RNO"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Table BOARD
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."BOARD" 
+   (	"B_NO" NUMBER, 
+	"B_TYPE" NUMBER, 
+	"B_TITLE" VARCHAR2(4000 BYTE), 
+	"B_CONTENT" VARCHAR2(4000 BYTE), 
+	"B_DATE" DATE DEFAULT SYSDATE, 
+	"B_COUNT" NUMBER DEFAULT 0, 
+	"B_STATUS" VARCHAR2(5 BYTE) DEFAULT 'Y', 
+	"B_FIRST" VARCHAR2(5 BYTE) DEFAULT 'N', 
+	"B_WRITER" VARCHAR2(1000 BYTE), 
+	"B_TAGS" VARCHAR2(2000 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CHAT
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."CHAT" 
+   (	"C_NO" NUMBER, 
+	"C_DATE" VARCHAR2(100 BYTE), 
+	"C_CHAT" VARCHAR2(2000 BYTE), 
+	"C_ROOM" NUMBER, 
+	"C_SENDER" VARCHAR2(100 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table CROOM
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."CROOM" 
+   (	"CR_NO" NUMBER, 
+	"CR_TITLE" VARCHAR2(100 BYTE), 
+	"CR_DATE" DATE DEFAULT SYSDATE, 
+	"CR_SECRET" VARCHAR2(100 BYTE) DEFAULT 'Y', 
+	"CR_PWD" VARCHAR2(100 BYTE), 
+	"CR_MAKER" VARCHAR2(100 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table HASHTAG
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."HASHTAG" 
+   (	"H_NO" NUMBER, 
+	"H_TAG" VARCHAR2(1000 BYTE), 
+	"H_BNO" NUMBER, 
+	"H_STATUS" VARCHAR2(10 BYTE) DEFAULT 'Y'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table IMAGE
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."IMAGE" 
+   (	"I_NO" NUMBER, 
+	"I_ORIGIN" VARCHAR2(500 BYTE), 
+	"I_CHANGE" VARCHAR2(1000 BYTE), 
+	"I_PATH" VARCHAR2(1000 BYTE), 
+	"I_DATE" DATE, 
+	"I_LEVEL" NUMBER, 
+	"I_STATUS" VARCHAR2(1 BYTE) DEFAULT 'Y'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table LIKEY
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."LIKEY" 
+   (	"L_NO" NUMBER, 
+	"L_ID" VARCHAR2(100 BYTE), 
+	"L_BNO" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table MEMBER
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."MEMBER" 
+   (	"M_ID" VARCHAR2(100 BYTE), 
+	"M_EMAIL" VARCHAR2(100 BYTE), 
+	"M_PWD" VARCHAR2(100 BYTE), 
+	"M_NICK" VARCHAR2(100 BYTE), 
+	"M_STATUS" VARCHAR2(1 BYTE) DEFAULT 'Y', 
+	"M_ADMIN" VARCHAR2(1 BYTE) DEFAULT 'N', 
+	"M_EDU" VARCHAR2(1000 BYTE), 
+	"M_LOCATION" VARCHAR2(1000 BYTE), 
+	"M_SKILL" VARCHAR2(1000 BYTE), 
+	"M_NOTE" VARCHAR2(1000 BYTE), 
+	"M_ENABLE" VARCHAR2(20 BYTE) DEFAULT '0'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table MESSAGE
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."MESSAGE" 
+   (	"MG_NO" NUMBER, 
+	"MG_CONTENT" VARCHAR2(2000 BYTE), 
+	"MG_RECEIVER" VARCHAR2(100 BYTE), 
+	"MG_SENDER" VARCHAR2(100 BYTE), 
+	"MG_DATE" DATE DEFAULT SYSDATE, 
+	"MG_RSTATUS" VARCHAR2(10 BYTE) DEFAULT 'Y', 
+	"MG_SSTATUS" VARCHAR2(10 BYTE) DEFAULT 'Y', 
+	"MG_OPEN" VARCHAR2(100 BYTE) DEFAULT 'Y'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table REPLY
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."REPLY" 
+   (	"R_NO" NUMBER, 
+	"R_DATE" DATE DEFAULT SYSDATE, 
+	"R_CONTENT" VARCHAR2(2000 BYTE), 
+	"R_STATUS" VARCHAR2(1 BYTE) DEFAULT 'Y', 
+	"R_WRITER" VARCHAR2(100 BYTE), 
+	"R_BNO" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table REPORT
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."REPORT" 
+   (	"P_NO" NUMBER, 
+	"P_TYPE" NUMBER, 
+	"P_TITLE" VARCHAR2(100 BYTE), 
+	"P_CONTENT" VARCHAR2(4000 BYTE), 
+	"P_DATE" DATE DEFAULT SYSDATE, 
+	"P_STATUS" VARCHAR2(100 BYTE) DEFAULT 'Y', 
+	"P_BNO" NUMBER, 
+	"P_RECEIVER" VARCHAR2(100 BYTE), 
+	"P_REPORTER" VARCHAR2(100 BYTE), 
+	"P_BPAGE" VARCHAR2(20 BYTE), 
+	"P_MNICK" VARCHAR2(100 BYTE), 
+	"P_BTYPE" VARCHAR2(10 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Table R_IMAGE
+--------------------------------------------------------
+
+  CREATE TABLE "CODEMOA"."R_IMAGE" 
+   (	"RI_NO" NUMBER, 
+	"RI_ORIGIN" VARCHAR2(500 BYTE), 
+	"RI_CHANGE" VARCHAR2(1000 BYTE), 
+	"RI_PATH" VARCHAR2(1000 BYTE), 
+	"RI_DATE" DATE, 
+	"I_STATUS" VARCHAR2(1 BYTE) DEFAULT 'Y'
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for View V_CHAT
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE VIEW "CODEMOA"."V_CHAT" ("C_NO", "C_DATE", "C_CHAT", "C_SENDER", "C_ROOM") AS 
+  select c_no, c_date, c_chat, m_nick as c_sender, c_room
+              from chat
+                   left join member on (c_sender = m_id)
+;
+REM INSERTING into CODEMOA.BOARD
+SET DEFINE OFF;
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (110,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),2,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (111,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),1,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (1,1,'네카라쿠배 신입에게 요구하는 기술 역량은 어느정도 되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (2,1,'문제 해결능력 없는 주니어 어떻게 해야되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (3,1,'백엔드 신입 ] 3200 중견 BE 개발 vs 4200 대기업 SI 인프라 엔지니어','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),10,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (4,1,'자바를 공부하려고합니다.','<p>ㅎ</p>',to_date('19/05/03','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (5,1,'아마존 웹서비스를 사용하다 의도치 않게 청구된 결제금액 환불문제 때문에 골치가 아프네요.','<p>ㅎ</p>',to_date('19/05/04','RR/MM/DD'),55,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (6,1,'국비신입 노트북좀 봐주시면 감사드리겠습니다.','<p>ㅎ</p>',to_date('19/06/20','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (7,1,'현업에서 SSH 툴 어떤거 사용하시나요?','<p>ㅎ</p>',to_date('19/07/09','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (8,1,'yolo와 안드로이드 스튜디오 연동 질문이있습니다!','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (9,1,'유제품 기업에서 전산직','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),9,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (10,1,'둘중에 어떤것이 좋을까요??','<p>ㅎ</p>',to_date('19/09/02','RR/MM/DD'),2,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (11,1,'회사생활.. 너무 힘듭니다.','<p>ㅎ</p>',to_date('19/09/22','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (12,1,'무료로 개발자 면접 멘토링 진행합니다.','<p>ㅎ</p>',to_date('19/10/13','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (13,1,'어떤쪽으로 입문해야 할까요?','<p>ㅎ</p>',to_date('19/12/27','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (14,1,'안드로이드 프로젝트 같이하실분 구합니다!(취업준비!)','<p>ㅎ</p>',to_date('19/12/29','RR/MM/DD'),15,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (15,1,'선배님들... 이직 중인데 후배 고민 한번 들어주세요!','<p>ㅎ</p>',to_date('20/01/05','RR/MM/DD'),35,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (16,1,'토이프로젝트를 하고 싶은데 HTML, CSS가 너무 어려워서 못하겠어요..','<p>ㅎ</p>',to_date('20/02/08','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (17,1,'선배님들 2차 임원면접은 어떠셨나요??','<p>ㅎ</p>',to_date('20/03/19','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (18,1,'nodejs 전망이 어떤가여?','<p>ㅎ</p>',to_date('20/04/06','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (19,1,'금융 si 이신분들 질문..','<p>ㅎ</p>',to_date('20/05/26','RR/MM/DD'),24,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (20,1,'스케쥴러 서버 saas가 없나 한참 검색했는데요','<p>ㅎ</p>',to_date('20/06/12','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (21,1,'[데이콘] 해양 과학 빅데이터 활용 경진대회','<p>ㅎ</p>',to_date('20/06/15','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (22,1,'부모님이나 친구가 제가 직장을 어디에 다니는지 확인이나 조회할수 있나요??','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),64,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (23,1,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (24,1,'게임개발쪽 취업시장은 어떤가요?','<p>ㅎ</p>',to_date('20/08/29','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (25,1,'선배님들 연봉과 근로계약서가 궁금합니다.','<p>ㅎ</p>',to_date('20/09/01','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (26,1,'졸업때문에 고민이 많습니다...','<p>ㅎ</p>',to_date('20/10/24','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (27,1,'대학교와 국비중에 고민중인 학생입니다.','<p>ㅎ</p>',to_date('20/11/29','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (28,1,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/12/04','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (29,1,'개발자가되겠어요?','<p>ㅎ</p>',to_date('20/12/15','RR/MM/DD'),5,'N','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (30,1,'[과학기술정보통신부/한국인터넷진흥원] ‘SW개발보안 모범사례 공모전’을 개최합니다! (~9/30)','<p>ㅎ</p>',to_date('20/12/27','RR/MM/DD'),76,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (31,1,'대기업 6천 VS 스타트업 8천','<p>ㅎ</p>',to_date('21/01/01','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (32,1,'면접 취소된 상황에서 면접일정을 물어봐도 되나요??','<p>ㅎ</p>',to_date('21/02/04','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (33,1,'개발자로 이루어진 회사인데 프로젝트 부분은 어찌 가져오시나요?','<p>ㅎ</p>',to_date('21/02/07','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (34,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (35,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (36,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (37,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (38,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (39,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (40,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (41,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (42,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (43,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (44,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (45,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (46,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (47,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (48,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (49,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (50,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (51,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (52,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (53,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (54,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (55,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (56,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (57,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (58,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (59,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (60,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (61,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (62,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (63,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (64,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (65,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (66,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (67,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (68,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (69,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (70,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (71,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (72,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (73,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (74,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (75,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (76,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (77,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (78,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (79,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (80,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (81,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (82,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (83,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (84,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (85,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (86,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (87,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (88,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (89,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (90,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (91,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (92,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (93,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (94,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (95,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (96,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (97,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (98,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (99,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (100,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (101,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (102,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (103,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (104,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (105,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (106,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (107,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (108,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (109,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (112,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (113,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (114,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (115,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (116,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (117,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (118,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (119,1,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (120,2,'네카라쿠배 신입에게 요구하는 기술 역량은 어느정도 되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (121,2,'문제 해결능력 없는 주니어 어떻게 해야되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (122,2,'백엔드 신입 ] 3200 중견 BE 개발 vs 4200 대기업 SI 인프라 엔지니어','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),8,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (123,2,'자바를 공부하려고합니다.','<p>ㅎ</p>',to_date('19/05/03','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (124,2,'아마존 웹서비스를 사용하다 의도치 않게 청구된 결제금액 환불문제 때문에 골치가 아프네요.','<p>ㅎ</p>',to_date('19/05/04','RR/MM/DD'),54,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (125,2,'국비신입 노트북좀 봐주시면 감사드리겠습니다.','<p>ㅎ</p>',to_date('19/06/20','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (126,2,'현업에서 SSH 툴 어떤거 사용하시나요?','<p>ㅎ</p>',to_date('19/07/09','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (127,2,'yolo와 안드로이드 스튜디오 연동 질문이있습니다!','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (128,2,'유제품 기업에서 전산직','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (129,2,'둘중에 어떤것이 좋을까요??','<p>ㅎ</p>',to_date('19/09/02','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (130,2,'회사생활.. 너무 힘듭니다.','<p>ㅎ</p>',to_date('19/09/22','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (131,2,'무료로 개발자 면접 멘토링 진행합니다.','<p>ㅎ</p>',to_date('19/10/13','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (132,2,'어떤쪽으로 입문해야 할까요?','<p>ㅎ</p>',to_date('19/12/27','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (133,2,'안드로이드 프로젝트 같이하실분 구합니다!(취업준비!)','<p>ㅎ</p>',to_date('19/12/29','RR/MM/DD'),15,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (134,2,'선배님들... 이직 중인데 후배 고민 한번 들어주세요!','<p>ㅎ</p>',to_date('20/01/05','RR/MM/DD'),35,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (135,2,'토이프로젝트를 하고 싶은데 HTML, CSS가 너무 어려워서 못하겠어요..','<p>ㅎ</p>',to_date('20/02/08','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (136,2,'선배님들 2차 임원면접은 어떠셨나요??','<p>ㅎ</p>',to_date('20/03/19','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (137,2,'nodejs 전망이 어떤가여?','<p>ㅎ</p>',to_date('20/04/06','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (138,2,'금융 si 이신분들 질문..','<p>ㅎ</p>',to_date('20/05/26','RR/MM/DD'),24,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (139,2,'스케쥴러 서버 saas가 없나 한참 검색했는데요','<p>ㅎ</p>',to_date('20/06/12','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (140,2,'[데이콘] 해양 과학 빅데이터 활용 경진대회','<p>ㅎ</p>',to_date('20/06/15','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (141,2,'부모님이나 친구가 제가 직장을 어디에 다니는지 확인이나 조회할수 있나요??','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),64,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (142,2,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (143,2,'게임개발쪽 취업시장은 어떤가요?','<p>ㅎ</p>',to_date('20/08/29','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (144,2,'선배님들 연봉과 근로계약서가 궁금합니다.','<p>ㅎ</p>',to_date('20/09/01','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (145,2,'졸업때문에 고민이 많습니다...','<p>ㅎ</p>',to_date('20/10/24','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (146,2,'대학교와 국비중에 고민중인 학생입니다.','<p>ㅎ</p>',to_date('20/11/29','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (147,2,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/12/04','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (148,2,'개발자가되겠어요?','<p>ㅎ</p>',to_date('20/12/15','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (149,2,'[과학기술정보통신부/한국인터넷진흥원] ‘SW개발보안 모범사례 공모전’을 개최합니다! (~9/30)','<p>ㅎ</p>',to_date('20/12/27','RR/MM/DD'),78,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (150,2,'대기업 6천 VS 스타트업 8천','<p>ㅎ</p>',to_date('21/01/01','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (151,2,'면접 취소된 상황에서 면접일정을 물어봐도 되나요??','<p>ㅎ</p>',to_date('21/02/04','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (152,2,'개발자로 이루어진 회사인데 프로젝트 부분은 어찌 가져오시나요?','<p>ㅎ</p>',to_date('21/02/07','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (153,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (154,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (155,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (156,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (157,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (158,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (159,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (160,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (161,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (162,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (163,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (164,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (165,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (166,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (167,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (168,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (169,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (170,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (171,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (172,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (173,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (174,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (175,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (176,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (177,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (178,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (179,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (180,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (181,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (182,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (183,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (184,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (185,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (186,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (187,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (188,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (189,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (190,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (191,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (192,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (193,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (194,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (195,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (196,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (197,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (198,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (199,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (200,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (201,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (202,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (203,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (204,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (205,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (206,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (207,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (208,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (209,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (210,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (211,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (212,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (213,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (214,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (215,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (216,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (217,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (218,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (219,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (220,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (221,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (222,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (223,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (224,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (225,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (226,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (227,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (228,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (229,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (230,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (231,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (232,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (233,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (234,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (235,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (236,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (237,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (238,2,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (239,3,'네카라쿠배 신입에게 요구하는 기술 역량은 어느정도 되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (240,3,'문제 해결능력 없는 주니어 어떻게 해야되나요?','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (241,3,'백엔드 신입 ] 3200 중견 BE 개발 vs 4200 대기업 SI 인프라 엔지니어','<p>ㅎ</p>',to_date('19/03/29','RR/MM/DD'),8,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (242,3,'자바를 공부하려고합니다.','<p>ㅎ</p>',to_date('19/05/03','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (243,3,'아마존 웹서비스를 사용하다 의도치 않게 청구된 결제금액 환불문제 때문에 골치가 아프네요.','<p>ㅎ</p>',to_date('19/05/04','RR/MM/DD'),54,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (244,3,'국비신입 노트북좀 봐주시면 감사드리겠습니다.','<p>ㅎ</p>',to_date('19/06/20','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (245,3,'현업에서 SSH 툴 어떤거 사용하시나요?','<p>ㅎ</p>',to_date('19/07/09','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (246,3,'yolo와 안드로이드 스튜디오 연동 질문이있습니다!','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (247,3,'유제품 기업에서 전산직','<p>ㅎ</p>',to_date('19/07/11','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (248,3,'둘중에 어떤것이 좋을까요??','<p>ㅎ</p>',to_date('19/09/02','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (249,3,'회사생활.. 너무 힘듭니다.','<p>ㅎ</p>',to_date('19/09/22','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (250,3,'무료로 개발자 면접 멘토링 진행합니다.','<p>ㅎ</p>',to_date('19/10/13','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (251,3,'어떤쪽으로 입문해야 할까요?','<p>ㅎ</p>',to_date('19/12/27','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (252,3,'안드로이드 프로젝트 같이하실분 구합니다!(취업준비!)','<p>ㅎ</p>',to_date('19/12/29','RR/MM/DD'),15,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (253,3,'선배님들... 이직 중인데 후배 고민 한번 들어주세요!','<p>ㅎ</p>',to_date('20/01/05','RR/MM/DD'),35,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (254,3,'토이프로젝트를 하고 싶은데 HTML, CSS가 너무 어려워서 못하겠어요..','<p>ㅎ</p>',to_date('20/02/08','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (255,3,'선배님들 2차 임원면접은 어떠셨나요??','<p>ㅎ</p>',to_date('20/03/19','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (256,3,'nodejs 전망이 어떤가여?','<p>ㅎ</p>',to_date('20/04/06','RR/MM/DD'),9,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (257,3,'금융 si 이신분들 질문..','<p>ㅎ</p>',to_date('20/05/26','RR/MM/DD'),24,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (258,3,'스케쥴러 서버 saas가 없나 한참 검색했는데요','<p>ㅎ</p>',to_date('20/06/12','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (259,3,'[데이콘] 해양 과학 빅데이터 활용 경진대회','<p>ㅎ</p>',to_date('20/06/15','RR/MM/DD'),34,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (260,3,'부모님이나 친구가 제가 직장을 어디에 다니는지 확인이나 조회할수 있나요??','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),65,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (261,3,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/07/11','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (262,3,'게임개발쪽 취업시장은 어떤가요?','<p>ㅎ</p>',to_date('20/08/29','RR/MM/DD'),3,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (263,3,'선배님들 연봉과 근로계약서가 궁금합니다.','<p>ㅎ</p>',to_date('20/09/01','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (264,3,'졸업때문에 고민이 많습니다...','<p>ㅎ</p>',to_date('20/10/24','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (265,3,'대학교와 국비중에 고민중인 학생입니다.','<p>ㅎ</p>',to_date('20/11/29','RR/MM/DD'),6,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (266,3,'스위프트 입문자 강의 좋은거 없을까요?','<p>ㅎ</p>',to_date('20/12/04','RR/MM/DD'),7,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (267,3,'개발자가되겠어요?','<p>ㅎ</p>',to_date('20/12/15','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (268,3,'[과학기술정보통신부/한국인터넷진흥원] ‘SW개발보안 모범사례 공모전’을 개최합니다! (~9/30)','<p>ㅎ</p>',to_date('20/12/27','RR/MM/DD'),79,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (269,3,'대기업 6천 VS 스타트업 8천','<p>ㅎ</p>',to_date('21/01/01','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (270,3,'면접 취소된 상황에서 면접일정을 물어봐도 되나요??','<p>ㅎ</p>',to_date('21/02/04','RR/MM/DD'),4,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (271,3,'개발자로 이루어진 회사인데 프로젝트 부분은 어찌 가져오시나요?','<p>ㅎ</p>',to_date('21/02/07','RR/MM/DD'),5,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (272,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (273,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (274,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (275,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (276,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (277,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (278,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (279,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (280,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (281,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (282,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (283,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (284,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (285,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (286,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (287,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (288,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (289,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (290,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (291,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (292,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (293,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (294,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (295,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (296,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (297,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (298,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (299,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (300,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (301,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (302,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (303,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (304,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (305,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (306,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (307,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (308,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (309,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (310,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (311,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (312,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (313,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (314,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (315,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (316,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (317,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (318,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (319,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (320,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (321,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (322,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (323,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (324,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (325,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (326,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (327,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (328,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (329,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (330,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (331,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (332,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (333,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (334,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (335,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (336,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (337,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (338,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (339,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (340,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (341,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (342,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (343,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (344,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (345,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (346,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (347,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (348,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),1,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (349,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (350,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (351,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (352,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (353,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (354,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (355,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (356,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (357,3,'꺄','<p>ㅎ</p>',to_date('21/04/30','RR/MM/DD'),0,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (358,1,'[태그 잊지말고 달기] Q&A 좋은 답글 달리는 꿀팁!','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>1. 태그는 꼭 2개 이상 달아주세요.</p><p>언어, 환경, 사용 도구, 상황 등 핵심 단어 (ex. java, CentOS, spring, compile_error)</p><p><br></p><p>2. 제목은 내용을 알 수 있도록 직관적이고 구체적으로 작성해 주세요.</p><p>- 좋은 예 : “SSH로 서버를 접속 시도 시, SSH 프로토콜 버전2를 지원 안한다는 오류 발생”, “이클립스에서 프로젝트 만들 때 JRE와 JDK 버전 세팅에 관하여”</p><p>- 나쁜 예 : “급한 질문입니다. 도와주세요.”, “spring mybatis 문서 루트 요소 "mapper"은(는) DOCTYPE 루트 "null"과(와) 일치해야 합니다.오류가 발생합니다.”</p><p><br></p><p>3. 질문/답변 시 예의를 지켜주세요.</p><p><br></p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (359,1,'회원&게시글 관리 정책','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>다음에 해당하는 내용의 게시물 및 해당 게시물을 올린 사용자를 제재할 수 있습니다.</p><p><br></p><p>- 스팸성 게시물</p><p>- 도배 게시물</p><p>- 불법적인 내용이 포함되어 있거나, 불법 자료 유통과 관련된 게시물</p><p>- 성적 수치심이나 불쾌감을 일으키는 음란/혐오 게시물 등</p><p>- 욕설, 비속어가 포함된 게시물 (닉네임 포함)</p><p>- 회원 간 신고가 접수된 게시물</p><p>- 댓글, 페이스북 메시지, e-mail 등으로 신고된 게시물·사용자에 대한 제재 여부를 운영진 회의를 통해 결정</p><p><br></p><p>회원들이 ‘개발’과 ‘개발자’라는 동질감·동료 의식 안에서</p><p>서로를 돕고 배려하고 이해하고 소통하는 커뮤니티이길 바랍니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (360,1,'코로나19(COVID-19) 관련 게시글 관리 정책 안내','<p>안녕하세요, CODEMOA 운영진입니다.</p><p>최근 이슈가 되고 있는 코로나 바이러스 사태와 관련해서 안내드립니다.</p><p><br></p><p>CODEMOA는 개발자들이 다양한 주제에 대해 공유하고, 논의하고, 어려운 일을 당했을 때는 도움도 주고받을 수 있는 곳이 되는 것을 지향하고 있습니다. 그런 이유로, 정치나 종교와 같이 지극히 개인적인 관점이 반영될 수밖에 없는 주제의 글들이 게시되는 것에 대해서 많은 제한을 두고 운영해왔습니다.</p><p>하지만, 개개인의 안전과 직결되어 있는 이번 코로나 바이러스 사태는 다양한 플랫폼, 커뮤니티에서 공유되는 정보들이 가지고 오는 긍정적인 부분도 무시할 수 없는 상황입니다. 아쉽게도, 코로나 바이러스 관련 유익한 정보가 늘어남에 따라, 특정 정치 집단이나 종교와 관련된 글이나 댓글도 눈에 띄게 늘었습니다. 특히, 댓글 내 정치, 종교적 관점의 차이에 의한 논쟁은 CODEMOA의 본질은 물론, 앞에서 언급된 유익한 정보의 가치를 불식시킬 만큼 큰 부작용을 일으키고 있기도 합니다.</p><p>이에 CODEMOA는 다음에 해당되는 글이나 댓글에 대해서는 별도의 통보 없이 삭제할 예정입니다. 또, CODEMOA 내에서 기존에 활동이 없던 분들이 다음에 해당되는 게시물을 등록하거나, 댓글을 통해 특정 집단을 옹호 또는 비판하고 있다고 확인되면 해당 계정을 즉시 차단할 예정입니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),103,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (361,2,'[태그 잊지말고 달기] Q&A 좋은 답글 달리는 꿀팁!','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>1. 태그는 꼭 2개 이상 달아주세요.</p><p>언어, 환경, 사용 도구, 상황 등 핵심 단어 (ex. java, CentOS, spring, compile_error)</p><p><br></p><p>2. 제목은 내용을 알 수 있도록 직관적이고 구체적으로 작성해 주세요.</p><p>- 좋은 예 : “SSH로 서버를 접속 시도 시, SSH 프로토콜 버전2를 지원 안한다는 오류 발생”, “이클립스에서 프로젝트 만들 때 JRE와 JDK 버전 세팅에 관하여”</p><p>- 나쁜 예 : “급한 질문입니다. 도와주세요.”, “spring mybatis 문서 루트 요소 "mapper"은(는) DOCTYPE 루트 "null"과(와) 일치해야 합니다.오류가 발생합니다.”</p><p><br></p><p>3. 질문/답변 시 예의를 지켜주세요.</p><p><br></p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (362,2,'회원&게시글 관리 정책','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>다음에 해당하는 내용의 게시물 및 해당 게시물을 올린 사용자를 제재할 수 있습니다.</p><p><br></p><p>- 스팸성 게시물</p><p>- 도배 게시물</p><p>- 불법적인 내용이 포함되어 있거나, 불법 자료 유통과 관련된 게시물</p><p>- 성적 수치심이나 불쾌감을 일으키는 음란/혐오 게시물 등</p><p>- 욕설, 비속어가 포함된 게시물 (닉네임 포함)</p><p>- 회원 간 신고가 접수된 게시물</p><p>- 댓글, 페이스북 메시지, e-mail 등으로 신고된 게시물·사용자에 대한 제재 여부를 운영진 회의를 통해 결정</p><p><br></p><p>회원들이 ‘개발’과 ‘개발자’라는 동질감·동료 의식 안에서</p><p>서로를 돕고 배려하고 이해하고 소통하는 커뮤니티이길 바랍니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (363,2,'코로나19(COVID-19) 관련 게시글 관리 정책 안내','<p>안녕하세요, CODEMOA 운영진입니다.</p><p>최근 이슈가 되고 있는 코로나 바이러스 사태와 관련해서 안내드립니다.</p><p><br></p><p>CODEMOA는 개발자들이 다양한 주제에 대해 공유하고, 논의하고, 어려운 일을 당했을 때는 도움도 주고받을 수 있는 곳이 되는 것을 지향하고 있습니다. 그런 이유로, 정치나 종교와 같이 지극히 개인적인 관점이 반영될 수밖에 없는 주제의 글들이 게시되는 것에 대해서 많은 제한을 두고 운영해왔습니다.</p><p>하지만, 개개인의 안전과 직결되어 있는 이번 코로나 바이러스 사태는 다양한 플랫폼, 커뮤니티에서 공유되는 정보들이 가지고 오는 긍정적인 부분도 무시할 수 없는 상황입니다. 아쉽게도, 코로나 바이러스 관련 유익한 정보가 늘어남에 따라, 특정 정치 집단이나 종교와 관련된 글이나 댓글도 눈에 띄게 늘었습니다. 특히, 댓글 내 정치, 종교적 관점의 차이에 의한 논쟁은 CODEMOA의 본질은 물론, 앞에서 언급된 유익한 정보의 가치를 불식시킬 만큼 큰 부작용을 일으키고 있기도 합니다.</p><p>이에 CODEMOA는 다음에 해당되는 글이나 댓글에 대해서는 별도의 통보 없이 삭제할 예정입니다. 또, CODEMOA 내에서 기존에 활동이 없던 분들이 다음에 해당되는 게시물을 등록하거나, 댓글을 통해 특정 집단을 옹호 또는 비판하고 있다고 확인되면 해당 계정을 즉시 차단할 예정입니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),101,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (364,3,'[태그 잊지말고 달기] Q&A 좋은 답글 달리는 꿀팁!','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>1. 태그는 꼭 2개 이상 달아주세요.</p><p>언어, 환경, 사용 도구, 상황 등 핵심 단어 (ex. java, CentOS, spring, compile_error)</p><p><br></p><p>2. 제목은 내용을 알 수 있도록 직관적이고 구체적으로 작성해 주세요.</p><p>- 좋은 예 : “SSH로 서버를 접속 시도 시, SSH 프로토콜 버전2를 지원 안한다는 오류 발생”, “이클립스에서 프로젝트 만들 때 JRE와 JDK 버전 세팅에 관하여”</p><p>- 나쁜 예 : “급한 질문입니다. 도와주세요.”, “spring mybatis 문서 루트 요소 "mapper"은(는) DOCTYPE 루트 "null"과(와) 일치해야 합니다.오류가 발생합니다.”</p><p><br></p><p>3. 질문/답변 시 예의를 지켜주세요.</p><p><br></p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (365,3,'회원&게시글 관리 정책','<p>안녕하세요, CODEMOA 운영진입니다.</p><p><br></p><p>다음에 해당하는 내용의 게시물 및 해당 게시물을 올린 사용자를 제재할 수 있습니다.</p><p><br></p><p>- 스팸성 게시물</p><p>- 도배 게시물</p><p>- 불법적인 내용이 포함되어 있거나, 불법 자료 유통과 관련된 게시물</p><p>- 성적 수치심이나 불쾌감을 일으키는 음란/혐오 게시물 등</p><p>- 욕설, 비속어가 포함된 게시물 (닉네임 포함)</p><p>- 회원 간 신고가 접수된 게시물</p><p>- 댓글, 페이스북 메시지, e-mail 등으로 신고된 게시물·사용자에 대한 제재 여부를 운영진 회의를 통해 결정</p><p><br></p><p>회원들이 ‘개발’과 ‘개발자’라는 동질감·동료 의식 안에서</p><p>서로를 돕고 배려하고 이해하고 소통하는 커뮤니티이길 바랍니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),100,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (366,3,'코로나19(COVID-19) 관련 게시글 관리 정책 안내','<p>안녕하세요, CODEMOA 운영진입니다.</p><p>최근 이슈가 되고 있는 코로나 바이러스 사태와 관련해서 안내드립니다.</p><p><br></p><p>CODEMOA는 개발자들이 다양한 주제에 대해 공유하고, 논의하고, 어려운 일을 당했을 때는 도움도 주고받을 수 있는 곳이 되는 것을 지향하고 있습니다. 그런 이유로, 정치나 종교와 같이 지극히 개인적인 관점이 반영될 수밖에 없는 주제의 글들이 게시되는 것에 대해서 많은 제한을 두고 운영해왔습니다.</p><p>하지만, 개개인의 안전과 직결되어 있는 이번 코로나 바이러스 사태는 다양한 플랫폼, 커뮤니티에서 공유되는 정보들이 가지고 오는 긍정적인 부분도 무시할 수 없는 상황입니다. 아쉽게도, 코로나 바이러스 관련 유익한 정보가 늘어남에 따라, 특정 정치 집단이나 종교와 관련된 글이나 댓글도 눈에 띄게 늘었습니다. 특히, 댓글 내 정치, 종교적 관점의 차이에 의한 논쟁은 CODEMOA의 본질은 물론, 앞에서 언급된 유익한 정보의 가치를 불식시킬 만큼 큰 부작용을 일으키고 있기도 합니다.</p><p>이에 CODEMOA는 다음에 해당되는 글이나 댓글에 대해서는 별도의 통보 없이 삭제할 예정입니다. 또, CODEMOA 내에서 기존에 활동이 없던 분들이 다음에 해당되는 게시물을 등록하거나, 댓글을 통해 특정 집단을 옹호 또는 비판하고 있다고 확인되면 해당 계정을 즉시 차단할 예정입니다.</p><p><br></p><p>감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),101,'Y','Y','admin',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (400,1,'자바 스프링 백엔드 공부 Q&A ','<p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">안녕하세요 자바 Spring 으로 웹페이지 포토폴리오를 만들어서 백엔드로 취업을 목표로 공부 중인&nbsp;</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">입문자 입니다. 작년에 6개월 가량 국비로 학원을 다녔지만 너무 어려운 난이도로 제대로 포토폴리오를</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">만들지 못하고 포기한 상태에서 이번 년도에 마음 잡고 다시 공부를 시작해서 혼자서 Spring으로 웹페이지를</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">만들어보고 있습니다. 간단한 crud 정도 간단한 기능들은 웬만하면 혼자서 다 만들 수 있는데 조금 헷갈리거나 새로운 기술 같은건 검색으로 찾아보고 필요한 것 만 찾아보고 만들었습니다. 게시판이나 ,채팅 , 회원 관련,장바구니 기능 등 만들어 봤지만 자바 언어도 아직도 너무 많이 제가 부족하다고 생각이 들고, 여기서 더 실력을 늘리고 싶은데&nbsp; 실력을 늘릴 려면 어떤 걸 더 만들어보고 어떤 방향으로 나아가야 할까요 ??</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">조언 부탁드립니다 !</p>',to_date('21/09/14','RR/MM/DD'),1,'Y','N','codemoa','spring, java, javascript');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (401,1,'ajax로 오라클DB 데이터 요청 시, 완료 될 때까지 확인이 가능한가요?','<p>gg</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','ajax, oracle, query');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (402,1,'jsp에 부적합한 열 인덱스 오류 질문입니다','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','java, jsp, sql');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (403,1,'스프링 에러 한번만 체크 부탁드립니다! 도와주시면 감사하겠습니다 !','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','spring, java');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (404,1,'java/SpringBoot에서 특정 횟수만 예외처리 발생 후 정상처리되게 가능한가요?','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','java, springboot');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (405,1,'오라클 mybatis 쿼리 문법 질문','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','오라클, mybatis');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (406,1,'자바 JSP 초보입니다. 질문 드려요.','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','jsp, 이클립스');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (407,1,'mybatis 데이터 컬럼명 변경','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','spring, mybatis, ajax, table, java');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (408,1,'자바스크립트 if(clicked)에서 else 실행안되는 이유','<p>g</p>',to_date('21/09/14','RR/MM/DD'),2,'Y','N','codemoa',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (409,1,'html) 제발 도와주세요 height가 제대로 안먹힙니다','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','html');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (410,1,'HttpServletRequest에서 getRemoteAddr override하는법 살려주세요ㅜ ','<p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">안녕하세요.</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">다른 서버로 request 자체를 보내야하는데 이렇게 보내게 되면 보내는 서버에서 ip를 127.0.0.1로만 받게 됩니다.</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">아마 프록시를 거쳐서 가다보니 서버주소가 저렇게 나오는 것 같은데</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">보내는 서버에서 ip주소를 어떻게 처리하는지 몰라 getRemoteAddr을 오버라이드하여 실제 client ip를 저장하여 HttpServletRequest 객체로 넘겨주고 싶습니다.</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><br></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">오버라이드 하는 방법을 알 수 있을까요?</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">감사합니다.</p>',to_date('21/09/14','RR/MM/DD'),2,'Y','N','codemoa','httpservletrequest, spring');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (411,1,'pom.xml 메이븐 in-project 갑자기 안되는 경우 보신적 있으신가요?','<p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">몇개월동안 아무런 문제 없이 쓰던 jar in-project&nbsp; 경로가 오늘 갑자기 안되서 메이븐 빌드가 안되더군요.</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><br></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">임시 방편으로&nbsp; 필요한 jar 마다 systemPath를 써서 해결은 했는데.</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><br></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">어느날 갑자기 안되는거 보신적 있으신가요?</p>',to_date('21/09/14','RR/MM/DD'),8,'Y','N','daedam','maven');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (412,1,'SwiftUI 화면전환 할 때, 함수호출로 할 수 있는 방법은 없나요?','<p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">4~5년만에 다시 IOS를 시작해보고 있는데</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">SwiftUI라는놈이 나왔더군요;;</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">이게 대체 뭔가 싶어서 이리저리 테스트해보고 있는데</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">화면전환에서부터 막혔습니다.</p>',to_date('21/09/14','RR/MM/DD'),3,'Y','N','ru123','switf, ios, mac');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (413,1,'선배님들 클릭시 썸네일 이미지를 다르게 보이게 하는 이 방법을 뭐라고 검색해야하나요?','<p>ㅠㅠ</p>',to_date('21/09/14','RR/MM/DD'),201,'Y','N','ru123','listview, web, thumbnail');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (414,1,'아파치 일반계정으로 STOP시 오류(권한) 관련 문의입니다.','<p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">안녕하세요 사이트에서 시스템 운영을 맡고 있는 개발자 입니다.&nbsp;</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">다름이 아니라 문의사항 있어 OKKY Q&amp;A 창이 질문 남겼습니다.&nbsp;<br></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">보통 아파치 내리고, 올릴시에&nbsp; ROOT 계정 이용하여 재구동을 하였는데, 보안 지침이 내려와<br></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">웹계정(루트 보다 아래)으로 아파치를 재구동하게 되었습니다. 그래서 위와 같이 httpd 파일 권한을 수정하고</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><img src="https://file.okky.kr/images/1631082806026.PNG" style="border: 0px; width: 662px;"></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">아파치를 내리니 다음과 같은 에러가 발생하였습니다.&nbsp;</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><img src="https://file.okky.kr/images/1631082829156.PNG" style="border: 0px; width: 662px;"></p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">하지만, 에러가 난 후에 httpd.pid 파일은 삭제되었고,&nbsp; 아파치는 내려갔는데요. 이 에러가 발생하지 않게</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;">하려면 어찌 해야되는지 궁금합니다. 아래 사진에 httpd.pid 파일 권한 및 그룹도 같이 올려드리겠습니다. 감사합니다. (추가적으로 저렇게 아파치를 내렸고 다시 구동하니 정상적으로 아파치 올라간거 확인되었습니다.)</p><p style="margin-right: 0px; margin-bottom: 10px; margin-left: 0px; color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, Helvetica, Arial, &quot;Apple SD Gothic Neo&quot;, &quot;Malgun Gothic&quot;, Dotdum; font-size: 14px;"><img src="https://file.okky.kr/images/1631082899232.PNG" style="border: 0px; width: 662px;"></p>',to_date('21/09/14','RR/MM/DD'),279,'Y','N','parkbo','stegid, apache, tomcat, root, setuid, shutdown');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (415,2,'타입스크립트와 함께 컴포넌트를 단계 별로 추상화해보자','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','리액트, 프론트엔드, 타입스크립트');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (416,2,'[Python] Django Web 구축부터 릴리즈까지 (1) ','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','python, django, web, release');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (417,2,'[IT정보] 빅데이터(Big Data)란? ','<p>g</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','빅데이터, 빅데이터분석, 그래프데이터분석, 비트나인');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (418,2,'Querydsl을 사용하는 자바(JAVA) Spring Framework 프로젝트에 코틀린(Kotlin) 설정','<p>ㅅ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','스프링, spring, springboot, 코틀린');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (419,3,'직접 스터디를 구해봅니다. 프론트 - 자바스크립트 스터디부터 ','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','자바스크립트, 프론트엔드');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (420,2,'Query String 유효성 검증하기 모듈 구현 ,demo 첨부','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','react, typescript');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (421,2,' 타이젠앱 개발환경 사용기 ','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','갤럭시워치앱, 개발, 후기');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (422,2,' 리액트 기초 - 컴포넌트 만들기','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','리액트, 초보');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (423,2,'자바 웹 개발자를 위한 Vue.js 개발 시작하기','<p>z</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','vue.js, controller');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (424,2,'프로그램 소스에 비번, API키 등의 하드코딩 피하는 법 #환경변수','<p>z</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','환경변수, env');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (425,2,'메일 서버와 스팸 서버 구축','<p>a</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','메일, 서버');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (426,3,'무료로 개발자 면접 멘토링 진행합니다. (정기모임)','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','스터디');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (427,3,'안드로이드 프로젝트 같이하실분 구합니다!','<p>ㅋ</p>',to_date('21/09/14','RR/MM/DD'),1,'Y','N','codemoa','java, android');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (428,3,'[서울(합정홍대신촌)/초보] JAVA기초부터 백엔드까지 같이 공부하실 분 계신가요~??','<p>z</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','java, 백엔드');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (429,3,'expo, 스프링부트로 앱이나 웹서버 리액트로 웹프론트앤드를 같이 공유하고 같이 스터디 해보았으면 합니다. ','<p>ㅋ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','리액트, 프론트엔드, 백엔드, 스프링부트');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (430,3,'24시 언택트 개발자 : 개인주의 가상회사 : 개인 창업 취업 이직 프로젝트 스터디원 모집합니다. (13명 선착순)','<p>ㅋ</p>',to_date('21/09/14','RR/MM/DD'),0,'Y','N','codemoa','developer, Untact, 온라인스터디');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (431,3,'웹 프로젝트 참여하고 싶습니다.(Java 백엔드 취준생)','<p>ㅎ</p>',to_date('21/09/14','RR/MM/DD'),2,'Y','N','codemoa','spring, java');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (432,3,'기계학습을 위한 선형대수 및 최적화 스터디','<p>z</p>',to_date('21/09/14','RR/MM/DD'),210,'Y','N','codemoa','머신러닝, 선형대수학, 딥러닝, 수학, 인공지능');
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (445,1,'하하 사이트 망해라','<p>공부 왜함? 술이나 마셔~<br></p>',to_date('21/09/16','RR/MM/DD'),6,'N','N','banned',null);
+Insert into CODEMOA.BOARD (B_NO,B_TYPE,B_TITLE,B_CONTENT,B_DATE,B_COUNT,B_STATUS,B_FIRST,B_WRITER,B_TAGS) values (461,1,'국비학원 강사님 추천부탁 드립니다!','<p>코딩을 한번도 배워본 적이 없는데 이번에 국비학원을 다녀보려 합니다...</p><p>혹시 강사님 추천 좀 받을 수 있을까요 ㅠㅠ</p><p><img src="/codemoa/resources/fileupload/20210916175740786.gif" style="width: 498px;"></p><p><img src="/codemoa/resources/fileupload/20210916175745929.gif" style="width: 500px;"><br></p>',to_date('21/09/16','RR/MM/DD'),3,'Y','N','codemoa','국비학원, 강사, 도와주세요!');
+REM INSERTING into CODEMOA.CHAT
+SET DEFINE OFF;
+Insert into CODEMOA.CHAT (C_NO,C_DATE,C_CHAT,C_ROOM,C_SENDER) values (26,'21/09/16 18:10','반갑습니다',25,'wnsrud6100');
+Insert into CODEMOA.CHAT (C_NO,C_DATE,C_CHAT,C_ROOM,C_SENDER) values (27,'21/09/16 18:10','저두요 ㅎㅎ',25,'mango41');
+Insert into CODEMOA.CHAT (C_NO,C_DATE,C_CHAT,C_ROOM,C_SENDER) values (24,'21/09/16 18:10','안녕하세요',25,'wnsrud6100');
+Insert into CODEMOA.CHAT (C_NO,C_DATE,C_CHAT,C_ROOM,C_SENDER) values (25,'21/09/16 18:10','네 안녕하세요',25,'mango41');
+REM INSERTING into CODEMOA.CROOM
+SET DEFINE OFF;
+Insert into CODEMOA.CROOM (CR_NO,CR_TITLE,CR_DATE,CR_SECRET,CR_PWD,CR_MAKER) values (25,'신우상사 들어와!',to_date('21/09/15','RR/MM/DD'),'Y','1111','mango41');
+REM INSERTING into CODEMOA.HASHTAG
+SET DEFINE OFF;
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (1,'spring',400,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (2,'java',400,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (3,'javascript',400,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (4,'ajax',401,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (5,'oracle',401,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (6,'query',401,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (7,'jsp',402,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (8,'sql',402,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (9,'springboot',404,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (10,'오라클',405,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (11,'mybatis',405,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (12,'이클립스',406,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (13,'table',407,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (14,'html',409,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (15,'httpservletrequest',410,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (16,'maven',411,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (17,'switf',412,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (18,'ios',412,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (19,'mac',412,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (20,'listview',413,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (21,'web',413,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (22,'thumbnail',413,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (23,'stegid',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (24,'apache',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (25,'tomcat',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (26,'root',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (27,'setuid',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (28,'shutdown',414,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (29,'리액트',415,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (30,'프론트엔드',415,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (31,'타입스크립트',415,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (32,'python',416,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (33,'django',416,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (34,'release',416,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (35,'빅데이터',417,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (36,'빅데이터분석',417,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (37,'그래프데이터분석',417,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (38,'비트나인',417,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (39,'스프링',418,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (40,'코틀린',418,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (41,'자바스크립트',419,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (42,'react',420,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (43,'typescript',420,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (44,'갤럭시워치앱',421,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (45,'개발',421,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (46,'후기',421,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (47,'초보',422,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (48,'vue.js',423,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (49,'controller',423,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (50,'환경변수',424,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (51,'env',424,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (52,'메일',425,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (53,'서버',425,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (54,'스터디',426,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (55,'android',427,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (56,'백엔드',428,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (57,'스프링부트',429,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (58,'developer',430,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (59,'Untact',430,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (60,'온라인스터디',430,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (61,'머신러닝',432,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (62,'선형대수학',432,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (63,'딥러닝',432,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (64,'수학',432,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (65,'인공지능',432,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (104,'국비학원',461,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (105,'강사',461,'Y');
+Insert into CODEMOA.HASHTAG (H_NO,H_TAG,H_BNO,H_STATUS) values (106,'도와주세요!',461,'Y');
+REM INSERTING into CODEMOA.IMAGE
+SET DEFINE OFF;
+REM INSERTING into CODEMOA.LIKEY
+SET DEFINE OFF;
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (1,'codemoa',3);
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (2,'codemoa',411);
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (3,'codemoa',408);
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (4,'admin',411);
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (24,'codemoa',414);
+Insert into CODEMOA.LIKEY (L_NO,L_ID,L_BNO) values (25,'admin',414);
+REM INSERTING into CODEMOA.MEMBER
+SET DEFINE OFF;
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Any97362','avedyasov0@fotki.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','옥래삼','Y','N',null,null,null,null,'1');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Clair97362','cdonet1@virginia.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','연문희','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Reinwald97362','rhaker2@fc2.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','선인정','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Etan97362','ericardet3@list-manage.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주하소','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Sylvester97362','sarkin4@photobucket.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','어산묵','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gabie97362','gedmund5@hubpages.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','강덕봉','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Burch97362','brivelon6@cdbaby.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','백월해','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Willey97362','wdavydenko7@wiley.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','여열울','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Noel97362','ndown8@nature.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','이천비','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Tobe97362','tdigiaettino9@google.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','엄숭강','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Red97362','rjenksa@ycombinator.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','옥래삼','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Tarrance97362','tpentlowb@dyndns.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길손애','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Marcel97362','mjunkinc@networkadg.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길항훈','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Phillip97362','ptomsettd@rambler.ru','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','왕직만','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Zed97362','zbasnette@msu.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','노훈단','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Kevin97362','kbalsellief@who.int','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황엽번','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Artus97362','aclaybourng@mayoclinic.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','최탁더','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Erroll97362','efroggatth@nasa.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','전량운','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gerik97362','gpostiansi@nydailynews.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','오서찬','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Griffy97362','grodderj@opensource.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','심언자','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Aguistin97362','aducketk@mapy.cz','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','박회휴','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Olin97362','onovkovicl@twitter.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','신웅직','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Trey97362','tcamplenm@va.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','어산묵','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Borg97362','bmedlarn@wikipedia.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','옥린재','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Bartlet97362','bmcilhattono@google.co.uk','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','양으자','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Renard97362','rjessep@tripod.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','남심가','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gordan97362','gbodleyq@nationalphic.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','양으자','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Georgy97362','galennikovr@bizjournals.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황견채','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Emlyn97362','ebradleys@feedburner.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','백일시','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Moss97362','mbrammart@miibeian.gov.cn','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','신강뜸','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Morten97362','mvanniniu@spotify.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','허을율','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Nikolaos97362','nseathwrightv@feedburner.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','설리미','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Berton97362','bglasserw@behance.net','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','연문희','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Ingelbert97362','igarriquex@ustream.tv','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','남묵현','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Anselm97362','agillmory@tamu.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','송다회','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Abelard97362','alegganz@cornell.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주더형','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Edlin97362','esyfax10@yolasite.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','탁조옥','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Ernestus97362','echurchouse11@globo.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주섭중','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Reinhard97362','rsinnocke12@boston.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길요흥','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Aube97362','amacieja13@amazon.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','임헌춘','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Winston97362','wtingcomb14@stanford.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','옥린재','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Delaney97362','dkenzie15@privacy.gov.au','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','문설타','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Ferrel97362','fauger16@gizmodo.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주추형','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Caz97362','clongcaster17@earthlink.net','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','곽회라','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Salim97362','spallas18@nifty.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','백혜의','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Jacques97362','jjustice19@cdc.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주추형','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Armstrong97362','aantowski1a@php.net','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','임영애','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Carlyle97362','castill1b@creativecons.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','조진빈','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Hersh97362','helderidge1c@theguardian.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','정한새','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Nappie97362','nwatts1d@economist.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','방향용','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Lorrie97362','lfussell1e@wordpress.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황견채','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Artemas97362','amccree1f@delicious.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','나동길','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Nev97362','nstanyer1g@howsfworks.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','허휘주','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Nelson97362','ngladebeck1h@forbes.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','진혜들','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Abraham97362','azavattiero1i@4shared.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','이별솜','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gale97362','gegentan1j@ft.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','기리용','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Ade97362','apheby1k@indiegogo.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','나동길','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Kerry97362','kchesterman1l@sqspace.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','연문희','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Terry97362','tbigham1m@mapquest.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','임영애','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Basile97362','bburlingham1n@wikia.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주디변','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Harper97362','hburriss1o@loc.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','심언자','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Nico97362','nkassel1p@google.com.br','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','함백자','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Aldridge97362','aclemintoni1q@huffnpost.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','여열울','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Jecho97362','jmarney1r@fda.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','용양번','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Sergeant97362','skilgrove1s@163.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주섭중','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Tore97362','tesland1t@parallels.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','채원조','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Brad97362','bdepka1u@sakura.ne.jp','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황엽번','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Brion97362','bluby1v@yale.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','허을율','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Leeland97362','ljasiak1w@ocn.ne.jp','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','조진빈','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Uri97362','upresdie1x@mozilla.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','표흥바','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Christoper97362','clowres1y@cnet.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','용담현','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Bartholomeo97362','bgreensall1z@live.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','엄숭강','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Frederic97362','frothery20@ca.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','오서찬','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Leupold97362','lsanpher21@facebook.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','한의혜','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Trumaine97362','trundle22@oracle.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','연문희','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Fran97362','fbeau23@nih.gov','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황시송','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Daren97362','dswadlin24@godaddy.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','용배란','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Walker97362','wstarkie25@bluehost.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길술잎','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('dsffsdf97362','ghundal26@cyberchimps.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','염지묵','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Vlad97362','vfawloe27@vinaora.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길손애','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Bogart97362','bbroderick28@eventbrite.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','문설타','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Remus97362','rwisker29@newyorker.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','어길도','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Benedict97362','bkendell2a@t-online.de','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','신강뜸','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Carney97362','clarciere2b@cargococtive.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','염지묵','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Fritz97362','fcourt2c@creativemons.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황견채','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Zachary97362','zcosin2d@tmall.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','탁엽설','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Denver97362','dcrompton2e@dailymotion.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','남묵현','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Julio97362','jyanyshev2f@tiny.cc','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','심언자','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Chickie97362','cpawlowicz2g@cornell.edu','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황시송','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Lyn97362','lturnell2h@elpais.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길손애','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Ulysses97362','uboatright2i@geocities.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주하소','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Guthrey97362','gblencoe2j@china.com.cn','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','옥래삼','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Erastus97362','eprestige2k@yahoo.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','강미헌','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gauthier97362','gjencken2l@stumbleupon.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','용배란','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Shell97362','sskeemer2m@techcrunch.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주추형','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Gerome97362','gpughsley2n@foxnews.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','황시송','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Erl97362','ederx2o@joomla.org','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','모여잎','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Land97362','lcurrier2p@cyberchimps.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','방향용','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Antony97362','atruggian2q@businesswire.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','주섭중','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('Rowen97362','rhawarden2r@nytimes.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','편운신','N','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('codemoa','codeMoa111@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','코모','Y','N','서울대학교','서울','java','코린이 ㅎㅎ','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('admin','codemoa0916@gmail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','관리자','Y','Y',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('kang11','kang11@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','이세상속에서','Y','N','서울대학교','서울','SRPING','커뮤니티좋아','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('namnanum','namnanum@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','반복되는','Y','N','고려대학교','서울','PYTHON','코딩어렵다','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('daedam','daedam@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','슬픔이젠안녕','Y','N','연세대학교','부산','JAVA','깃배우고싶어요','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('ru123','ru123@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','수많은알수없는','N','Y','성균관대학교','경기','JSP/SERVLET','하하하','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('moonmimi','moonmimi@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','길속에','Y','N','서강대학교','서울','NODE.JS','C언어배워보았음','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('parkbo','parkbo@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','희미한빛을난쫓아가','Y','N','한양대학교','충청',null,'배우는중이에요','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('kimyh','kimyh@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','이순간의느낌','Y','N','고졸','강원',null,'흑흑','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('leesoon','leesoon@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','함께하는거야','Y','N',null,'제주',null,'한성부건천동에살다지금은아산에있습니다','0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('apple12','apple12@naver.com','$2a$10$dEFSx0UnbLzFbQagBQoWbegtNpzqs8jApEzrKPYcyYyMTGnnMSure','사과맨','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('banned','user02@mail.com','$2a$10$UW3aeZWxx9IW3PYOkboaPO0GhbF3fHxyLe0j6hArQ6YVTlbuqnNES','착한사람','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('mango41','mango41@naver.com','$2a$10$dEFSx0UnbLzFbQagBQoWbegtNpzqs8jApEzrKPYcyYyMTGnnMSure','꿀꿀망고','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('wnsrud6100','wnsrud6100@naver.com','$2a$10$KvM8mI.5Yt82vxdk31KsFeVnNux90dPuGXWPwgujiolVN85GflZq6','내일은코딩왕','Y','N',null,null,null,null,'0');
+Insert into CODEMOA.MEMBER (M_ID,M_EMAIL,M_PWD,M_NICK,M_STATUS,M_ADMIN,M_EDU,M_LOCATION,M_SKILL,M_NOTE,M_ENABLE) values ('jhw5647','jhw5647@naver.com','kakaoPassword','정혜원','Y','N',null,null,null,null,'0');
+REM INSERTING into CODEMOA.MESSAGE
+SET DEFINE OFF;
+Insert into CODEMOA.MESSAGE (MG_NO,MG_CONTENT,MG_RECEIVER,MG_SENDER,MG_DATE,MG_RSTATUS,MG_SSTATUS,MG_OPEN) values (42,'안녕ㅎㅎ','mango41','codemoa',to_date('21/09/16','RR/MM/DD'),'N','Y','N');
+REM INSERTING into CODEMOA.REPLY
+SET DEFINE OFF;
+Insert into CODEMOA.REPLY (R_NO,R_DATE,R_CONTENT,R_STATUS,R_WRITER,R_BNO) values (44,to_date('21/09/16','RR/MM/DD'),'<p>KH 강남 지원의 박신* 강사님 추천드려요! 20살의 어린 나이에도 불구하고 전문적이십니다. 그리구 친절하고 꼼꼼하게 잘 가르쳐주십니다.&nbsp;게다가 엄청난 미녀십니다...!<br></p><input type="hidden" value="44">','N','codemoa',461);
+Insert into CODEMOA.REPLY (R_NO,R_DATE,R_CONTENT,R_STATUS,R_WRITER,R_BNO) values (28,to_date('21/09/15','RR/MM/DD'),'<p>저도 구글링을 해봐야할 것 같습니다... 알게되면 저도 알려주세요 ㅠㅠ</p>','Y','codemoa',413);
+REM INSERTING into CODEMOA.REPORT
+SET DEFINE OFF;
+Insert into CODEMOA.REPORT (P_NO,P_TYPE,P_TITLE,P_CONTENT,P_DATE,P_STATUS,P_BNO,P_RECEIVER,P_REPORTER,P_BPAGE,P_MNICK,P_BTYPE) values (45,1,'누가봐도 닉네임이 부적절하네요','이런 닉네임은 보기 불편하니 바꿔주세요, 사이트의 미관을 해치는 주범입니다.	
+								
+						',to_date('21/09/16','RR/MM/DD'),'N',445,'mango41','banned','1','개나쁜넘','1');
+Insert into CODEMOA.REPORT (P_NO,P_TYPE,P_TITLE,P_CONTENT,P_DATE,P_STATUS,P_BNO,P_RECEIVER,P_REPORTER,P_BPAGE,P_MNICK,P_BTYPE) values (46,3,' 제목 : ','애용하는 사이트인데 제목부터가 사이트가 망하라고 저주를 하고있어요 삭제해 주세요.	
+								
+						',to_date('21/09/16','RR/MM/DD'),'N',445,'mango41','banned','1','개나쁜넘','1');
+REM INSERTING into CODEMOA.R_IMAGE
+SET DEFINE OFF;
+--------------------------------------------------------
+--  DDL for Index PK_HASHTAG
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_HASHTAG" ON "CODEMOA"."HASHTAG" ("H_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_CROOM
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_CROOM" ON "CODEMOA"."CROOM" ("CR_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_R_IMAGE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_R_IMAGE" ON "CODEMOA"."R_IMAGE" ("RI_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_REPORT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_REPORT" ON "CODEMOA"."REPORT" ("P_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_MESSAGE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_MESSAGE" ON "CODEMOA"."MESSAGE" ("MG_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_LIKEY
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_LIKEY" ON "CODEMOA"."LIKEY" ("L_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_CHAT
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_CHAT" ON "CODEMOA"."CHAT" ("C_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_IMAGE
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_IMAGE" ON "CODEMOA"."IMAGE" ("I_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_BOARD
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_BOARD" ON "CODEMOA"."BOARD" ("B_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_REPLY
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_REPLY" ON "CODEMOA"."REPLY" ("R_NO") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  DDL for Index PK_MEMBER
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "CODEMOA"."PK_MEMBER" ON "CODEMOA"."MEMBER" ("M_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM" ;
+--------------------------------------------------------
+--  Constraints for Table CROOM
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."CROOM" ADD CONSTRAINT "PK_CROOM" PRIMARY KEY ("CR_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_MAKER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_PWD" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_SECRET" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_TITLE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CROOM" MODIFY ("CR_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table IMAGE
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."IMAGE" ADD CONSTRAINT "PK_IMAGE" PRIMARY KEY ("I_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."IMAGE" MODIFY ("I_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."IMAGE" MODIFY ("I_PATH" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."IMAGE" MODIFY ("I_CHANGE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."IMAGE" MODIFY ("I_ORIGIN" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."IMAGE" MODIFY ("I_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BOARD
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."BOARD" ADD CONSTRAINT "PK_BOARD" PRIMARY KEY ("B_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_WRITER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_FIRST" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_TITLE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_TYPE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."BOARD" MODIFY ("B_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table REPLY
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."REPLY" ADD CONSTRAINT "PK_REPLY" PRIMARY KEY ("R_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_BNO" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_WRITER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPLY" MODIFY ("R_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table R_IMAGE
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."R_IMAGE" ADD CONSTRAINT "PK_R_IMAGE" PRIMARY KEY ("RI_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."R_IMAGE" MODIFY ("I_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."R_IMAGE" MODIFY ("RI_PATH" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."R_IMAGE" MODIFY ("RI_CHANGE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."R_IMAGE" MODIFY ("RI_ORIGIN" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."R_IMAGE" MODIFY ("RI_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table LIKEY
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."LIKEY" ADD CONSTRAINT "PK_LIKEY" PRIMARY KEY ("L_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."LIKEY" MODIFY ("L_BNO" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."LIKEY" MODIFY ("L_ID" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."LIKEY" MODIFY ("L_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MESSAGE
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."MESSAGE" ADD CONSTRAINT "PK_MESSAGE" PRIMARY KEY ("MG_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_OPEN" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_SSTATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_RSTATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_SENDER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_RECEIVER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MESSAGE" MODIFY ("MG_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table CHAT
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."CHAT" ADD CONSTRAINT "PK_CHAT" PRIMARY KEY ("C_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."CHAT" MODIFY ("C_SENDER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CHAT" MODIFY ("C_ROOM" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CHAT" MODIFY ("C_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."CHAT" MODIFY ("C_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table REPORT
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_BNO" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_TITLE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_TYPE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_NO" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" ADD CONSTRAINT "PK_REPORT" PRIMARY KEY ("P_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_BTYPE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_MNICK" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_BPAGE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_REPORTER" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."REPORT" MODIFY ("P_RECEIVER" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table HASHTAG
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."HASHTAG" ADD CONSTRAINT "PK_HASHTAG" PRIMARY KEY ("H_NO")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."HASHTAG" MODIFY ("H_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."HASHTAG" MODIFY ("H_BNO" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."HASHTAG" MODIFY ("H_TAG" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."HASHTAG" MODIFY ("H_NO" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table MEMBER
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."MEMBER" ADD CONSTRAINT "PK_MEMBER" PRIMARY KEY ("M_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "SYSTEM"  ENABLE;
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_ENABLE" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_ADMIN" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_STATUS" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_NICK" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_PWD" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "CODEMOA"."MEMBER" MODIFY ("M_ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Ref Constraints for Table BOARD
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."BOARD" ADD CONSTRAINT "BOARD_MEMBER_ID" FOREIGN KEY ("B_WRITER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table CHAT
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."CHAT" ADD CONSTRAINT "CHAT_CROOM_ID" FOREIGN KEY ("C_ROOM")
+	  REFERENCES "CODEMOA"."CROOM" ("CR_NO") ENABLE;
+  ALTER TABLE "CODEMOA"."CHAT" ADD CONSTRAINT "CHAT_MEMBER_ID" FOREIGN KEY ("C_SENDER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table CROOM
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."CROOM" ADD CONSTRAINT "CROOM_MEMBER_ID" FOREIGN KEY ("CR_MAKER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table HASHTAG
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."HASHTAG" ADD CONSTRAINT "HASHTAG_BOARD_ID" FOREIGN KEY ("H_BNO")
+	  REFERENCES "CODEMOA"."BOARD" ("B_NO") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table LIKEY
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."LIKEY" ADD CONSTRAINT "LIKEY_BOARD_ID" FOREIGN KEY ("L_BNO")
+	  REFERENCES "CODEMOA"."BOARD" ("B_NO") ENABLE;
+  ALTER TABLE "CODEMOA"."LIKEY" ADD CONSTRAINT "LIKEY_MEMBER_ID" FOREIGN KEY ("L_ID")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table MESSAGE
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."MESSAGE" ADD CONSTRAINT "MESSAGE_MEMBER_ID" FOREIGN KEY ("MG_RECEIVER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+  ALTER TABLE "CODEMOA"."MESSAGE" ADD CONSTRAINT "MESSAGE_MEMBER_ID2" FOREIGN KEY ("MG_SENDER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table REPLY
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."REPLY" ADD CONSTRAINT "REPLY_BOARD_ID" FOREIGN KEY ("R_BNO")
+	  REFERENCES "CODEMOA"."BOARD" ("B_NO") ENABLE;
+  ALTER TABLE "CODEMOA"."REPLY" ADD CONSTRAINT "REPLY_MEMBER_ID" FOREIGN KEY ("R_WRITER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table REPORT
+--------------------------------------------------------
+
+  ALTER TABLE "CODEMOA"."REPORT" ADD CONSTRAINT "REPORT_BOARD_ID" FOREIGN KEY ("P_BNO")
+	  REFERENCES "CODEMOA"."BOARD" ("B_NO") ENABLE;
+  ALTER TABLE "CODEMOA"."REPORT" ADD CONSTRAINT "REPORT_MEMBER_ID" FOREIGN KEY ("P_RECEIVER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;
+  ALTER TABLE "CODEMOA"."REPORT" ADD CONSTRAINT "REPORT_MEMBER_ID2" FOREIGN KEY ("P_REPORTER")
+	  REFERENCES "CODEMOA"."MEMBER" ("M_ID") ENABLE;

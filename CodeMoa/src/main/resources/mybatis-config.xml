@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="com.study.codemoa.member.model.vo.Member" alias="Member" />
+		<typeAlias type="com.study.codemoa.board.model.vo.Board" alias="Board" />
+		<typeAlias type="com.study.codemoa.board.model.vo.Reply" alias="Reply" />
+		<typeAlias type="com.study.codemoa.board.model.vo.Likey" alias="Likey" />
+		<typeAlias type="com.study.codemoa.chat.model.vo.Chat" alias="Chat" />
+		<typeAlias type="com.study.codemoa.chat.model.vo.ChatRoom" alias="ChatRoom" />
+		<typeAlias type="com.study.codemoa.admin.model.vo.Report" alias="Report" />
+		<typeAlias type="com.study.codemoa.dto.BoardDTO" alias="boardDTO" />
+		<typeAlias type="com.study.codemoa.board.model.vo.HashTag" alias="HashTag" />
+		<typeAlias type="com.study.codemoa.message.model.vo.Message" alias="Message" />
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mapper/member-mapper.xml" />
+		<mapper resource="mapper/board-mapper.xml" />
+		<mapper resource="mapper/chat-mapper.xml" />
+		<mapper resource="mapper/message-mapper.xml" />
+		<mapper resource="mapper/admin-mapper.xml"/>
+	</mappers> 
+
+</configuration>
