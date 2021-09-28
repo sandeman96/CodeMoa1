@@ -23,5 +23,6 @@
 - Open API : Kakao Login API, Google SMTP, SummerNote,  Bootstrap, WebSocket
 
 # DB 설계
+![이미지 1](https://user-images.githubusercontent.com/75484965/135120174-233ed6b1-63b7-488c-968c-5cbc12f0f63d.png)
 
 #
